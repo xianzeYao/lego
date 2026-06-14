@@ -8,7 +8,6 @@ The short version:
 - `APEX-MR/` is the original high-level LEGO assembly planning/execution reference.
 - `Robot_Digital_Twin/` is the original ROS/Gazebo/MoveIt asset and robot scene reference used by APEX-MR.
 - `BrickSim/` is the Isaac Sim physics layer for interlocking brick contact, snapping, disassembly, and collapse.
-- `Robotic_Lego_Manipulation/` is the earlier LEGO manipulation skill layer: task JSON, grasp/place/support pose computation, tool-frame variants, IK, and ROS goal publication.
 
 For the first reproduction, we should not try to reproduce the full multi-robot paper stack. The practical target is one RM75 arm, one modified tool, and one brick in simulation:
 
@@ -150,50 +149,6 @@ Expected friction:
 - BrickSim has native extension/prebuilt binary requirements. Downloaded binaries and generated build products should be treated as reproducible artifacts, not precious source.
 - Custom LEGO STL is not automatically a BrickSim-aware interlocking part. We may first use simple rigid-body collision, then map to BrickSim brick parameters or connection metadata.
 
-### `Robotic_Lego_Manipulation/`
-
-Source: `https://github.com/intelligent-control-lab/Robotic_Lego_Manipulation`  
-Vendored commit: `9bc91654e708e4d8428ecfa76840103cacb2a19a`
-
-What it is:
-
-- Earlier LEGO manipulation package from the same lab.
-- It is closer to the concrete skill/action layer than APEX-MR.
-- It reads LEGO task JSON, computes brick grab/place/support poses, runs IK, and publishes joint goals to `Stream_Motion_Controller`.
-- It supports Fanuc/Yaskawa-style setups and uses `Robot_Digital_Twin` for the ROS/Gazebo side.
-
-What we keep:
-
-- `include/Lego.hpp` and `src/Lego.cpp` for LEGO geometry, brick pose, support pose, connection bookkeeping, and IK reference.
-- `src/ros_nodes/lego_task_planning_node.cpp` for the pick/place/twist/support state machine.
-- `config/assembly_tasks/` for example task manuals.
-- `config/robot_properties/` for tool-frame variants such as nominal, assemble, disassemble, alt, and alt assemble.
-- `config/lego_library.json` for brick dimensions and naming.
-
-What we do not need first:
-
-- Fanuc-specific `Stream_Motion_Controller` runtime.
-- Yaskawa service path unless we test against that hardware style.
-- ROS/Gazebo launch flow if we are running Isaac Sim first.
-
-Reason:
-
-- This is the most direct source for "given a LEGO task, what concrete poses and joint goals should the robot execute?"
-- It is useful before full APEX-MR because it exposes the low-level manipulation assumptions more plainly.
-
-When we will encounter it:
-
-- After BrickSim official demo and RM75 import work.
-- When converting one LEGO manual step into grasp pose, place pose, twist motion, and press/release sequence.
-- When defining our RM75-specific tool frames.
-
-Expected friction:
-
-- It assumes six-axis Fanuc/Yaskawa-style robots and DH files, not our RM75 URDF directly.
-- Its IK and joint limits are tied to the original robot models.
-- Its output path is ROS topics for `Stream_Motion_Controller`; in Isaac Sim we will replace that lower layer with an Isaac articulation/RMPflow/controller bridge.
-- It may overlap with APEX-MR's LEGO policy code, so we should choose one source of truth per phase instead of stacking two incompatible planners.
-
 ## Local Attempt Assets
 
 ### `Attempt/`
@@ -272,7 +227,6 @@ The practical rule:
 - Use `APEX-MR/` as the source of truth for assembly action ideas and task decomposition.
 - Use `Robot_Digital_Twin/` as the source of truth for original assets and frame conventions.
 - Use `BrickSim/` as the source of truth for brick physics once the arm motion is already controllable.
-- Use `Robotic_Lego_Manipulation/` as the source of truth for concrete LEGO manipulation skill details when implementing the first single-arm action sequence.
 
 ## Proposed Reproduction Pipeline
 
@@ -297,11 +251,11 @@ APEX-MR task representation or simplified equivalent
 Single-arm schedule
         |
         v
-Robotic_Lego_Manipulation-style skill layer
-grasp pose -> place pose -> twist/press/release sequence -> IK/joint targets
+APEX-MR-style LEGO policy layer
+grasp pose -> place pose -> twist/press/release sequence
         |
         v
-Isaac Sim controller for RM75
+RM75-specific IK / Isaac Sim controller
         |
         v
 BrickSim validates contact/connection/collapse
@@ -310,19 +264,17 @@ BrickSim validates contact/connection/collapse
 Important caveat:
 
 - APEX-MR is not just a pure scheduler; it also contains LEGO policy and motion-planning logic.
-- Robotic_Lego_Manipulation also contains task execution and IK logic.
-- Therefore the clean integration is not "APEX-MR calculates everything, then Robotic_Lego_Manipulation calculates everything again."
+- Robotic_Lego_Manipulation was evaluated and removed from the main tree because its useful LEGO action ideas overlap with APEX-MR.
 - The cleaner split is:
-  - APEX-MR or a simplified APEX-MR-like adapter decides task order and single-arm action sequence.
-  - Robotic_Lego_Manipulation provides the concrete pose/action templates.
-  - Our RM75/Isaac layer computes or executes the final joint targets.
+  - APEX-MR or a simplified APEX-MR-like adapter decides task order and action sequence.
+  - APEX-MR LEGO policy code provides the concrete action vocabulary.
+  - Our RM75/Isaac layer computes or executes the final RM75-specific joint targets.
 
 For the first successful reproduction, the best source of truth should be:
 
 - Environment and physics: `BrickSim/`.
 - Robot/tool assets: `Attempt/`.
-- Concrete LEGO skills: `Robotic_Lego_Manipulation/`.
-- Task/manual format and later planning: `APEX-MR/`.
+- Task/manual format, action policy, and later planning: `APEX-MR/`.
 
 ## Reproduction Phases
 
@@ -386,7 +338,7 @@ What may fail:
 - Press direction is wrong relative to brick studs.
 - Fake attach hides physical errors, so this phase should be treated as motion validation, not real LEGO validation.
 
-### Phase 3: Robotic_Lego_Manipulation action vocabulary
+### Phase 3: APEX-MR action vocabulary
 
 Goal:
 
@@ -395,12 +347,9 @@ Goal:
 
 What we touch:
 
-- `Robotic_Lego_Manipulation/include/Lego.hpp`
-- `Robotic_Lego_Manipulation/src/Lego.cpp`
-- `Robotic_Lego_Manipulation/src/ros_nodes/lego_task_planning_node.cpp`
-- `Robotic_Lego_Manipulation/config/robot_properties/`
 - `APEX-MR/include/task.h`
 - `APEX-MR/src/lego_policy.cpp`
+- `APEX-MR/src/lego/Lego.cpp`
 - `APEX-MR/config/lego_tasks/robot_properties/`
 - Our own Isaac/BrickSim control script under `Attempt/`.
 
@@ -469,6 +418,20 @@ What may fail:
 ## Related Upstream Projects
 
 These are related to the same research line but are not currently vendored here.
+
+### `Robotic_Lego_Manipulation`
+
+Source: `https://github.com/intelligent-control-lab/Robotic_Lego_Manipulation`
+
+Status:
+
+- Evaluated and removed from this repository.
+- It overlaps with APEX-MR in task JSON, LEGO action states, tool-frame variants, and LEGO pose/IK logic.
+
+Current recommendation:
+
+- Do not keep it as a vendored dependency.
+- Revisit only if we specifically need its Fanuc examples, `Stream_Motion_Controller` interface, standalone F/T sensor driver, RealSense node, or simpler single-file action-state-machine reference.
 
 ### `StableLego`
 
