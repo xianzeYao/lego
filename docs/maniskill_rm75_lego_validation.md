@@ -116,8 +116,11 @@ lego_tool_tcp_T_contact = Trans(0, 0, -0.015)
 maniskill_rm75_lego/
   agents/rm75_lego_tool.py
   envs/rm75_lego_pick_place.py
-  scripts/check_load_robot.py
-  scripts/run_pick_place.py
+  scripts/run_stage1_robot_load_smoke.py
+  scripts/run_stage2_baseplate_scene.py
+  scripts/run_stage3_fake_attach_pick_place.py
+  scripts/run_stage3_5_tool_frame_calibration.py
+  scripts/run_stage4_pick_2x4.py
 ```
 
 第一版 controller 建议用：
@@ -159,18 +162,17 @@ PDJointPosController for joint_1 ... joint_7
 control 下正常运动。
 ```
 
-## 阶段 2：单块 LEGO 场景
+## 阶段 2：baseplate 网格 LEGO 场景
 
-先用一个简单 LEGO 尺寸刚体，不要一开始就上复杂 stud/tube 几何。
+从 Robot_Digital_Twin 加载 `base32x32.stl`，并把 `1x2`、`1x4`、`2x4`
+LEGO brick 按 APEX-MR 风格的 8 mm 网格坐标摆在 baseplate 上。
 
-建议初始 brick：
+核心代码：
 
 ```text
-1x2 brick
-size: 16 mm x 8 mm x 9.6 mm
-mass: 参考 APEX-MR brick_id 9，约 0.0008 kg
-collision: box 或简单 convex mesh
-visual: box 或 LEGO mesh
+maniskill_rm75_lego/lego_grid.py
+maniskill_rm75_lego/envs/rm75_lego_pick_place.py
+maniskill_rm75_lego/scripts/run_stage2_baseplate_scene.py
 ```
 
 坐标约定：
@@ -179,16 +181,33 @@ visual: box 或 LEGO mesh
 stud pitch: 8 mm
 brick height: 9.6 mm
 world z: up
-baseplate top: z = 0
-brick placed center z: 4.8 mm
+baseplate bottom: z = 0
+baseplate top/grid reference: z = 0.0032
+brick actor origin z: brick bottom z + 0.0096
 ```
 
-第一版把 brick 放在 RM75 前方一个手写的可达位置。先不要解析完整装配 JSON。
+当前放置：
+
+```text
+lego_1x1: grid [2, 2, 0, 0]
+lego_1x2: grid [5, 3, 0, 1]
+lego_1x4: grid [9, 2, 0, 0]
+lego_1x6: grid [15, 3, 0, 1]
+lego_1x8: grid [20, 2, 0, 0]
+lego_2x2: grid [3, 12, 0, 0]
+lego_2x4: grid [8, 12, 0, 1]
+lego_2x6: grid [14, 13, 0, 0]
+lego_2x8: grid [22, 13, 0, 1]
+target:   1x2 grid [25, 23, 0, 0]
+```
+
+本阶段仍是几何/坐标检查，不验证真实 snap/contact。
 
 通过标准：
 
 ```text
-场景里有一个 brick、一个目标位姿 marker，初始状态没有明显穿模。
+baseplate 和三块 LEGO 能按网格位置稳定初始化，grid pose 和 world pose
+打印值一致，target marker 位于指定 1x2 目标格点。
 ```
 
 ## 阶段 3：Fake Attach Pick And Place
@@ -224,84 +243,149 @@ world_T_brick = world_T_contact * contact_T_brick
 brick 在 lift 和 transfer 阶段跟随 tool，release 后停在目标位置。
 ```
 
-## 阶段 4：下压 Press 验证
+## 阶段 4：2x4 Pick + Twist Motion
 
-ManiSkill 第一版的 press 只验证几何和可达性，不验证真实卡合。
+先解决取 LEGO 的几何目标和基础 IK 动作。这个阶段只验证 motion 是否
+按实体动作语义走通，不验证 LEGO 是否真的被物理撬起来。
 
-press 要检查：
-
-- press 方向是否和 LEGO 插入方向一致。
-- press 距离是否小且可控，先 2 mm，再 5 mm。
-- press pose 是否导致腕部姿态不可达。
-- retreat 是否会穿过已经放下的 brick。
-
-建议把 press 写成沿 tool 局部轴的小位移，而不是永远沿 world z：
+Pick 动作总结：
 
 ```text
-world_T_tcp_press = world_T_tcp_contact * Trans(press_axis_tcp * press_depth)
+brick type + grid [x,y,z,ori] + press_side + press_offset
+    -> 选出邻边附近的两个 selected studs
+    -> 计算 stud pair center
+    -> 从 stud pair center 向邻边作垂线得到 pick contact target
+    -> 构造 contact frame
+       +X: 工具有墙/工作侧方向，和邻边 outward normal 同向
+       +Z: press direction，和当前 lego_tool_tcp 的 +Z 同向，也就是 world down
+    -> T_world_tcp = T_world_contact * inverse(T_tcp_contact)
+    -> IK 求 pre_pick、pick_down、pick_twist、pick_twist_up
 ```
 
-初始参数可以设成：
+Motion waypoint：
 
 ```text
-press_axis_tcp = [0, 0, -1]   # 需要 marker 验证
-press_depth = 0.002 到 0.005 m
+home
+pre_pick        # contact 点在 pick target 正上方
+pick_down       # 沿 press direction 下压到目标附近
+pick_twist      # 绕 contact frame 局部 Y 轴 twist，当前 RM75 默认 -14 deg
+pick_twist_up   # 保持 twist 后姿态，沿 world +Z 抬起
 ```
 
-如果仿真里发现 `lego_tool_tcp` 的 +Z 才是插入方向，就把 axis 改成 `[0, 0, 1]`。
-
-几何成功条件：
+当前第一版默认：
 
 ```text
-abs(placed_xy_error) <= 2 mm
-abs(placed_yaw_error) <= 5 deg
-abs(placed_z_error) <= 2 mm
-press_depth >= configured_min_depth
+brick: lego_2x4
+grid: [8, 12, 0, 1]
+press_side: 1
+press_offset: 0
+T_tcp_contact = Trans(0, 0, -0.015)
+tcp_orientation = apex
+```
+
+APEX-MR 风格下，当前 RM75 迁移后的约定是：
+
+```text
+tool wall side direction = +contact_frame.x
+press direction          = +contact_frame.z
+```
+
+它应该和 `outward normal` 同向。当前严格 APEX 姿态 IK 未收敛时，脚本会自动 fallback 到
+`executed_tcp_orientation = home` 执行动作，但仍显示 APEX 几何方向供检查。
+
+对应脚本：
+
+```text
+maniskill_rm75_lego/scripts/run_stage4_pick_2x4.py
 ```
 
 通过标准：
 
 ```text
-同一个手写目标下，完整 pick-place-press-release-retreat 连续 10 次成功。
+pre_pick -> pick_down -> pick_twist -> pick_twist_up 四个 waypoint IK 成功，
+viewer 中 selected studs、pick target、contact/TCP/pre/twist frame 显示合理。
 ```
 
-## 阶段 5：Twist 验证
+## 阶段 5：Pick Dynamic 验证
 
-APEX-MR 的 twist 是绕 tool 局部 Y 轴做小角度旋转：
+在阶段 4 motion 已经确认的基础上，开始验证真实接触/动力学下 pick 是否能成立。
+这个阶段要回答：
+
+- LEGO brick 是否可以从 baseplate 上被工具真实撬起。
+- 下压深度、twist 角度、contact offset、摩擦/碰撞参数是否足够稳定。
+- 机械臂 base 固定、baseplate 固定时，目标 brick 是否能从 plate 脱离并跟随工具。
+- 不再用 fake attach 作为成功条件；fake attach 只能作为 debug 对照。
+
+建议第一版 success metric：
 
 ```text
-pick_twist  = contact_pose * RotY(+twist_angle)
-place_twist = contact_pose * RotY(-twist_angle)
+pick_down 后有合理接触
+pick_twist 后 brick 姿态/高度发生符合撬起方向的变化
+pick_twist_up 后 brick 离开 baseplate 且相对 tool 位姿变化小
 ```
 
-默认量级：
+需要重点调：
 
 ```text
-twist_angle ≈ 14 deg
-handover_twist ≈ 18 deg
+collision shape
+friction / restitution
+brick mass / inertia
+press_depth
+pick_twist_deg
+contact_offset_tcp
 ```
 
-但这不是 LEGO 物理强制要求，而是原作者 tool frame 下的定义。我们的 RM75
-tool 必须先看 marker：
+## 阶段 6：Place + Twist Motion
+
+在 pick motion 的坐标计算稳定后，再做 place motion。这个阶段仍然只验证
+几何和 IK，不验证真实卡合。
+
+Place 动作预期：
 
 ```text
-lego_tool_tcp 的 X/Y/Z 轴
-contact frame 的 X/Y/Z 轴
-tool mesh 的真实接触面
-brick 顶面法向
+home 或 picked pose
+pre_place       # contact/brick 目标在目标格点上方
+place_down      # 对齐目标 studs 后下压
+place_twist     # 使用无柱/释放侧方向 twist，让 LEGO 完成 place 语义
+place_up        # 保持或解除接触后抬起
 ```
 
-如果实际应该绕局部 Z 轴扭，就把 twist axis 改成 Z；如果应该绕局部 X 轴，
-就改成 X。抽象层里不要把轴写死在仿真器代码里。
-
-建议参数化：
+本阶段需要复用阶段 2 的 LEGO grid pose 计算：
 
 ```text
-twist_axis_tcp = [0, 1, 0]    # 先继承 APEX-MR
-twist_angle = 14 deg
+target brick type
+target grid [x,y,z,ori]
+target occupied studs
+place contact target
+place contact frame
+pre_place / place_down / place_twist / place_up TCP frame
 ```
 
-## 阶段 6：Motion Planning 检查
+place twist 的符号和轴不要直接照搬 pick。它要按实体工具的无柱一侧释放逻辑
+单独确认。
+
+## 阶段 7：Place Dynamic 验证
+
+在阶段 6 place motion 通过后，验证真实动力学下 LEGO 是否能放稳/卡上。
+
+这个阶段要回答：
+
+- brick 是否能对齐 baseplate 或已有 LEGO 的目标 studs。
+- 下压和 twist 后 brick 是否停在目标 grid pose 附近。
+- 工具抬起后 brick 是否留在 plate/目标结构上，而不是跟着工具走或弹飞。
+- pick dynamic 成功得到的接触参数，能不能迁移到 place。
+
+建议第一版 success metric：
+
+```text
+place_down 后 brick 与目标 studs 对齐
+place_twist 后 brick 姿态接近目标 grid pose
+place_up 后 brick 留在目标位置
+位置误差 < 2-3 mm
+yaw/ori 误差在可接受范围内
+```
+
+## 阶段 8：Motion Planning 检查
 
 scripted joint targets 能跑通后，再测试 `mplib` 能不能规划同样的 waypoint。
 
