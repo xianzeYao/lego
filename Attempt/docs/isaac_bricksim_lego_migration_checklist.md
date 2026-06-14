@@ -5,9 +5,11 @@ This checklist is for migrating or reproducing the APEX-MR LEGO manipulation set
 ## 0. Repository Context
 
 - [x] Downloaded `Robot_Digital_Twin` at `apexmr-release`.
+- [x] Downloaded `BrickSim` at `cbd5de3238e6ac12f44ef699e1507a9f16bdafc3`.
 - [x] Confirmed APEX-MR uses external `Robot_Digital_Twin` for GP4 URDF/xacro and MoveIt config.
 - [x] Confirmed local APEX-MR stores tool-frame variants as DH files, not URDF links.
 - [x] Confirmed `Robot_Digital_Twin` contains EOAT meshes, LEGO meshes, GP4 xacro, Gazebo launch files, and MoveIt SRDF.
+- [x] Confirmed `BrickSim` contains Isaac Sim demos, Python API, native extension code, and brick simulation resources.
 
 ## 1. Robot Model
 
@@ -230,4 +232,3 @@ Do not scale to many bricks until these are true:
 - [ ] Two-brick stacking is stable.
 - [ ] Reset is deterministic.
 - [ ] Logs include target pose, actual pose, contact status, and final error.
-

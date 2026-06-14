@@ -1,0 +1,11 @@
+{
+    "recommendations": [
+        "astral-sh.ty",
+        "augustocdias.tasks-shell-input",
+        "charliermarsh.ruff",
+        "llvm-vs-code-extensions.vscode-clangd",
+        "ms-python.debugpy",
+        "ms-vscode.cmake-tools",
+        "vadimcn.vscode-lldb",
+    ]
+}

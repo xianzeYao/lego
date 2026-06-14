@@ -1,0 +1,11 @@
+#pragma once
+
+#include_next <bits/c++config.h>
+
+#undef _GLIBCXX_USE_INIT_PRIORITY_ATTRIBUTE
+#define _GLIBCXX_USE_INIT_PRIORITY_ATTRIBUTE 0
+
+#undef _GLIBCXX_EXTERN_TEMPLATE
+#define _GLIBCXX_EXTERN_TEMPLATE 0
+
+#define _GLIBCXX_PERMIT_BACKWARD_HASH

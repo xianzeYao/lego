@@ -1,0 +1,23 @@
+# Core pxr internal namespace (blanket for most USD internals)
+leak:pxrInternal_v0_24__pxrReserved__::
+
+# USD subsystems commonly flagged by LSAN in short-lived binaries
+leak:Usd
+leak:Sdf
+leak:Pcp
+leak:Plug
+leak:Tf_RegistryManagerImpl
+leak:TfSingleton
+leak:TraceCollector
+
+# Intel oneTBB scheduler/arena allocations often remain until process exit
+leak:tbb::
+leak:std::thread
+
+# PhysX/Omniverse schema/plugin layers (if they allocate singletons)
+leak:.*\bphysxSchema.*
+leak:.*\bomni.*
+
+# Keep first two explicit entries for compatibility with older logs/tools
+leak:Tf_RegistryManagerImpl
+leak:.*Tf_RegistryManagerImpl::AddRegistrationFunction

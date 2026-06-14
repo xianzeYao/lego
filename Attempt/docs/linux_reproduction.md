@@ -1,6 +1,6 @@
 # Linux Reproduction Notes
 
-This repository vendors the upstream APEX-MR and Robot_Digital_Twin source trees so local changes can be committed directly to this `lego` repository.
+This repository vendors the upstream APEX-MR, Robot_Digital_Twin, and BrickSim source trees so local changes can be committed directly to this `lego` repository.
 
 ## Vendored Sources
 
@@ -10,6 +10,9 @@ This repository vendors the upstream APEX-MR and Robot_Digital_Twin source trees
 - `Robot_Digital_Twin/`
   - Source: `https://github.com/intelligent-control-lab/Robot_Digital_Twin.git`
   - Vendored commit: `017120d2b3fb2941fbeeb581d94f41b56d00df1d`
+- `BrickSim/`
+  - Source: `https://github.com/intelligent-control-lab/BrickSim.git`
+  - Vendored commit: `cbd5de3238e6ac12f44ef699e1507a9f16bdafc3`
 
 ## Recommended Machine
 
@@ -66,7 +69,15 @@ Use this if the goal is to reproduce the single-arm LEGO manipulation path.
    ```
 
 2. Install Isaac Sim according to the BrickSim-supported version.
-3. Install BrickSim and run its official demo first.
+3. Set up the vendored BrickSim tree and run its official demo first:
+
+   ```bash
+   cd ~/catkin_ws/src/lego/BrickSim
+   ./scripts/download_prebuilt_native.sh
+   uv sync --locked
+   uv run bricksim demos/demo_assembly.py
+   ```
+
 4. Import the RM75 arm and modified tool from:
 
    ```text
@@ -86,6 +97,12 @@ Use this if the goal is to reproduce the single-arm LEGO manipulation path.
 
    ```text
    Attempt/docs/isaac_bricksim_lego_migration_checklist.md
+   ```
+
+7. Use the repository overview to decide what to keep, ignore, or modify:
+
+   ```text
+   Attempt/docs/repository_overview.md
    ```
 
 ## First Target

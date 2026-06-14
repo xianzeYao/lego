@@ -1,0 +1,37 @@
+{
+    "files.exclude": {
+        ".pixi": true,
+        ".ruff_cache": true,
+        ".ty": true,
+        "**/.pytest_cache": true,
+        "**/.thumbs": true,
+        "**/*.egg-info": true,
+        "logs": true,
+        "native/.build": true,
+        "outputs": true,
+        "python/build": true,
+        "python/dist": true,
+    },
+    "files.watcherExclude": {
+        "logs": true,
+        "outputs": true,
+    },
+    "files.associations": {
+        "*.kit": "ini",
+    },
+    "C_Cpp.intelliSenseEngine": "disabled",
+    "debug.onTaskErrors": "debugAnyway",
+    "cmake.cmakePath": "${workspaceFolder}/.pixi/envs/default/bin/cmake",
+    "cmake.sourceDirectory": "${workspaceFolder}/native",
+    "cmake.useCMakePresets": "always",
+    "cmake.configureOnEdit": true,
+    "clangd.path": "${workspaceFolder}/scripts/clangd-wrapper.sh",
+    "clangd.arguments": [
+        "--compile-commands-dir=${workspaceFolder}/native/.build/release",
+        "--header-insertion=never",
+    ],
+    "[python]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "charliermarsh.ruff"
+    },
+}
