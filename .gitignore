@@ -1,0 +1,17 @@
+# External upstream repositories kept locally for reference.
+APEX-MR/
+Robot_Digital_Twin/
+
+# Local/editor noise.
+.DS_Store
+*.log
+__pycache__/
+*.py[cod]
+
+# ROS/CMake build outputs.
+build/
+devel/
+install/
+log/
+*.egg-info/
+
