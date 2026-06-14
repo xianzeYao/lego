@@ -1,0 +1,666 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot name="dual_gp4">
+  <link name="world" />
+  <link name="base">
+    </link>
+  <joint name="base_to_world" type="fixed">
+    <parent link="world" />
+    <child link="base" />
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+  </joint>
+  <joint name="left_arm_to_${connected_to}" type="fixed">
+    <parent link="${connected_to}" />
+    <child link="left_arm_base" />
+    <origin rpy="0 0 0" xyz="0 0 0.9246" />
+    <dynamics damping="1.0" />
+  </joint>
+  <link name="left_arm_base" />
+  <joint name="left_arm_base_link-base" type="fixed">
+    <origin xyz="0 0 0.0" rpy="0 0 0" />
+    <parent link="left_arm_base" />
+    <child link="left_arm_base_link" />
+  </joint>
+  <link name="left_arm_base_link">
+    <inertial>
+      <origin xyz="-0.073983 0.00022734 0.13031" rpy="0 0 0" />
+      <mass value="42.212" />
+      <inertia ixx="0.64296" ixy="0.0012624" ixz="-0.068804" iyy="1.2709" iyz="-0.0010754" izz="1.3497" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/base_link.stl" />
+      </geometry>
+      <material name="">
+        <color rgba="0.129411764706 0.149019607843 0.749019607843 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/base_link.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="left_arm_link_1">
+    <inertial>
+      <origin xyz="0.058962 0.24363 -0.018725" rpy="0 0 0" />
+      <mass value="37.265" />
+      <inertia ixx="0.95018" ixy="-0.14402" ixz="-0.064915" iyy="1.0578" iyz="0.037699" izz="1.094" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_1.stl" />
+      </geometry>
+      <material name="">
+        <color rgba="0.129411764706 0.149019607843 0.749019607843 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_1_scaled.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="left_arm_link_2">
+    <inertial>
+      <origin xyz="3.5083E-05 0.39008 0.15036" rpy="0 0 0" />
+      <mass value="22.632" />
+      <inertia ixx="1.7745" ixy="-0.0054743" ixz="0.00063015" iyy="0.15511" iyz="-0.09224" izz="1.826" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_2.stl" />
+      </geometry>
+      <material name="">
+        <color rgba="0.129411764706 0.149019607843 0.749019607843 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_2_scaled.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="left_arm_link_3">
+    <inertial>
+      <origin xyz="0.086423 0.14427 -0.035793" rpy="0 0 0" />
+      <mass value="28.467" />
+      <inertia ixx="0.65771" ixy="-0.13627" ixz="-0.026219" iyy="0.52683" iyz="0.051956" izz="0.69722" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_3.stl" />
+      </geometry>
+      <material name="">
+        <color rgba="0.129411764706 0.149019607843 0.749019607843 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_3_scaled.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="left_arm_link_4">
+    <inertial>
+      <origin xyz="0.37337 0.00033491 0.012656" rpy="0 0 0" />
+      <mass value="7.629" />
+      <inertia ixx="0.018151" ixy="-0.00033527" ixz="-0.031589" iyy="0.48072" iyz="3.3917E-05" izz="0.47647" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_4.stl" />
+      </geometry>
+      <material name="">
+        <color rgba="0.129411764706 0.149019607843 0.749019607843 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_4_scaled.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="left_arm_link_5">
+    <inertial>
+      <origin xyz="0.062818 3.3289E-05 0.0048991" rpy="0 0 0" />
+      <mass value="2.5794" />
+      <inertia ixx="0.015161" ixy="-2.4835E-06" ixz="0.0016647" iyy="0.021382" iyz="-2.248E-06" izz="0.013473" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_5.stl" />
+      </geometry>
+      <material name="">
+        <color rgba="0.129411764706 0.149019607843 0.749019607843 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_5_scaled.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="left_arm_link_6">
+    <inertial>
+      <origin xyz="0.00015982 -0.00063018 -0.008266" rpy="0 0 0" />
+      <mass value="0.10811" />
+      <inertia ixx="9.0129E-05" ixy="-1.0891E-08" ixz="9.1598E-09" iyy="9.2026E-05" iyz="-2.749E-07" izz="0.00017818" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_6.stl" />
+      </geometry>
+      <material name="">
+        <color rgba="0.8 0.8 0.8 1" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_6_scaled.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="left_arm_fts">
+    <collision>
+      <origin xyz="0 0 0" rpy=" 0 0 0" />
+      <geometry>
+        <cylinder length="0.0505" radius="0.058" />
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder length="0.0505" radius="0.0472" />
+      </geometry>
+      <material name="">
+        <color rgba="0.8 0.8 0.8 1" />
+      </material>
+    </visual>
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+  <link name="left_arm_link_tool">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.10811" />
+      <inertia ixx="9.0129E-05" ixy="-1.0891E-08" ixz="9.1598E-09" iyy="9.2026E-05" iyz="-2.749E-07" izz="0.00017818" />
+    </inertial>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/eoat/tool.stl" />
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/eoat/tool.stl" />
+      </geometry>
+      <material name="">
+        <color rgba="0.8 0.8 0.8 1" />
+      </material>
+    </visual>
+  </link>
+  <joint name="left_arm_joint_1" type="revolute">
+    <parent link="left_arm_base_link" />
+    <child link="left_arm_link_1" />
+    <origin xyz="0 0 0.330" rpy="0 0 0" />
+    <axis xyz="0 0 1" />
+    <limit effort="0" lower="${radians(-170)}" upper="${radians(170)}" velocity="${radians(465)}" />
+  </joint>
+  <joint name="left_arm_joint_2" type="revolute">
+    <parent link="left_arm_link_1" />
+    <child link="left_arm_link_2" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 1 0" />
+    <limit effort="100" lower="${radians(-110)}" upper="${radians(130)}" velocity="${radians(465)}" />
+  </joint>
+  <joint name="left_arm_joint_3" type="revolute">
+    <parent link="left_arm_link_2" />
+    <child link="left_arm_link_3" />
+    <origin xyz="0 0 0.260" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit effort="0" lower="${radians(-65)}" upper="${radians(200)}" velocity="${radians(525)}" />
+  </joint>
+  <joint name="left_arm_joint_4" type="revolute">
+    <parent link="left_arm_link_3" />
+    <child link="left_arm_link_4" />
+    <origin xyz="0.290 0 0.015" rpy="0 0 0" />
+    <axis xyz="-1 0 0" />
+    <limit effort="0" lower="${radians(-200)}" upper="${radians(200)}" velocity="${radians(550)}" />
+  </joint>
+  <joint name="left_arm_joint_5" type="revolute">
+    <parent link="left_arm_link_4" />
+    <child link="left_arm_link_5" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit effort="0" lower="${radians(-123)}" upper="${radians(123)}" velocity="${radians(545)}" />
+  </joint>
+  <joint name="left_arm_joint_6" type="revolute">
+    <parent link="left_arm_link_5" />
+    <child link="left_arm_link_6" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="-1 0 0" />
+    <limit effort="0" lower="${radians(-455)}" upper="${radians(455)}" velocity="${radians(1000)}" />
+  </joint>
+  <link name="left_arm_flange" />
+  <joint name="left_arm_joint_6_t-flange" type="fixed">
+    <origin xyz="0.072 0 0" rpy="0 0 0" />
+    <parent link="left_arm_link_6" />
+    <child link="left_arm_flange" />
+  </joint>
+  <joint name="left_arm_link_6_fts" type="fixed">
+    <origin xyz="0.02525 0 0" rpy="0 1.57079632679 0" />
+    <parent link="left_arm_flange" />
+    <child link="left_arm_fts" />
+  </joint>
+  <joint name="left_arm_fts_tool" type="revolute">
+    <origin xyz="0 0 0.02525" rpy="0 0 3.14159265359" />
+    <parent link="left_arm_fts" />
+    <child link="left_arm_link_tool" />
+    <axis xyz="0 0 1" />
+    <limit velocity="0" effort="0" lower="0" upper="0" />
+  </joint>
+  <joint name="right_arm_to_${connected_to}" type="fixed">
+    <parent link="${connected_to}" />
+    <child link="right_arm_base" />
+    <origin rpy="0 0 3.13585279" xyz="0.88101137 -0.01304334 0.92460000" />
+    <dynamics damping="1.0" />
+  </joint>
+  <link name="right_arm_base" />
+  <joint name="right_arm_base_link-base" type="fixed">
+    <origin xyz="0 0 0.0" rpy="0 0 0" />
+    <parent link="right_arm_base" />
+    <child link="right_arm_base_link" />
+  </joint>
+  <link name="right_arm_base_link">
+    <inertial>
+      <origin xyz="-0.073983 0.00022734 0.13031" rpy="0 0 0" />
+      <mass value="42.212" />
+      <inertia ixx="0.64296" ixy="0.0012624" ixz="-0.068804" iyy="1.2709" iyz="-0.0010754" izz="1.3497" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/base_link.stl" />
+      </geometry>
+      <material name="">
+        <color rgba="0.129411764706 0.149019607843 0.749019607843 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/base_link.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_arm_link_1">
+    <inertial>
+      <origin xyz="0.058962 0.24363 -0.018725" rpy="0 0 0" />
+      <mass value="37.265" />
+      <inertia ixx="0.95018" ixy="-0.14402" ixz="-0.064915" iyy="1.0578" iyz="0.037699" izz="1.094" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_1.stl" />
+      </geometry>
+      <material name="">
+        <color rgba="0.129411764706 0.149019607843 0.749019607843 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_1_scaled.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_arm_link_2">
+    <inertial>
+      <origin xyz="3.5083E-05 0.39008 0.15036" rpy="0 0 0" />
+      <mass value="22.632" />
+      <inertia ixx="1.7745" ixy="-0.0054743" ixz="0.00063015" iyy="0.15511" iyz="-0.09224" izz="1.826" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_2.stl" />
+      </geometry>
+      <material name="">
+        <color rgba="0.129411764706 0.149019607843 0.749019607843 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_2_scaled.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_arm_link_3">
+    <inertial>
+      <origin xyz="0.086423 0.14427 -0.035793" rpy="0 0 0" />
+      <mass value="28.467" />
+      <inertia ixx="0.65771" ixy="-0.13627" ixz="-0.026219" iyy="0.52683" iyz="0.051956" izz="0.69722" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_3.stl" />
+      </geometry>
+      <material name="">
+        <color rgba="0.129411764706 0.149019607843 0.749019607843 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_3_scaled.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_arm_link_4">
+    <inertial>
+      <origin xyz="0.37337 0.00033491 0.012656" rpy="0 0 0" />
+      <mass value="7.629" />
+      <inertia ixx="0.018151" ixy="-0.00033527" ixz="-0.031589" iyy="0.48072" iyz="3.3917E-05" izz="0.47647" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_4.stl" />
+      </geometry>
+      <material name="">
+        <color rgba="0.129411764706 0.149019607843 0.749019607843 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_4_scaled.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_arm_link_5">
+    <inertial>
+      <origin xyz="0.062818 3.3289E-05 0.0048991" rpy="0 0 0" />
+      <mass value="2.5794" />
+      <inertia ixx="0.015161" ixy="-2.4835E-06" ixz="0.0016647" iyy="0.021382" iyz="-2.248E-06" izz="0.013473" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_5.stl" />
+      </geometry>
+      <material name="">
+        <color rgba="0.129411764706 0.149019607843 0.749019607843 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_5_scaled.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_arm_link_6">
+    <inertial>
+      <origin xyz="0.00015982 -0.00063018 -0.008266" rpy="0 0 0" />
+      <mass value="0.10811" />
+      <inertia ixx="9.0129E-05" ixy="-1.0891E-08" ixz="9.1598E-09" iyy="9.2026E-05" iyz="-2.749E-07" izz="0.00017818" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_6.stl" />
+      </geometry>
+      <material name="">
+        <color rgba="0.8 0.8 0.8 1" />
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_6_scaled.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_arm_fts">
+    <collision>
+      <origin xyz="0 0 0" rpy=" 0 0 0" />
+      <geometry>
+        <cylinder length="0.0505" radius="0.058" />
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder length="0.0505" radius="0.0472" />
+      </geometry>
+      <material name="">
+        <color rgba="0.8 0.8 0.8 1" />
+      </material>
+    </visual>
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+  <link name="right_arm_link_tool">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.10811" />
+      <inertia ixx="9.0129E-05" ixy="-1.0891E-08" ixz="9.1598E-09" iyy="9.2026E-05" iyz="-2.749E-07" izz="0.00017818" />
+    </inertial>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/eoat/tool.stl" />
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/eoat/tool.stl" />
+      </geometry>
+      <material name="">
+        <color rgba="0.8 0.8 0.8 1" />
+      </material>
+    </visual>
+  </link>
+  <joint name="right_arm_joint_1" type="revolute">
+    <parent link="right_arm_base_link" />
+    <child link="right_arm_link_1" />
+    <origin xyz="0 0 0.330" rpy="0 0 0" />
+    <axis xyz="0 0 1" />
+    <limit effort="0" lower="${radians(-170)}" upper="${radians(170)}" velocity="${radians(465)}" />
+  </joint>
+  <joint name="right_arm_joint_2" type="revolute">
+    <parent link="right_arm_link_1" />
+    <child link="right_arm_link_2" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 1 0" />
+    <limit effort="100" lower="${radians(-110)}" upper="${radians(130)}" velocity="${radians(465)}" />
+  </joint>
+  <joint name="right_arm_joint_3" type="revolute">
+    <parent link="right_arm_link_2" />
+    <child link="right_arm_link_3" />
+    <origin xyz="0 0 0.260" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit effort="0" lower="${radians(-65)}" upper="${radians(200)}" velocity="${radians(525)}" />
+  </joint>
+  <joint name="right_arm_joint_4" type="revolute">
+    <parent link="right_arm_link_3" />
+    <child link="right_arm_link_4" />
+    <origin xyz="0.290 0 0.015" rpy="0 0 0" />
+    <axis xyz="-1 0 0" />
+    <limit effort="0" lower="${radians(-200)}" upper="${radians(200)}" velocity="${radians(550)}" />
+  </joint>
+  <joint name="right_arm_joint_5" type="revolute">
+    <parent link="right_arm_link_4" />
+    <child link="right_arm_link_5" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+    <limit effort="0" lower="${radians(-123)}" upper="${radians(123)}" velocity="${radians(545)}" />
+  </joint>
+  <joint name="right_arm_joint_6" type="revolute">
+    <parent link="right_arm_link_5" />
+    <child link="right_arm_link_6" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="-1 0 0" />
+    <limit effort="0" lower="${radians(-455)}" upper="${radians(455)}" velocity="${radians(1000)}" />
+  </joint>
+  <link name="right_arm_flange" />
+  <joint name="right_arm_joint_6_t-flange" type="fixed">
+    <origin xyz="0.072 0 0" rpy="0 0 0" />
+    <parent link="right_arm_link_6" />
+    <child link="right_arm_flange" />
+  </joint>
+  <joint name="right_arm_link_6_fts" type="fixed">
+    <origin xyz="0.02525 0 0" rpy="0 1.57079632679 0" />
+    <parent link="right_arm_flange" />
+    <child link="right_arm_fts" />
+  </joint>
+  <joint name="right_arm_fts_tool" type="revolute">
+    <origin xyz="0 0 0.02525" rpy="0 0 3.14159265359" />
+    <parent link="right_arm_fts" />
+    <child link="right_arm_link_tool" />
+    <axis xyz="0 0 1" />
+    <limit velocity="0" effort="0" lower="0" upper="0" />
+  </joint>
+  <transmission name="trans_right_arm_joint_1">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="right_arm_joint_1">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="right_arm_joint_1_motor">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="trans_right_arm_joint_2">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="right_arm_joint_2">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="right_arm_joint_2_motor">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="trans_right_arm_joint_3">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="right_arm_joint_3">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="right_arm_joint_3_motor">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="trans_right_arm_joint_4">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="right_arm_joint_4">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="right_arm_joint_4_motor">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="trans_right_arm_joint_5">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="right_arm_joint_5">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="right_arm_joint_5_motor">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="trans_right_arm_joint_6">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="right_arm_joint_6">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="right_arm_joint_6_motor">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <gazebo reference="fts_tool">
+    <provideFeedback>true</provideFeedback>
+  </gazebo>
+  <gazebo>
+    <provideFeedback>true</provideFeedback>
+    <plugin name="ft_sensor" filename="libgazebo_ros_ft_sensor.so">
+      <alwaysOn> true </alwaysOn>
+      <updateRate>125.0</updateRate>
+      <topicName>right_arm_ft_sensor</topicName>
+      <jointName>right_arm_fts_tool</jointName>
+      <noise>
+        <type>gaussian</type>
+        <mean>0.0</mean>
+        <stddev>0.001</stddev>
+      </noise>
+    </plugin>
+  </gazebo>
+  <gazebo reference="right_arm_base">
+    <material>Gazebo/Blue</material>
+    <visual>
+      <transparency> 0 </transparency>
+    </visual>
+  </gazebo>
+  <gazebo reference="right_arm_base_link">
+    <material>Gazebo/Blue</material>
+    <visual>
+      <transparency> 0 </transparency>
+    </visual>
+  </gazebo>
+  <gazebo reference="right_arm_link_1">
+    <material>Gazebo/Blue</material>
+    <visual>
+      <transparency> 0 </transparency>
+    </visual>
+  </gazebo>
+  <gazebo reference="right_arm_link_2">
+    <material>Gazebo/Blue</material>
+    <visual>
+      <transparency> 0 </transparency>
+    </visual>
+  </gazebo>
+  <gazebo reference="right_arm_link_3">
+    <material>Gazebo/Blue</material>
+    <visual>
+      <transparency> 0 </transparency>
+    </visual>
+  </gazebo>
+  <gazebo reference="right_arm_link_4">
+    <material>Gazebo/Blue</material>
+    <visual>
+      <transparency> 0 </transparency>
+    </visual>
+  </gazebo>
+  <gazebo reference="right_arm_link_5">
+    <material>Gazebo/Blue</material>
+    <visual>
+      <transparency> 0 </transparency>
+    </visual>
+  </gazebo>
+  <gazebo reference="right_arm_link_6">
+    <material>Gazebo/Black</material>
+    <visual>
+      <transparency> 0 </transparency>
+    </visual>
+  </gazebo>
+  <gazebo reference="right_arm_link_tool">
+    <material>Gazebo/Black</material>
+    <visual>
+      <transparency> 0 </transparency>
+    </visual>
+  </gazebo>
+  <gazebo reference="right_arm_fts">
+    <material>Gazebo/Black</material>
+    <visual>
+      <transparency> 0 </transparency>
+    </visual>
+  </gazebo>
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+      <legacyModeNS>true</legacyModeNS>
+    </plugin>
+  </gazebo>
+</robot>
