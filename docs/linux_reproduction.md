@@ -132,6 +132,7 @@ assets/rm75_gripper/
 
 ```text
 assets/rm75_gripper/RM75-B/urdf/RM75-B.urdf
+assets/rm75_gripper/RM75-B/urdf/RM75-B_lego_tool.urdf
 assets/rm75_gripper/RM75-B/urdf/RM75-B.planning.tiny.urdf
 assets/rm75_gripper/RM75-B/urdf/RM75-B.permissive.srdf
 assets/lego_test_open_fixed.stl
@@ -139,7 +140,8 @@ assets/lego_test_open_fixed.stl
 
 文件分工：
 
-- `RM75-B.urdf`：主视觉/仿真模型，包含 RM75、夹爪、8mm spacer 和 `gripper_tcp`。
+- `RM75-B.urdf`：原夹爪版主视觉/仿真模型，包含 RM75、夹爪、8mm spacer 和 `gripper_tcp`。
+- `RM75-B_lego_tool.urdf`：LEGO 小件 tool 版模型，保留 RM75 和 8mm spacer，把夹爪替换为 `lego_test_open_fixed.stl`，末端 frame 为 `lego_tool_tcp`。
 - `RM75-B.planning.tiny.urdf`：规划用简化 collision 版本。
 - `RM75-B.permissive.srdf`：规划器用的 group 和 collision disable 配置。
 - `lego_test_open_fixed.stl`：我们的自定义 LEGO/tool 相关 STL。
@@ -157,14 +159,14 @@ assets/lego_test_open_fixed.stl
 
 检查顺序：
 
-- [ ] `RM75-B.urdf` 能导入。
+- [ ] `RM75-B_lego_tool.urdf` 能导入。
 - [ ] mesh 路径都能解析。
 - [ ] robot scale 正确。
 - [ ] `joint_1` 到 `joint_7` 都能动。
 - [ ] joint axis 方向正确。
 - [ ] joint limit 与真实 RM75 控制器一致。
 - [ ] base frame / world frame 约定明确。
-- [ ] `gripper_tcp` 能看到或能通过 debug marker 表示。
+- [ ] `lego_tool_tcp` 能看到或能通过 debug marker 表示。
 
 如果 robot 看起来能加载但运动不对，优先检查：
 
@@ -176,7 +178,7 @@ assets/lego_test_open_fixed.stl
 
 ## 6. 挂载和校准改装 Tool
 
-当前 RM75 URDF 已经包含夹爪和 `gripper_tcp`，但 LEGO 拼装通常不只需要一个 TCP。APEX-MR 的经验是同一个物理 tool 会有多个任务 frame：
+当前 LEGO tool 版 RM75 URDF 已经包含 `lego_tool_link` 和 `lego_tool_tcp`，但 LEGO 拼装通常不只需要一个 TCP。APEX-MR 的经验是同一个物理 tool 会有多个任务 frame：
 
 - nominal tool frame。
 - assemble TCP。
@@ -188,7 +190,7 @@ assets/lego_test_open_fixed.stl
 
 - [ ] 明确 flange frame。
 - [ ] 明确 gripper/tool body frame。
-- [ ] 可视化 `gripper_tcp`。
+- [ ] 可视化 `lego_tool_tcp`。
 - [ ] 增加或记录 assemble TCP。
 - [ ] 增加或记录 disassemble TCP。
 - [ ] 增加或记录 press TCP。
