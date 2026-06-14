@@ -1,208 +1,192 @@
-# Repository Overview
+# 仓库总览
 
-This repository is an experiment workspace for single-arm LEGO manipulation and future Isaac Sim / BrickSim reproduction. External upstream projects are tracked as submodules that point to `xianzeYao` forks, so local source edits can be committed inside those forks and the top-level `lego` repository records the exact submodule commits.
+这个仓库是单臂 LEGO 拼装复现与后续 Isaac Sim / BrickSim 实验的工作区。外部项目现在以 submodule 形式接入，并且指向 `xianzeYao` 名下的 fork。这样我们既可以固定复现版本，也可以在需要时修改外部源码并提交到自己的 fork。
 
-The short version:
+当前仓库的核心分工：
 
-- `Attempt/` is our working area: RM75 arm, modified LEGO tool, custom STL, and project notes.
-- `APEX-MR/` is the original high-level LEGO assembly planning/execution reference.
-- `Robot_Digital_Twin/` is the original ROS/Gazebo/MoveIt asset and robot scene reference used by APEX-MR.
-- `BrickSim/` is the Isaac Sim physics layer for interlocking brick contact, snapping, disassembly, and collapse.
+- `Attempt/`：我们的主工作区，放 RM75 机械臂、改装 LEGO tool、自定义 STL、复现文档和后续实验脚本。
+- `APEX-MR/`：原论文的高层 LEGO 装配规划与执行参考。
+- `Robot_Digital_Twin/`：APEX-MR 原始 ROS/Gazebo/MoveIt 场景、机器人和 LEGO 资产参考。
+- `BrickSim/`：基于 Isaac Sim 的积木物理仿真层，用来处理 LEGO 接触、连接、拆卸和结构坍塌。
 
-For the first reproduction, we should not try to reproduce the full multi-robot paper stack. The practical target is one RM75 arm, one modified tool, and one brick in simulation:
+第一阶段不建议直接复现完整多机器人系统。更实际的目标是：
 
 ```text
+单臂 RM75 + 改装 LEGO tool + 一个 LEGO brick
 approach -> pick/attach -> lift -> place -> press -> release -> retreat
 ```
 
-After this loop works, we can replace the fake attach/release with BrickSim connection/contact behavior and then add more APEX-MR-style actions.
+这个闭环跑通后，再把简单的 attach/release 替换成 BrickSim 的连接/接触逻辑，然后逐步加入 APEX-MR 风格的动作。
 
-## External Submodules
+## 外部 Submodule
 
 ### `APEX-MR/`
 
-Upstream source: `https://github.com/intelligent-control-lab/APEX-MR`  
-Fork/submodule source: `https://github.com/xianzeYao/APEX-MR.git`  
-Pinned commit: `46a9448d9eaac5bd5973e0cd064623c5e7f5254e`
+上游来源：`https://github.com/intelligent-control-lab/APEX-MR`  
+本仓库使用的 fork：`https://github.com/xianzeYao/APEX-MR.git`  
+固定版本：`46a9448d9eaac5bd5973e0cd064623c5e7f5254e`
 
-What it is:
+它是什么：
 
-- Multi-robot asynchronous planning and execution framework for LEGO assembly.
-- It takes a structured LEGO task, assigns work to robots, plans motions, builds temporal execution graphs, and runs LEGO manipulation policies.
-- It is written for the original ROS/MoveIt/digital-twin setup, not directly for our RM75 + Isaac Sim setup.
-- The useful parts for us are the task format, tool-frame ideas, action primitives, and the way the paper decomposes LEGO assembly into repeatable manipulation actions.
+- 一个面向 LEGO 装配的多机器人异步规划与执行框架。
+- 输入结构化 LEGO 任务，进行任务分配、运动规划、时序图构建和 LEGO 操作策略执行。
+- 原始实现依赖 ROS / MoveIt / Robot_Digital_Twin，不是直接为 RM75 + Isaac Sim 写的。
+- 对我们最有价值的是任务格式、动作拆解、tool frame 设计和 LEGO 操作 primitive。
 
-What we keep:
+我们需要保留关注：
 
-- Task formats under `config/lego_tasks/`.
-- Tool-frame DH variants under `config/lego_tasks/robot_properties/`.
-- LEGO policy/action logic in `src/lego_policy.cpp` and `include/task.h`.
-- Stability/task-assignment code as reference.
-- Existing explanatory docs under `APEX-MR/docs/`, especially configuration, task assignment, and motion planning notes.
+- `config/lego_tasks/`：LEGO 任务和装配描述格式。
+- `config/lego_tasks/robot_properties/`：不同 tool frame 的 DH 配置。
+- `src/lego_policy.cpp`、`include/task.h`：LEGO 动作策略和 action 定义。
+- 稳定性分析、任务分配代码：后期参考。
+- `APEX-MR/docs/`：配置、任务分配、运动规划说明。
 
-What we do not need first:
+第一阶段可以先不管：
 
-- Dual-arm ILP assignment.
-- TPG/ADG asynchronous execution.
-- Handover.
-- Full ROS/MFI hardware interface.
+- 双臂/多臂 ILP 任务分配。
+- TPG/ADG 异步执行图。
+- handover。
+- 完整 ROS/MFI 硬件接口。
 
-Reason:
+我们什么时候会用到它：
 
-- We are starting from a single-arm reproduction. APEX-MR is mainly a reference for action design, tool frames, task representation, and the original ROS baseline.
+- 一开始只读，用来理解 LEGO 拼装到底需要哪些动作。
+- 单块积木动作跑通后，把它的动作词汇迁移到我们自己的 Isaac/BrickSim 脚本里。
+- 后续如果要读取按层 LEGO 说明书，可以考虑复用或转换它的 JSON 任务格式。
+- 很后面如果回到多臂或长序列装配，再考虑 ILP、TPG/ADG 和稳定性逻辑。
 
-When we will encounter it:
+主要阻力：
 
-- First pass: read only. Use it to understand what actions a LEGO assembly policy needs.
-- After one-brick motion works: copy the action vocabulary into our own Isaac/BrickSim script.
-- Later: adapt its JSON task format if we want to feed layer-by-layer instructions into our simulator.
-- Much later: revisit task assignment, TPG/ADG, and stability if we move back to multi-arm or long-horizon assembly.
-
-Expected friction:
-
-- APEX-MR assumes GP4-style robots and MoveIt planning groups.
-- Its tool frames are not a single URDF end-effector; several task-specific TCP/tool transforms are configured separately.
-- Some dependencies are research-stack heavy, such as ROS, MoveIt, Gurobi, and the external digital twin.
-- Running it unchanged is useful as a baseline, but directly porting the whole system into Isaac Sim would be too much work for the first milestone.
+- 它假设的是 GP4 等原始机器人和 MoveIt planning group。
+- 它不是只有一个 TCP，而是用多个任务相关 tool frame。
+- 依赖较重，包括 ROS、MoveIt、Gurobi 和 Robot_Digital_Twin。
+- 直接整体迁移到 Isaac Sim 工作量偏大，不适合第一阶段。
 
 ### `Robot_Digital_Twin/`
 
-Upstream source: `https://github.com/intelligent-control-lab/Robot_Digital_Twin.git`  
-Fork/submodule source: `https://github.com/xianzeYao/Robot_Digital_Twin.git`  
-Pinned commit: `017120d2b3fb2941fbeeb581d94f41b56d00df1d`
+上游来源：`https://github.com/intelligent-control-lab/Robot_Digital_Twin.git`  
+本仓库使用的 fork：`https://github.com/xianzeYao/Robot_Digital_Twin.git`  
+固定版本：`017120d2b3fb2941fbeeb581d94f41b56d00df1d`
 
-What it is:
+它是什么：
 
-- ROS/Gazebo/MoveIt digital twin used by APEX-MR.
-- Provides GP4/Fanuc/Yaskawa-style robot descriptions, MoveIt config, LEGO STL meshes, baseplates, environment meshes, and the original LEGO EOAT mesh.
-- This is the asset source and original coordinate-frame reference for the APEX-MR work.
+- APEX-MR 使用的 ROS/Gazebo/MoveIt digital twin。
+- 包含 GP4/Fanuc/Yaskawa 风格机器人描述、MoveIt 配置、LEGO STL、底板、环境 mesh 和原始 LEGO EOAT/tool mesh。
+- 它是原始工作中机器人、场景、坐标系和资产的参考库。
 
-What we keep:
+我们需要保留关注：
 
-- `gazebo/urdf/` for URDF/xacro reference.
-- `gazebo/meshes/eoat/` for the original LEGO tool head reference.
-- `gazebo/meshes/lego/` for LEGO STL and baseplate reference.
-- `moveit_config/` for original planning groups and end-effector links.
-- The original generated URDF/SRDF files as examples of how the tool was attached to the robot wrist.
+- `gazebo/urdf/`：URDF/xacro 参考。
+- `gazebo/meshes/eoat/`：原始 LEGO tool head 参考。
+- `gazebo/meshes/lego/`：LEGO STL 和底板参考。
+- `moveit_config/`：原始 planning group 和 end-effector link 配置。
+- 生成过的 URDF/SRDF：参考 tool 如何挂到机器人腕部。
 
-What we do not need first:
+第一阶段可以先不管：
 
-- Gazebo runtime if we choose Isaac Sim.
-- GP50/Fanuc models unless needed as reference.
-- Camera assets unless we add perception.
+- 如果选择 Isaac Sim，Gazebo 运行时不是必须。
+- GP50/Fanuc 模型只作为参考，不作为主目标。
+- 相机资产等到做感知时再看。
 
-Reason:
+我们什么时候会用到它：
 
-- This is where the physical tool and robot scene assets live. It lets us compare our RM75 tool setup against the original GP4 LEGO tool assumptions.
+- 导入资产时，对比我们的 RM75/tool URDF 和原始 `link_tool`、EOAT mesh、collision geometry、end-effector 链。
+- 调试坐标系时，对比 TCP/tool transform 和 LEGO 放置约定。
+- 如果要跑 APEX-MR 原始 ROS baseline，再使用它的 MoveIt/Gazebo 配置。
 
-When we will encounter it:
+主要阻力：
 
-- During asset import: compare our RM75/tool URDF against the original `link_tool`, EOAT mesh, collision geometry, and end-effector attachment chain.
-- During frame debugging: compare TCP/tool transforms and brick placement conventions.
-- During ROS baseline reproduction: use its MoveIt/Gazebo config if we decide to run APEX-MR in its original environment.
-
-Expected friction:
-
-- The URDF/xacro paths are ROS package oriented and may contain absolute or package-relative assumptions.
-- Isaac Sim import may need mesh path fixes, unit checks, inertial cleanup, collision simplification, and joint-axis verification.
-- The original tool is designed around their robot and their brick manipulation strategy; our modified tool must be treated as the primary source of truth.
+- URDF/xacro 路径是 ROS package 风格，可能有 package-relative 假设。
+- Isaac Sim 导入时可能要修 mesh 路径、单位、惯量、collision、joint axis。
+- 原始 tool 是为他们的机器人和策略设计的；我们的改装 tool 才是后续实验的主基准。
 
 ### `BrickSim/`
 
-Upstream source: `https://github.com/intelligent-control-lab/BrickSim.git`  
-Fork/submodule source: `https://github.com/xianzeYao/BrickSim.git`  
-Pinned commit: `cbd5de3238e6ac12f44ef699e1507a9f16bdafc3`
+上游来源：`https://github.com/intelligent-control-lab/BrickSim.git`  
+本仓库使用的 fork：`https://github.com/xianzeYao/BrickSim.git`  
+固定版本：`cbd5de3238e6ac12f44ef699e1507a9f16bdafc3`
 
-What it is:
+它是什么：
 
-- Isaac Sim based physics simulator for interlocking brick assemblies.
-- Provides snap-fit/contact-rich LEGO simulation, assembly/disassembly demos, breakage/collapse behavior, connection events, and Python/C++ extension code.
-- It is not a full planner by itself. It gives us a better physics model for bricks once we already know what motions to command.
+- 基于 Isaac Sim 的 interlocking brick 物理仿真器。
+- 提供 LEGO 接触、snap-fit、装配/拆卸 demo、结构破坏/坍塌、连接事件和 Python/C++ 扩展。
+- 它不是完整 planner；它更像是在我们已经知道要怎么动之后，验证 LEGO 物理交互是否合理的仿真层。
 
-What we keep:
+我们需要保留关注：
 
-- `demos/demo_assembly.py` as the first smoke test.
-- `demos/demo_inhand.py` as a later reference for more complex manipulation.
-- `python/` API and package code.
-- `native/` extension code.
-- `resources/` assets and robot/brick resources.
-- `scripts/download_prebuilt_native.sh` and build scripts.
+- `demos/demo_assembly.py`：第一优先级 smoke test。
+- `demos/demo_inhand.py`：后续复杂 manipulation 参考。
+- `python/`：Python API 和包代码。
+- `native/`：本地扩展源码。
+- `resources/`：brick、robot 和场景资源。
+- `scripts/download_prebuilt_native.sh`：预编译 native 扩展下载脚本。
 
-What we do not need first:
+第一阶段可以先不管：
 
-- Teleoperation demo unless we add a leader device.
-- In-hand manipulation demo unless our tool path needs it.
-- Native source modification unless the prebuilt extension is insufficient.
+- teleoperation demo。
+- in-hand manipulation demo。
+- native 源码修改，除非预编译扩展不够用。
 
-Reason:
+我们什么时候会用到它：
 
-- BrickSim should be the physics validation layer after our RM75 tool can execute a one-brick pick/place/press sequence.
+- Linux 机器上先跑官方 demo，确认 Isaac Sim / BrickSim 环境可用。
+- 然后加载 RM75、加载一个 brick，验证 Isaac Sim 能运行、渲染和控制机械臂。
+- 最后把 fake attach/release 换成 BrickSim 的 connection event 或 constraint。
+- 多块积木阶段，用它检查连接是否成立、结构是否稳定。
 
-When we will encounter it:
+主要阻力：
 
-- Linux setup: run the official demo unchanged before importing our own robot.
-- First custom simulation: load RM75, load one brick, and validate that Isaac Sim can step, render, and control the arm.
-- Contact validation: replace fake attach/release with BrickSim connection events or constraints.
-- Multi-brick validation: check whether a placed brick is truly connected and whether the structure survives pressing/release.
+- Isaac Sim 基本是 Linux + NVIDIA 路线，Mac 不适合跑这部分。
+- 8 GB 显存可以先跑小场景，但 16 GB 系统内存偏紧；32 GB 会舒服很多。
+- BrickSim 有 native extension / prebuilt binary 要求。
+- 自定义 LEGO STL 不会天然变成 BrickSim 可识别的 interlocking part，可能需要补 metadata 或先用简单刚体近似。
 
-Expected friction:
-
-- Isaac Sim is Linux/NVIDIA focused. Mac is not a realistic target for this part.
-- GPU memory and system memory matter. Your 5060 Ti 8 GB can likely run small scenes, but 16 GB RAM is tight; 32 GB RAM would reduce environment pain.
-- BrickSim has native extension/prebuilt binary requirements. Downloaded binaries and generated build products should be treated as reproducible artifacts, not precious source.
-- Custom LEGO STL is not automatically a BrickSim-aware interlocking part. We may first use simple rigid-body collision, then map to BrickSim brick parameters or connection metadata.
-
-## Local Attempt Assets
+## 本地 Attempt 资产
 
 ### `Attempt/`
 
-What it contains:
+它包含：
 
-- RM75 arm files.
-- AG2F90-C / modified gripper assets.
-- Custom LEGO/tool STL: `Attempt/lego_test_open_fixed.stl`.
-- Project docs/checklists.
+- RM75 机械臂相关文件。
+- AG2F90-C / 改装夹爪资产。
+- 自定义 LEGO/tool STL：`Attempt/lego_test_open_fixed.stl`。
+- 项目文档和检查清单。
 
-What we keep:
+我们需要保留：
 
-- The RM75 URDF variants and meshes.
-- The modified tool and LEGO STL.
-- Documentation under `Attempt/docs/`.
+- RM75 URDF 变体和 mesh。
+- 改装 tool 和 LEGO STL。
+- `Attempt/docs/` 下的复现文档。
 
-What to clean later:
+后续可以清理：
 
-- Duplicate or wrong URDF variants once we know which one imports correctly.
-- Unused mesh formats after Isaac Sim import is stable.
-- Experimental scripts that are replaced by the final Isaac/BrickSim pipeline.
+- 确定哪个 URDF 正确后，删除重复或错误版本。
+- Isaac Sim 导入稳定后，删除不用的 mesh 格式。
+- 被正式 pipeline 替代的临时脚本。
 
-When we will encounter it:
+主要阻力：
 
-- Immediately. This is where our actual robot and tool definition should live.
-- Every transform, TCP, collision mesh, and joint limit should be verified here before we blame APEX-MR or BrickSim.
+- URDF 可能“看起来能加载”，但 collision、惯量、单位、joint axis、tool TCP 仍然是错的。
+- STL 原点和单位很容易出问题。
+- 改装 LEGO pickup head 很可能需要多个命名 frame：nominal、assemble、disassemble、alt、press 等，而不是只靠一个 TCP。
 
-Expected friction:
+## 为什么用 Fork Submodule
 
-- URDF may load visually but still have wrong collision shapes, inertial values, scale, axes, or tool TCP.
-- STL origin and unit conventions can be wrong even when the mesh looks correct.
-- The modified LEGO pickup head probably needs more than one named frame: nominal tool, assemble tool, disassemble tool, alternate orientations, and possibly a handover frame if dual-arm returns later.
+我们后续大概率会读、改、调试 APEX-MR、Robot_Digital_Twin 和 BrickSim。现在它们是指向我们自己 fork 的 submodule，而不是直接指向上游。
 
-## Why Fork Submodules
+好处：
 
-We expect to inspect and possibly edit source code in APEX-MR, Robot_Digital_Twin, and BrickSim while experimenting. These repositories are now submodules pointing to our own forks, not direct upstream remotes.
+- 可以从原作者 upstream 拉更新。
+- 可以把我们对外部项目的修改提交到自己的 fork。
+- 顶层 `lego` 仓库更小，只记录精确 submodule 版本。
 
-Benefits:
+代价：
 
-- Upstream updates can be pulled into the fork with normal git workflows.
-- Local edits to external source code can be committed to the corresponding fork.
-- The top-level `lego` repository stays smaller and records exact reproducible submodule commits.
+- 新机器 clone 后必须初始化 submodule。
+- 修改 submodule 需要两次提交：先在 submodule 内提交，再在顶层仓库提交新的 submodule 指针。
+- 如果 submodule 处于 detached HEAD，长期修改前应该先建分支。
 
-Tradeoff:
-
-- A fresh clone must initialize submodules.
-- Changes inside submodules require two commits: one in the submodule fork and one in the top-level repo to update the submodule pointer.
-- Detached submodule commits should be moved onto a branch before long-lived edits.
-
-Useful commands:
+常用命令：
 
 ```bash
 git clone --recurse-submodules git@github.com:xianzeYao/lego.git
@@ -210,315 +194,315 @@ git submodule update --init --recursive
 git submodule status
 ```
 
-## How The Libraries Relate
+## 三个库之间的关系
 
-The relationship is easiest to treat as layers:
+可以把它们理解成分层：
 
 ```text
-Layer-by-layer LEGO instruction
+按层 LEGO 说明书
         |
         v
-Task representation
-APEX-MR JSON is the reference, but we can start simpler
+任务表示
+APEX-MR JSON 是参考，但第一版可以更简单
         |
         v
-Action sequence
+动作序列
 pick_down / pick_twist / drop_down / drop_twist / press_down
         |
         v
-Robot-specific motion
-RM75 URDF + our modified tool + Isaac Sim controller/planner
+机器人具体运动
+RM75 URDF + 改装 tool + Isaac Sim controller/planner
         |
         v
-Brick physics validation
-BrickSim contact / connection / disassembly / collapse behavior
+LEGO 物理验证
+BrickSim contact / connection / disassembly / collapse
 ```
 
-`Robot_Digital_Twin` sits beside this stack as a reference asset library for the original APEX-MR environment. It is not the runtime we must use if we choose Isaac Sim, but it tells us what the original authors assumed about robot links, LEGO meshes, EOAT geometry, and MoveIt groups.
+`Robot_Digital_Twin` 更像旁边的原始资产和坐标系参考库。我们如果选择 Isaac Sim，不一定要跑它的 Gazebo runtime，但它能告诉我们原作者对 robot link、LEGO mesh、EOAT geometry 和 MoveIt group 的假设。
 
-The practical rule:
+实际使用原则：
 
-- Use `Attempt/` as the source of truth for our robot and tool.
-- Use `APEX-MR/` as the source of truth for assembly action ideas and task decomposition.
-- Use `Robot_Digital_Twin/` as the source of truth for original assets and frame conventions.
-- Use `BrickSim/` as the source of truth for brick physics once the arm motion is already controllable.
+- `Attempt/` 是我们的机器人和 tool 真值来源。
+- `APEX-MR/` 是装配动作设计、任务拆解和后期规划的参考。
+- `Robot_Digital_Twin/` 是原始资产和坐标系约定的参考。
+- `BrickSim/` 是机械臂运动可控之后的 LEGO 物理验证层。
 
-## Proposed Reproduction Pipeline
+## 推荐复现路线
 
-The target pipeline should be staged. The first version should avoid solving text-to-LEGO and avoid the full multi-robot planner:
+第一版避免 text-to-LEGO，也避免完整多机器人 planner：
 
 ```text
-Linux/NVIDIA environment
+Linux/NVIDIA 环境
         |
         v
-BrickSim official single-arm demo
+跑通 BrickSim 官方单臂/装配 demo
         |
         v
-BrickSim/Isaac scene with our RM75 URDF and modified tool
+在 Isaac/BrickSim 场景中导入 RM75 URDF 和改装 tool
         |
         v
-One LEGO instruction/manual step
+选一个 LEGO 说明书中的单步或简化 JSON
         |
         v
-APEX-MR task representation or simplified equivalent
+使用 APEX-MR 任务表示或更简单的本地格式
         |
         v
-Single-arm schedule
+单臂顺序执行
         |
         v
-APEX-MR-style LEGO policy layer
-grasp pose -> place pose -> twist/press/release sequence
+APEX-MR 风格 LEGO policy
+grasp pose -> place pose -> twist/press/release
         |
         v
 RM75-specific IK / Isaac Sim controller
         |
         v
-BrickSim validates contact/connection/collapse
+BrickSim 验证接触、连接、拆卸和坍塌
 ```
 
-Important caveat:
+重要判断：
 
-- APEX-MR is not just a pure scheduler; it also contains LEGO policy and motion-planning logic.
-- Robotic_Lego_Manipulation was evaluated and removed from the main tree because its useful LEGO action ideas overlap with APEX-MR.
-- The cleaner split is:
-  - APEX-MR or a simplified APEX-MR-like adapter decides task order and action sequence.
-  - APEX-MR LEGO policy code provides the concrete action vocabulary.
-  - Our RM75/Isaac layer computes or executes the final RM75-specific joint targets.
+- APEX-MR 不只是 scheduler，它里面也有 LEGO policy 和 motion-planning 逻辑。
+- `Robotic_Lego_Manipulation` 已经评估过并从主仓库移除，因为它和 APEX-MR 在 LEGO action、tool frame、pose/IK 逻辑上有重叠。
+- 更清晰的切分是：
+  - APEX-MR 或一个简化 APEX-MR adapter 决定任务顺序和动作序列。
+  - APEX-MR 的 LEGO policy 代码提供动作词汇。
+  - 我们自己的 RM75/Isaac 层负责算出并执行 RM75 关节目标。
 
-For the first successful reproduction, the best source of truth should be:
+第一阶段的主基准：
 
-- Environment and physics: `BrickSim/`.
-- Robot/tool assets: `Attempt/`.
-- Task/manual format, action policy, and later planning: `APEX-MR/`.
+- 环境和物理：`BrickSim/`。
+- 机器人和 tool 资产：`Attempt/`。
+- 任务格式、动作策略和后期规划：`APEX-MR/`。
 
-## Reproduction Phases
+## 分阶段计划
 
-### Phase 0: Linux machine and smoke tests
+### Phase 0：Linux 机器和 smoke test
 
-Goal:
+目标：
 
-- Confirm the Linux/NVIDIA machine can run Isaac Sim and BrickSim.
+- 确认 Linux/NVIDIA 机器能跑 Isaac Sim 和 BrickSim。
 
-What we touch:
+涉及：
 
 - `BrickSim/`
 - `Attempt/docs/linux_reproduction.md`
 
-What may fail:
+可能失败：
 
-- Isaac Sim version mismatch.
-- NVIDIA driver/CUDA/runtime mismatch.
-- BrickSim prebuilt native extension download or load failure.
-- Python environment mismatch around `uv`, Isaac Sim Python, or Isaac Lab.
+- Isaac Sim 版本不匹配。
+- NVIDIA driver / CUDA / runtime 不匹配。
+- BrickSim prebuilt native extension 下载或加载失败。
+- `uv`、Isaac Sim Python、Isaac Lab 周边环境不匹配。
 
-Do not debug our RM75 robot yet if the official BrickSim demo does not run.
+原则：官方 BrickSim demo 没跑通前，不要急着调 RM75。
 
-### Phase 1: Import RM75 and tool
+### Phase 1：导入 RM75 和 tool
 
-Goal:
+目标：
 
-- Load the RM75 URDF and modified LEGO tool in Isaac Sim.
-- Verify joint axes, joint limits, mesh scale, collision geometry, and TCP frames.
+- 在 Isaac Sim 中加载 RM75 URDF 和改装 LEGO tool。
+- 检查 joint axis、joint limit、mesh scale、collision geometry 和 TCP frame。
 
-What we touch:
-
-- `Attempt/`
-- `Robot_Digital_Twin/gazebo/urdf/` only as a comparison reference.
-- `Robot_Digital_Twin/gazebo/meshes/eoat/` only as original tool reference.
-
-What may fail:
-
-- Meshes render but collide incorrectly.
-- STL unit/origin mismatch.
-- Tool frame points in the wrong direction.
-- URDF importer drops or approximates collision/inertial data.
-- The gripper/tool needs additional fixed links for task-specific TCPs.
-
-### Phase 2: One-brick fake attach/release
-
-Goal:
-
-- Execute one complete pick/place/press loop using a simple attach/detach constraint or scripted parent relationship.
-
-What we touch:
+涉及：
 
 - `Attempt/`
-- Possibly a small new Isaac Sim script under `Attempt/` or a new local package.
-- `APEX-MR/src/lego_policy.cpp` as a reference only.
+- `Robot_Digital_Twin/gazebo/urdf/` 只作对比。
+- `Robot_Digital_Twin/gazebo/meshes/eoat/` 只作原始 tool 参考。
 
-What may fail:
+可能失败：
 
-- IK cannot reach the pose because TCP or base frame is wrong.
-- Collision checking blocks reasonable approach paths.
-- Press direction is wrong relative to brick studs.
-- Fake attach hides physical errors, so this phase should be treated as motion validation, not real LEGO validation.
+- mesh 看起来正常，但 collision 不对。
+- STL 单位或原点错。
+- tool frame 方向错。
+- URDF importer 丢掉或近似了 collision/inertial。
+- 改装 tool 需要额外 fixed links 表示不同 TCP。
 
-### Phase 3: APEX-MR action vocabulary
+### Phase 2：单块积木 fake attach/release
 
-Goal:
+目标：
 
-- Implement the useful LEGO manipulation actions for our single arm:
-  `pick_down`, `pick_twist`, `drop_down`, `drop_twist`, `place_up`, `press_down`.
+- 用简单 attach/detach constraint 或 scripted parent relationship 跑通完整 pick/place/press。
 
-What we touch:
+涉及：
+
+- `Attempt/`
+- 后续可以在 `Attempt/` 下新增 Isaac Sim 脚本或本地 package。
+- `APEX-MR/src/lego_policy.cpp` 只作参考。
+
+可能失败：
+
+- IK 到不了，原因可能是 TCP 或 base frame 错。
+- collision checking 阻塞合理路径。
+- press 方向相对 stud 错。
+- fake attach 会隐藏真实接触问题，所以这一阶段只验证运动，不代表 LEGO 物理成功。
+
+### Phase 3：迁移 APEX-MR 动作词汇
+
+目标：
+
+- 为单臂实现有用的 LEGO 操作动作：
+  `pick_down`、`pick_twist`、`drop_down`、`drop_twist`、`place_up`、`press_down`。
+
+涉及：
 
 - `APEX-MR/include/task.h`
 - `APEX-MR/src/lego_policy.cpp`
 - `APEX-MR/src/lego/Lego.cpp`
 - `APEX-MR/config/lego_tasks/robot_properties/`
-- Our own Isaac/BrickSim control script under `Attempt/`.
+- 我们自己的 Isaac/BrickSim 控制脚本。
 
-What may fail:
+可能失败：
 
-- The upstream actions assume their own tool geometry, so distances and rotations are not copy-paste constants.
-- Tool variants such as `nominal tool`, `assemble tool`, `disassemble tool`, `alt tool`, `alt assemble tool`, and `handover assemble tool` are usually different task frames/TCP transforms, not necessarily different physical tools.
-- We need to calibrate these transforms for the modified tool.
+- 上游动作默认他们自己的 tool geometry，距离和角度不能直接照抄。
+- `nominal tool`、`assemble tool`、`disassemble tool`、`alt tool`、`alt assemble tool`、`handover assemble tool` 通常是不同任务 TCP/transform，不一定是不同实体工具。
+- 需要为我们的改装 tool 重新标定这些 transform。
 
-### Phase 4: Replace fake attach with brick physics
+### Phase 4：把 fake attach 换成 BrickSim 物理
 
-Goal:
+目标：
 
-- Use BrickSim contact/connection behavior to decide whether the brick is held, placed, connected, or disconnected.
+- 用 BrickSim 的接触/连接行为判断 brick 是否被抓住、放下、连接或拆开。
 
-What we touch:
+涉及：
 
 - `BrickSim/python/bricksim/mdp/connection_events.py`
 - `BrickSim/python/bricksim/mdp/connection_state.py`
 - `BrickSim/python/bricksim/mdp/brick_part.py`
-- Our local simulation script.
+- 本地仿真脚本。
 
-What may fail:
+可能失败：
 
-- Custom STL does not contain the metadata BrickSim expects for studs/holes.
-- Contact thresholds require tuning for our tool and brick sizes.
-- Stable connection needs slower press/release trajectories than pure kinematic placement.
-- Physics time step or solver settings may make snapping unstable.
+- 自定义 STL 没有 BrickSim 需要的 stud/hole metadata。
+- 接触阈值需要根据 tool 和 brick 调。
+- 稳定连接需要更慢的 press/release 轨迹。
+- physics timestep 或 solver 设置导致 snap 不稳定。
 
-### Phase 5: Multi-brick layer instruction
+### Phase 5：多块积木和按层说明书
 
-Goal:
+目标：
 
-- Feed a small layer-by-layer instruction into the simulation and assemble two or more bricks.
+- 输入一个小的 layer-by-layer instruction，拼两块或更多积木。
 
-What we touch:
+涉及：
 
-- `APEX-MR/config/lego_tasks/` if we reuse or convert their JSON style.
-- Local instruction parser/generator under `Attempt/`.
-- BrickSim structure/connection utilities.
+- `APEX-MR/config/lego_tasks/`，如果复用或转换它的 JSON。
+- `Attempt/` 下的本地 instruction parser/generator。
+- BrickSim 的结构和连接工具。
 
-What may fail:
+可能失败：
 
-- Brick order matters for reachability and stability.
-- Collision with already placed bricks appears.
-- A press action that works for one brick may disturb the previous brick.
-- We may need simple stability checks before running a full sequence.
+- 拼装顺序影响可达性和稳定性。
+- 已放置积木会造成 collision。
+- 单块成功的 press 动作可能扰动前一块。
+- 可能需要简单稳定性检查再执行完整序列。
 
-### Phase 6: Optional planner and long-horizon logic
+### Phase 6：可选 planner 和长序列逻辑
 
-Goal:
+目标：
 
-- Only after the single-arm sequence is reliable, consider more automatic planning.
+- 单臂流程稳定后，再考虑更自动的规划。
 
-What we touch:
+涉及：
 
-- APEX-MR task assignment/planning logic if we want multi-arm or full paper reproduction.
-- StableLego-style analysis if structure stability becomes a bottleneck.
-- VAMP-MR-style motion planning if planning speed becomes a bottleneck.
+- 如果回到多臂或完整论文复现，再看 APEX-MR 的 task assignment / planning。
+- 如果结构稳定性成为瓶颈，再看 StableLego。
+- 如果运动规划速度成为瓶颈，再看 VAMP-MR。
 
-What may fail:
+可能失败：
 
-- Full APEX-MR is designed for multi-robot asynchronous execution. For one arm, much of it adds complexity without immediate benefit.
-- ILP/TPG/ADG are useful later, but not needed to prove the RM75 tool can assemble bricks.
+- 完整 APEX-MR 面向多机器人异步执行。对单臂而言，很多部分第一阶段只会增加复杂度。
+- ILP、TPG、ADG 有用，但不是证明 RM75 能拼 LEGO 的前置条件。
 
-## Related Upstream Projects
+## 相关上游项目
 
-These are related to the same research line but are not currently tracked as submodules here.
+这些项目和同一研究线相关，但当前不作为本仓库 submodule。
 
 ### `Robotic_Lego_Manipulation`
 
-Source: `https://github.com/intelligent-control-lab/Robotic_Lego_Manipulation`
+来源：`https://github.com/intelligent-control-lab/Robotic_Lego_Manipulation`
 
-Status:
+状态：
 
-- Evaluated and removed from this repository.
-- It overlaps with APEX-MR in task JSON, LEGO action states, tool-frame variants, and LEGO pose/IK logic.
+- 已评估并从本仓库移除。
+- 它和 APEX-MR 在 task JSON、LEGO action state、tool-frame variants、LEGO pose/IK 逻辑上有重叠。
 
-Current recommendation:
+当前建议：
 
-- Do not keep it as a submodule dependency.
-- Revisit only if we specifically need its Fanuc examples, `Stream_Motion_Controller` interface, standalone F/T sensor driver, RealSense node, or simpler single-file action-state-machine reference.
+- 不作为 submodule 依赖保留。
+- 只有当我们明确需要 Fanuc 示例、`Stream_Motion_Controller` 接口、单独 F/T sensor driver、RealSense node 或更简单的单文件 action-state-machine 参考时，再重新看。
 
 ### `StableLego`
 
-Source: `https://github.com/intelligent-control-lab/StableLego`
+来源：`https://github.com/intelligent-control-lab/StableLego`
 
-Likely role:
+可能作用：
 
-- Static stability checking for LEGO assemblies.
-- APEX-MR references it for stability-aware task assignment, and BrickSim also has adapted StableLego-related code.
+- LEGO 装配结构的静态稳定性检查。
+- APEX-MR 会引用它做 stability-aware task assignment，BrickSim 中也有相关改造代码。
 
-Current recommendation:
+当前建议：
 
-- Do not make it part of the first reproduction.
-- Revisit it when we assemble more than a few bricks or need to choose a stable build order.
+- 不进入第一阶段。
+- 等到拼超过少量积木，或者需要自动选择稳定装配顺序时再看。
 
 ### `VAMP-MR`
 
-Source: linked from the APEX-MR README.
+来源：APEX-MR README 中链接。
 
-Likely role:
+可能作用：
 
-- Accelerated multi-robot motion planning.
+- 加速多机器人运动规划。
 
-Current recommendation:
+当前建议：
 
-- Not needed for the single-arm first milestone.
-- Revisit only if motion planning becomes the main bottleneck or if we return to multi-arm planning.
+- 单臂第一阶段不需要。
+- 只有当运动规划成为主要瓶颈，或者重新做多臂规划时再看。
 
 ### `Robotic_Lego_Controller`
 
-Status:
+状态：
 
-- Public source was not confirmed from the repository name alone.
+- 仅凭名字尚未确认公开源码和准确仓库地址。
 
-Current recommendation:
+当前建议：
 
-- Ignore it unless we have the exact URL or local source.
-- If it becomes available, evaluate it as a low-level controller reference, not as a replacement for BrickSim or APEX-MR.
+- 没有准确 URL 或本地源码前先忽略。
+- 如果后续拿到源码，把它当作低层控制器参考，不替代 BrickSim 或 APEX-MR。
 
-## What To Keep, Remove, Or Regenerate
+## 什么保留，什么删除，什么重生成
 
-Keep in git:
+保留在 git：
 
-- Submodule pointers for `APEX-MR/`, `Robot_Digital_Twin/`, and `BrickSim/`.
-- Meshes and robot assets needed to reproduce the environment.
-- `Attempt/` robot/tool assets and docs.
-- Small scripts that define our reproduction pipeline.
+- `APEX-MR/`、`Robot_Digital_Twin/`、`BrickSim/` 的 submodule 指针。
+- 复现环境需要的 mesh 和 robot assets。
+- `Attempt/` 下我们的 robot/tool 资产和文档。
+- 描述复现 pipeline 的小脚本。
 
-Remove or ignore:
+删除或 ignore：
 
-- `__pycache__/`, build directories, logs, temporary downloads, and local simulator caches.
-- Large downloaded binaries if they can be reproduced by documented commands.
-- OS metadata files such as `*:Zone.Identifier`.
+- `__pycache__/`、build 目录、日志、临时下载、仿真缓存。
+- 能通过命令重建的大型下载二进制。
+- OS 元数据，例如 `*:Zone.Identifier`。
 
-Reason:
+原因：
 
-- We want the repo to preserve our source, docs, assets, and exact external submodule versions, not machine-specific build products.
-- If a downloaded file is required and not easy to regenerate, document the exact command/version before deciding whether to commit it.
+- 仓库应该保存源码、文档、资产和外部 submodule 的精确版本，而不是机器相关的构建产物。
+- 如果某个下载文件确实必须保留，先记录准确命令和版本，再决定是否提交。
 
-## First Reproduction Goal
+## 第一复现目标
 
-Do not start with full automatic assembly. The first useful milestone remains:
+不要从完整自动装配开始。第一阶段仍然是：
 
 ```text
 RM75 arm + modified LEGO tool + one LEGO brick
 approach -> pick/attach -> lift -> place -> press -> release -> retreat
 ```
 
-After this is repeatable:
+跑通后再做：
 
-1. Replace fake attach/release with BrickSim contact or snap-fit logic.
-2. Add `pick_twist` and `drop_twist` based on APEX-MR policy.
-3. Execute two stacked bricks.
-4. Add simple instruction JSON.
-5. Only then consider automatic planning or APEX-MR task format conversion.
+1. 用 BrickSim contact 或 snap-fit 替换 fake attach/release。
+2. 加入 `pick_twist` 和 `drop_twist`。
+3. 执行两块上下堆叠。
+4. 加入简单 instruction JSON。
+5. 最后再考虑自动 planning 或 APEX-MR task format 转换。

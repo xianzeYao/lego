@@ -1,45 +1,46 @@
-# Isaac Sim / BrickSim LEGO Manipulation Checklist
+# Isaac Sim / BrickSim LEGO Manipulation 检查清单
 
-This checklist is for migrating or reproducing the APEX-MR LEGO manipulation setup in Isaac Sim / BrickSim with a single robot arm and a custom LEGO tool.
+这份清单用于把 APEX-MR 的 LEGO manipulation 思路迁移或复现到 Isaac Sim / BrickSim 中。当前目标是单臂、RM75、改装 LEGO tool，而不是一开始就复现完整多机器人系统。
 
-## 0. Repository Context
+## 0. 仓库和依赖状态
 
-- [x] Downloaded `Robot_Digital_Twin` at `apexmr-release`.
-- [x] Downloaded `BrickSim` at `cbd5de3238e6ac12f44ef699e1507a9f16bdafc3`.
-- [x] Confirmed APEX-MR uses external `Robot_Digital_Twin` for GP4 URDF/xacro and MoveIt config.
-- [x] Confirmed local APEX-MR stores tool-frame variants as DH files, not URDF links.
-- [x] Confirmed `Robot_Digital_Twin` contains EOAT meshes, LEGO meshes, GP4 xacro, Gazebo launch files, and MoveIt SRDF.
-- [x] Confirmed `BrickSim` contains Isaac Sim demos, Python API, native extension code, and brick simulation resources.
+- [x] 已接入 `APEX-MR` submodule。
+- [x] 已接入 `Robot_Digital_Twin` submodule，版本固定在 `apexmr-release` 对应 commit。
+- [x] 已接入 `BrickSim` submodule，版本固定在 `cbd5de3238e6ac12f44ef699e1507a9f16bdafc3`。
+- [x] 已确认 APEX-MR 依赖外部 `Robot_Digital_Twin` 提供 GP4 URDF/xacro 和 MoveIt config。
+- [x] 已确认 APEX-MR 的 tool-frame variants 主要以 DH 文件形式存在，不只是 URDF link。
+- [x] 已确认 `Robot_Digital_Twin` 包含 EOAT mesh、LEGO mesh、GP4 xacro、Gazebo launch 和 MoveIt SRDF。
+- [x] 已确认 `BrickSim` 包含 Isaac Sim demo、Python API、native extension 和 brick simulation resources。
 
-## 1. Robot Model
+## 1. 机器人模型
 
-- [ ] Identify the exact robot arm to use in Isaac Sim.
-- [ ] Confirm URDF imports without missing mesh paths.
-- [ ] Confirm all joint axes match the real robot.
-- [ ] Confirm joint limits match the real controller.
-- [ ] Confirm base frame and world frame conventions.
-- [ ] Confirm visual mesh scale.
-- [ ] Confirm collision mesh scale.
-- [ ] Use simplified collision meshes where possible.
-- [ ] Verify forward kinematics against known calibration poses.
-- [ ] Verify the imported articulation can be commanded in Isaac Sim.
+- [ ] 明确 Isaac Sim 中第一版使用的机械臂就是 RM75。
+- [ ] 确认 RM75 URDF 导入后没有 mesh 路径缺失。
+- [ ] 确认所有 joint axis 与真实机械臂一致。
+- [ ] 确认 joint limit 与真实控制器一致。
+- [ ] 确认 base frame 和 world frame 约定。
+- [ ] 确认 visual mesh 尺寸正确。
+- [ ] 确认 collision mesh 尺寸正确。
+- [ ] 尽量使用简化 collision mesh，避免复杂 STL 直接做碰撞。
+- [ ] 用已知标定姿态检查 forward kinematics。
+- [ ] 确认导入后的 articulation 可以被 Isaac Sim controller 命令。
 
-## 2. LEGO Tool / EOAT Model
+## 2. LEGO Tool / EOAT 模型
 
-APEX-MR's digital twin has a real URDF tool link:
+APEX-MR 的 digital twin 中有真实 URDF tool link：
 
 - `link_tool` / `${arm_id}_link_tool`
-- attached through `fts_tool` / `${arm_id}_fts_tool`
-- mesh: `gazebo/meshes/eoat/tool.stl`
+- 通过 `fts_tool` / `${arm_id}_fts_tool` 挂载
+- mesh：`gazebo/meshes/eoat/tool.stl`
 
-Check these before using it in Isaac Sim:
+在 Isaac Sim 中使用前需要检查：
 
-- [ ] Confirm whether your custom STL is the same as `tool.stl` or a newer version.
-- [ ] Confirm STL units: meters vs millimeters.
-- [ ] Confirm tool origin matches the robot flange convention.
-- [ ] Confirm tool mesh orientation after URDF/USD import.
-- [ ] Confirm collision mesh does not over-approximate the LEGO contact area too much.
-- [ ] Add explicit frame markers for:
+- [ ] 确认我们的自定义 STL 是不是和原始 `tool.stl` 一致，还是更新后的版本。
+- [ ] 确认 STL 单位：米还是毫米。
+- [ ] 确认 tool 原点是否符合 RM75 flange 坐标系。
+- [ ] 确认 URDF/USD 导入后 tool mesh 朝向正确。
+- [ ] 确认 collision mesh 不会过度包住 LEGO 接触区域。
+- [ ] 为以下 frame 加可视化 marker：
   - [ ] flange frame
   - [ ] F/T sensor frame
   - [ ] tool body frame
@@ -48,51 +49,51 @@ Check these before using it in Isaac Sim:
   - [ ] alt/place-up TCP
   - [ ] press TCP
 
-## 3. APEX-MR Tool-Frame Variants To Preserve
+## 3. APEX-MR 中需要保留的 Tool-Frame 变体
 
-APEX-MR does not treat the tool as a single TCP. It uses several tool-frame variants:
+APEX-MR 不是把 tool 当作单个 TCP 使用，而是定义了多个任务相关 frame：
 
-- `gp4_tool_DH.txt`: nominal tool frame.
-- `gp4_tool_assemble_DH.txt`: place/assembly contact frame.
-- `gp4_tool_disassemble_DH.txt`: pick/disassembly contact frame.
-- `gp4_tool_alt_DH.txt`: alternate side/up manipulation frame.
-- `gp4_tool_alt_assemble_DH.txt`: alternate assembly frame.
-- `gp4_tool_handover_assemble_DH.txt`: handover assembly frame.
+- `gp4_tool_DH.txt`：nominal tool frame，默认/基准 tool frame。
+- `gp4_tool_assemble_DH.txt`：assemble frame，用于放置、压合、装配接触。
+- `gp4_tool_disassemble_DH.txt`：disassemble frame，用于抓取、拆卸、脱离接触。
+- `gp4_tool_alt_DH.txt`：alternate frame，用于侧向或 place-up 操作。
+- `gp4_tool_alt_assemble_DH.txt`：alternate assembly frame，用于另一种装配姿态。
+- `gp4_tool_handover_assemble_DH.txt`：handover assembly frame，主要给双臂交接场景用。
 
-For Isaac Sim:
+在 Isaac Sim 中需要做：
 
-- [ ] Convert each DH variant into an explicit transform relative to the imported tool frame.
-- [ ] Create debug axes or small marker frames for each variant.
-- [ ] Check that `assemble` and `disassemble` TCPs differ by the expected offset.
-- [ ] Check that `alt` frame matches the side/place-up maneuver.
-- [ ] Check that press direction is correct for each TCP.
-- [ ] Run a visual overlay: APEX-MR TCP pose vs Isaac Sim TCP pose for the same joint angles.
+- [ ] 把每个 DH 变体转换成相对 imported tool frame 的显式 transform。
+- [ ] 为每个 transform 创建 debug axis 或小 marker。
+- [ ] 检查 `assemble` 和 `disassemble` TCP 是否有预期 offset。
+- [ ] 检查 `alt` frame 是否对应侧向/place-up 动作。
+- [ ] 检查每个 TCP 下 press 方向是否正确。
+- [ ] 在相同 joint angles 下，对比 APEX-MR TCP pose 和 Isaac Sim TCP pose。
 
-## 4. LEGO Assets
+## 4. LEGO 资产
 
-Robot_Digital_Twin includes LEGO STL meshes:
+`Robot_Digital_Twin` 中包含 LEGO STL：
 
-- `b1x1`, `b1x2`, `b1x4`, `b1x6`, `b1x8`
-- `b2x2`, `b2x4`, `b2x6`, `b2x8`
-- `base32x32`, `base48x48`
+- `b1x1`、`b1x2`、`b1x4`、`b1x6`、`b1x8`
+- `b2x2`、`b2x4`、`b2x6`、`b2x8`
+- `base32x32`、`base48x48`
 
-Check:
+需要检查：
 
-- [ ] Confirm LEGO mesh units are correct after import.
-- [ ] Confirm stud pitch is 8 mm.
-- [ ] Confirm brick height is 9.6 mm.
-- [ ] Confirm baseplate coordinate origin.
-- [ ] Confirm brick top-left / center conversion.
-- [ ] Confirm orientation convention: `ori=0/1` or degrees.
-- [ ] Decide whether first version uses simple rigid STL or BrickSim interlocking bricks.
-- [ ] If using BrickSim interlocking:
-  - [ ] Define stud/cavity/topology metadata.
-  - [ ] Confirm snap-fit creates expected constraints.
-  - [ ] Confirm detach/disassembly thresholds.
+- [ ] LEGO mesh 导入后单位正确。
+- [ ] stud pitch 为 8 mm。
+- [ ] brick 高度为 9.6 mm。
+- [ ] baseplate 坐标原点明确。
+- [ ] 明确 brick top-left / center 的转换规则。
+- [ ] 明确 orientation 约定：`ori=0/1`、角度，还是四元数。
+- [ ] 第一版决定使用简单 rigid STL 还是 BrickSim interlocking brick。
+- [ ] 如果使用 BrickSim interlocking：
+  - [ ] 定义 stud / cavity / topology metadata。
+  - [ ] 确认 snap-fit 能生成预期约束。
+  - [ ] 确认 detach / disassembly 阈值。
 
-## 5. Single-Brick Manipulation Primitive
+## 5. 单块积木操作 Primitive
 
-Minimum primitive:
+最小动作序列：
 
 1. move home
 2. approach brick
@@ -106,31 +107,31 @@ Minimum primitive:
 10. release
 11. retreat
 
-Check:
+需要检查：
 
-- [ ] Approach pose is collision-free.
-- [ ] Pick TCP aligns with LEGO grip/contact feature.
-- [ ] Attach transform keeps LEGO fixed relative to tool.
-- [ ] Lift motion does not hit studs or neighbors.
-- [ ] Place pose aligns to target studs.
-- [ ] Press distance is small and controlled.
-- [ ] Release does not create a sudden impulse.
-- [ ] Retraction direction clears the LEGO.
+- [ ] approach pose 无碰撞。
+- [ ] pick TCP 对准 LEGO 抓取/接触特征。
+- [ ] attach transform 能让 LEGO 相对 tool 固定。
+- [ ] lift 不撞 stud、底板或邻近 brick。
+- [ ] place pose 对准目标 stud。
+- [ ] press 距离小且可控。
+- [ ] release 不产生明显冲击。
+- [ ] retreat 方向能避开 LEGO。
 
-## 6. APEX-MR Action Ideas To Reproduce
+## 6. APEX-MR 中值得复现的动作思想
 
-APEX-MR's useful manipulation ideas:
+APEX-MR 中对我们有用的 manipulation ideas：
 
-- [ ] `pick_down`: lower until contact, then twist using disassembly TCP.
-- [ ] `pick_twist`: rotate around a tool-local axis to loosen/engage.
-- [ ] `drop_down`: lower until contact, then twist using assembly TCP.
-- [ ] `drop_twist`: opposite twist direction from picking.
-- [ ] `place_up`: alternate upward/side insertion mode.
-- [ ] `press_down`: press with force/contact feedback.
-- [ ] `support`: use another contact to stabilize a structure. For single-arm work, this can become passive fixture/support.
-- [ ] `handover`: not needed for the first single-arm version.
+- [ ] `pick_down`：下降到接触，然后用 disassembly TCP 做抓取/脱离动作。
+- [ ] `pick_twist`：绕 tool-local axis 旋转，帮助松开或卡住积木。
+- [ ] `drop_down`：下降到放置接触，然后用 assembly TCP。
+- [ ] `drop_twist`：和 pick 相反方向的 twist。
+- [ ] `place_up`：侧向或向上插入模式。
+- [ ] `press_down`：使用力/接触反馈向下压合。
+- [ ] `support`：用另一个接触支撑结构；单臂阶段可先变成被动 fixture/support。
+- [ ] `handover`：第一阶段单臂不需要。
 
-For single-arm Isaac Sim, start with:
+单臂 Isaac Sim 第一版优先实现：
 
 - [ ] `pick_down`
 - [ ] `pick_twist`
@@ -138,97 +139,97 @@ For single-arm Isaac Sim, start with:
 - [ ] `drop_twist`
 - [ ] `press_down`
 
-Defer:
+推迟：
 
-- [ ] dual-arm support
-- [ ] handover
-- [ ] asynchronous TPG/ADG
+- [ ] 双臂 support。
+- [ ] handover。
+- [ ] 异步 TPG/ADG。
 
-## 7. Force / Contact Feedback
+## 7. 力 / 接触反馈
 
-APEX-MR uses F/T feedback thresholds:
+APEX-MR 使用 F/T feedback threshold：
 
-- z-force threshold for pick/drop.
-- x-force threshold for place-up.
-- lower velocity for contact-rich moves.
-- stop command once force threshold is reached.
+- pick/drop 时使用 z-force threshold。
+- place-up 时使用 x-force threshold。
+- 接触丰富动作使用低速度。
+- 达到力阈值后停止当前运动。
 
-In Isaac Sim / BrickSim:
+在 Isaac Sim / BrickSim 中需要决定：
 
-- [ ] Decide whether to use simulated force sensor, contact sensor, or BrickSim connection event.
-- [ ] Add a sensor or contact monitor at the tool/LEGO interface.
-- [ ] Record baseline force before contact move.
-- [ ] Stop descending when force/contact threshold is reached.
-- [ ] Use very low speed for contact moves.
-- [ ] Log force/contact traces for debugging.
-- [ ] Verify press does not tunnel through the LEGO.
+- [ ] 使用 simulated force sensor、contact sensor，还是 BrickSim connection event。
+- [ ] 在 tool/LEGO 接触位置添加 sensor 或 contact monitor。
+- [ ] 接触动作前记录 baseline force。
+- [ ] 下降动作达到 force/contact threshold 时停止。
+- [ ] 接触动作使用低速。
+- [ ] 记录 force/contact trace 用于调试。
+- [ ] 确认 press 不会穿透 LEGO。
 
-## 8. Motion Generation
+## 8. 运动生成
 
-Start simple:
+第一版从简单方案开始：
 
-- [ ] Hand-written joint waypoints.
-- [ ] Hand-written Cartesian waypoints.
-- [ ] No global planning for the first 1-brick test.
+- [ ] 手写 joint waypoints。
+- [ ] 手写 Cartesian waypoints。
+- [ ] 第一块积木测试不做全局规划。
 
-Then improve:
+然后再增强：
 
-- [ ] Add IK solver for target TCP poses.
-- [ ] Add collision checking.
-- [ ] Add RMPflow/Lula only after basic frames are correct.
-- [ ] Add MoveIt2 or external planner only if local waypoints are insufficient.
+- [ ] 为目标 TCP pose 增加 IK solver。
+- [ ] 增加 collision checking。
+- [ ] 在 frame 都正确后再加 RMPflow/Lula。
+- [ ] 只有本地 waypoint 不够用时，再考虑 MoveIt2 或外部 planner。
 
-## 9. BrickSim-Specific Validation
+## 9. BrickSim 专项验证
 
-- [ ] Run official BrickSim `demo_assembly.py` unchanged.
-- [ ] Confirm Isaac Sim version and Python version match BrickSim requirements.
-- [ ] Confirm your GPU can run the scene at low resolution.
-- [ ] Confirm BrickSim can load custom brick or existing brick assets.
-- [ ] Confirm connection is detected after press.
-- [ ] Confirm breakage/collapse detection works on a small stacked example.
-- [ ] Confirm reset/replay works.
+- [ ] 原样运行 BrickSim 官方 `demo_assembly.py`。
+- [ ] 确认 Isaac Sim 版本和 Python 版本符合 BrickSim 要求。
+- [ ] 确认 GPU 能在低分辨率下运行场景。
+- [ ] 确认 BrickSim 能加载现有 brick asset 或自定义 brick。
+- [ ] press 后能检测到 connection。
+- [ ] 小型堆叠例子中 breakage/collapse detection 正常。
+- [ ] reset/replay 行为稳定。
 
-## 10. Minimum Milestones
+## 10. 最小里程碑
 
-### M1: Environment
+### M1：环境
 
-- [ ] Isaac Sim starts.
-- [ ] BrickSim official demo runs.
-- [ ] Empty scene can load your robot.
+- [ ] Isaac Sim 能启动。
+- [ ] BrickSim 官方 demo 能跑。
+- [ ] 空场景能加载 RM75。
 
-### M2: Robot + Tool
+### M2：机器人 + Tool
 
-- [ ] Robot moves in Isaac Sim.
-- [ ] Tool is attached to the flange.
-- [ ] TCP marker positions are visually correct.
+- [ ] RM75 能在 Isaac Sim 中运动。
+- [ ] tool 正确挂到 flange。
+- [ ] TCP marker 的位置和方向可视化正确。
 
-### M3: One Brick
+### M3：一块积木
 
-- [ ] One LEGO brick is spawned at a known pose.
-- [ ] Robot picks it using attach or constraint.
-- [ ] Robot places it at a target pose.
-- [ ] Robot presses and releases without instability.
+- [ ] 一个 LEGO brick 能在已知 pose 生成。
+- [ ] 机械臂能用 attach 或 constraint 拿起它。
+- [ ] 机械臂能把它放到目标 pose。
+- [ ] press 和 release 不导致明显不稳定。
 
-### M4: Two Bricks
+### M4：两块积木
 
-- [ ] First brick is placed.
-- [ ] Second brick aligns on top.
-- [ ] BrickSim or contact logic reports connection.
+- [ ] 第一块能稳定放置。
+- [ ] 第二块能在其上方对齐。
+- [ ] BrickSim 或 contact logic 能报告 connection。
 
-### M5: Instruction JSON
+### M5：Instruction JSON
 
-- [ ] Define a small instruction JSON.
-- [ ] Execute steps sequentially.
-- [ ] Save final scene state.
-- [ ] Compare final brick poses against target poses.
+- [ ] 定义一个小 instruction JSON。
+- [ ] 顺序执行每一步。
+- [ ] 保存最终 scene state。
+- [ ] 对比最终 brick pose 和目标 pose。
 
-## 11. Stop Criteria Before Scaling
+## 11. 扩展前停止条件
 
-Do not scale to many bricks until these are true:
+不要在以下条件满足前扩展到很多积木：
 
-- [ ] Tool TCP is verified against real or known APEX-MR poses.
-- [ ] Contact move stops reliably.
-- [ ] One-brick placement repeatability is acceptable.
-- [ ] Two-brick stacking is stable.
-- [ ] Reset is deterministic.
-- [ ] Logs include target pose, actual pose, contact status, and final error.
+- [ ] Tool TCP 已经用真实或 APEX-MR 已知姿态验证。
+- [ ] 接触动作能可靠停止。
+- [ ] 单块积木放置重复性可接受。
+- [ ] 两块堆叠稳定。
+- [ ] reset 是确定性的。
+- [ ] 日志包含 target pose、actual pose、contact status 和 final error。
