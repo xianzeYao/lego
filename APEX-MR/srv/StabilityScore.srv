@@ -1,8 +1,0 @@
-string lego_structure_path
-bool use_support
-int32 support_x
-int32 support_y
-int32 support_z
-int32 support_ori
----
-bool stable

@@ -1,6 +1,6 @@
 # Repository Overview
 
-This repository is an experiment workspace for single-arm LEGO manipulation and future Isaac Sim / BrickSim reproduction. External upstream projects are vendored as normal folders, not submodules, so local edits can be committed directly to this `lego` repository.
+This repository is an experiment workspace for single-arm LEGO manipulation and future Isaac Sim / BrickSim reproduction. External upstream projects are tracked as submodules that point to `xianzeYao` forks, so local source edits can be committed inside those forks and the top-level `lego` repository records the exact submodule commits.
 
 The short version:
 
@@ -17,12 +17,13 @@ approach -> pick/attach -> lift -> place -> press -> release -> retreat
 
 After this loop works, we can replace the fake attach/release with BrickSim connection/contact behavior and then add more APEX-MR-style actions.
 
-## Vendored Libraries
+## External Submodules
 
 ### `APEX-MR/`
 
-Source: `https://github.com/intelligent-control-lab/APEX-MR`  
-Vendored commit: `46a9448d9eaac5bd5973e0cd064623c5e7f5254e`
+Upstream source: `https://github.com/intelligent-control-lab/APEX-MR`  
+Fork/submodule source: `https://github.com/xianzeYao/APEX-MR.git`  
+Pinned commit: `46a9448d9eaac5bd5973e0cd064623c5e7f5254e`
 
 What it is:
 
@@ -66,8 +67,9 @@ Expected friction:
 
 ### `Robot_Digital_Twin/`
 
-Source: `https://github.com/intelligent-control-lab/Robot_Digital_Twin.git`  
-Vendored commit: `017120d2b3fb2941fbeeb581d94f41b56d00df1d`
+Upstream source: `https://github.com/intelligent-control-lab/Robot_Digital_Twin.git`  
+Fork/submodule source: `https://github.com/xianzeYao/Robot_Digital_Twin.git`  
+Pinned commit: `017120d2b3fb2941fbeeb581d94f41b56d00df1d`
 
 What it is:
 
@@ -107,8 +109,9 @@ Expected friction:
 
 ### `BrickSim/`
 
-Source: `https://github.com/intelligent-control-lab/BrickSim.git`  
-Vendored commit: `cbd5de3238e6ac12f44ef699e1507a9f16bdafc3`
+Upstream source: `https://github.com/intelligent-control-lab/BrickSim.git`  
+Fork/submodule source: `https://github.com/xianzeYao/BrickSim.git`  
+Pinned commit: `cbd5de3238e6ac12f44ef699e1507a9f16bdafc3`
 
 What it is:
 
@@ -183,17 +186,29 @@ Expected friction:
 - STL origin and unit conventions can be wrong even when the mesh looks correct.
 - The modified LEGO pickup head probably needs more than one named frame: nominal tool, assemble tool, disassemble tool, alternate orientations, and possibly a handover frame if dual-arm returns later.
 
-## Why Vendor Instead Of Submodules
+## Why Fork Submodules
 
-We expect to edit source code in APEX-MR, Robot_Digital_Twin, and BrickSim while experimenting. If these were submodules, edits would belong to those nested repositories and would need fork/remotes/submodule pointer management. Vendoring makes every file a normal part of this `lego` repository.
+We expect to inspect and possibly edit source code in APEX-MR, Robot_Digital_Twin, and BrickSim while experimenting. These repositories are now submodules pointing to our own forks, not direct upstream remotes.
+
+Benefits:
+
+- Upstream updates can be pulled into the fork with normal git workflows.
+- Local edits to external source code can be committed to the corresponding fork.
+- The top-level `lego` repository stays smaller and records exact reproducible submodule commits.
 
 Tradeoff:
 
-- Easier local modification and single-repo commits.
-- Larger repository.
-- Harder upstream syncing.
+- A fresh clone must initialize submodules.
+- Changes inside submodules require two commits: one in the submodule fork and one in the top-level repo to update the submodule pointer.
+- Detached submodule commits should be moved onto a branch before long-lived edits.
 
-This is acceptable for the current experimental phase. If the project becomes long-lived, we can later split modifications into forks or submodules.
+Useful commands:
+
+```bash
+git clone --recurse-submodules git@github.com:xianzeYao/lego.git
+git submodule update --init --recursive
+git submodule status
+```
 
 ## How The Libraries Relate
 
@@ -417,7 +432,7 @@ What may fail:
 
 ## Related Upstream Projects
 
-These are related to the same research line but are not currently vendored here.
+These are related to the same research line but are not currently tracked as submodules here.
 
 ### `Robotic_Lego_Manipulation`
 
@@ -430,7 +445,7 @@ Status:
 
 Current recommendation:
 
-- Do not keep it as a vendored dependency.
+- Do not keep it as a submodule dependency.
 - Revisit only if we specifically need its Fanuc examples, `Stream_Motion_Controller` interface, standalone F/T sensor driver, RealSense node, or simpler single-file action-state-machine reference.
 
 ### `StableLego`
@@ -475,21 +490,20 @@ Current recommendation:
 
 Keep in git:
 
-- Source code in `APEX-MR/`, `Robot_Digital_Twin/`, and `BrickSim/`.
+- Submodule pointers for `APEX-MR/`, `Robot_Digital_Twin/`, and `BrickSim/`.
 - Meshes and robot assets needed to reproduce the environment.
 - `Attempt/` robot/tool assets and docs.
 - Small scripts that define our reproduction pipeline.
 
 Remove or ignore:
 
-- Nested `.git/` directories inside vendored repos.
 - `__pycache__/`, build directories, logs, temporary downloads, and local simulator caches.
 - Large downloaded binaries if they can be reproduced by documented commands.
 - OS metadata files such as `*:Zone.Identifier`.
 
 Reason:
 
-- We want the repo to preserve source and important assets, not machine-specific build products.
+- We want the repo to preserve our source, docs, assets, and exact external submodule versions, not machine-specific build products.
 - If a downloaded file is required and not easy to regenerate, document the exact command/version before deciding whether to commit it.
 
 ## First Reproduction Goal

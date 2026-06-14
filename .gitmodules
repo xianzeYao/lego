@@ -1,0 +1,9 @@
+[submodule "APEX-MR"]
+	path = APEX-MR
+	url = https://github.com/xianzeYao/APEX-MR.git
+[submodule "Robot_Digital_Twin"]
+	path = Robot_Digital_Twin
+	url = https://github.com/xianzeYao/Robot_Digital_Twin.git
+[submodule "BrickSim"]
+	path = BrickSim
+	url = https://github.com/xianzeYao/BrickSim.git

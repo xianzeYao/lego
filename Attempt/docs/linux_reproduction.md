@@ -1,18 +1,21 @@
 # Linux Reproduction Notes
 
-This repository vendors the upstream APEX-MR, Robot_Digital_Twin, and BrickSim source trees so local changes can be committed directly to this `lego` repository.
+This repository tracks APEX-MR, Robot_Digital_Twin, and BrickSim as submodules pointing to `xianzeYao` forks. The top-level `lego` repository records exact submodule commits; edits inside an external project should be committed in that project's fork, then the top-level submodule pointer should be updated.
 
-## Vendored Sources
+## External Submodules
 
 - `APEX-MR/`
-  - Source: `https://github.com/intelligent-control-lab/APEX-MR`
-  - Vendored commit: `46a9448d9eaac5bd5973e0cd064623c5e7f5254e`
+  - Upstream: `https://github.com/intelligent-control-lab/APEX-MR`
+  - Fork: `https://github.com/xianzeYao/APEX-MR.git`
+  - Pinned commit: `46a9448d9eaac5bd5973e0cd064623c5e7f5254e`
 - `Robot_Digital_Twin/`
-  - Source: `https://github.com/intelligent-control-lab/Robot_Digital_Twin.git`
-  - Vendored commit: `017120d2b3fb2941fbeeb581d94f41b56d00df1d`
+  - Upstream: `https://github.com/intelligent-control-lab/Robot_Digital_Twin.git`
+  - Fork: `https://github.com/xianzeYao/Robot_Digital_Twin.git`
+  - Pinned commit: `017120d2b3fb2941fbeeb581d94f41b56d00df1d`
 - `BrickSim/`
-  - Source: `https://github.com/intelligent-control-lab/BrickSim.git`
-  - Vendored commit: `cbd5de3238e6ac12f44ef699e1507a9f16bdafc3`
+  - Upstream: `https://github.com/intelligent-control-lab/BrickSim.git`
+  - Fork: `https://github.com/xianzeYao/BrickSim.git`
+  - Pinned commit: `cbd5de3238e6ac12f44ef699e1507a9f16bdafc3`
 
 ## Recommended Machine
 
@@ -32,10 +35,17 @@ Use this if the goal is to run the original APEX-MR stack before migrating to Is
    ```bash
    mkdir -p ~/catkin_ws/src
    cd ~/catkin_ws/src
-   git clone git@github.com:xianzeYao/lego.git
+   git clone --recurse-submodules git@github.com:xianzeYao/lego.git
    ```
 
-4. Expose the vendored ROS packages to the workspace. The practical options are:
+4. If the repository was cloned without submodules, initialize them:
+
+   ```bash
+   cd ~/catkin_ws/src/lego
+   git submodule update --init --recursive
+   ```
+
+5. Expose the submodule ROS packages to the workspace. The practical options are:
 
    ```bash
    ln -s ~/catkin_ws/src/lego/APEX-MR ~/catkin_ws/src/apex_mr
@@ -43,7 +53,7 @@ Use this if the goal is to run the original APEX-MR stack before migrating to Is
    ln -s ~/catkin_ws/src/lego/Robot_Digital_Twin/moveit_config ~/catkin_ws/src/dual_gp4_moveit_config
    ```
 
-5. Build:
+6. Build:
 
    ```bash
    cd ~/catkin_ws
@@ -51,7 +61,7 @@ Use this if the goal is to run the original APEX-MR stack before migrating to Is
    source devel/setup.bash
    ```
 
-6. Run a small APEX-MR task:
+7. Run a small APEX-MR task:
 
    ```bash
    roslaunch apex_mr lego_assign.launch task:=cliff
@@ -69,7 +79,7 @@ Use this if the goal is to reproduce the single-arm LEGO manipulation path.
    ```
 
 2. Install Isaac Sim according to the BrickSim-supported version.
-3. Set up the vendored BrickSim tree and run its official demo first:
+3. Set up the BrickSim submodule and run its official demo first:
 
    ```bash
    cd ~/catkin_ws/src/lego/BrickSim
