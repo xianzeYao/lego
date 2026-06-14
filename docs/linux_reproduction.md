@@ -75,7 +75,7 @@ third_party/Robot_Digital_Twin
 三个 third party 的具体作用见：
 
 ```text
-Attempt/docs/repository_overview.md
+docs/repository_overview.md
 ```
 
 ## 2. 安装 Isaac Sim 和 BrickSim 环境
@@ -125,16 +125,16 @@ uv run bricksim demos/demo_assembly.py
 本仓库主资产在：
 
 ```text
-Attempt/RM75_gripper/
+assets/rm75_gripper/
 ```
 
 第一阶段建议使用：
 
 ```text
-Attempt/RM75_gripper/RM75-B/urdf/RM75-B.urdf
-Attempt/RM75_gripper/RM75-B/urdf/RM75-B.planning.tiny.urdf
-Attempt/RM75_gripper/RM75-B/urdf/RM75-B.permissive.srdf
-Attempt/lego_test_open_fixed.stl
+assets/rm75_gripper/RM75-B/urdf/RM75-B.urdf
+assets/rm75_gripper/RM75-B/urdf/RM75-B.planning.tiny.urdf
+assets/rm75_gripper/RM75-B/urdf/RM75-B.permissive.srdf
+assets/lego_test_open_fixed.stl
 ```
 
 文件分工：
@@ -297,8 +297,8 @@ instruction step
 规划模型可先使用：
 
 ```text
-Attempt/RM75_gripper/RM75-B/urdf/RM75-B.planning.tiny.urdf
-Attempt/RM75_gripper/RM75-B/urdf/RM75-B.permissive.srdf
+assets/rm75_gripper/RM75-B/urdf/RM75-B.planning.tiny.urdf
+assets/rm75_gripper/RM75-B/urdf/RM75-B.permissive.srdf
 ```
 
 注意：
