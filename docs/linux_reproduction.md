@@ -135,16 +135,16 @@ assets/rm75_gripper/RM75-B/urdf/RM75-B.urdf
 assets/rm75_gripper/RM75-B/urdf/RM75-B_lego_tool.urdf
 assets/rm75_gripper/RM75-B/urdf/RM75-B.planning.tiny.urdf
 assets/rm75_gripper/RM75-B/urdf/RM75-B.permissive.srdf
-assets/lego_test_open_fixed.stl
+assets/rm75_gripper/RM75-B/meshes/lego_test_open_fixed.stl
 ```
 
 文件分工：
 
 - `RM75-B.urdf`：原夹爪版主视觉/仿真模型，包含 RM75、夹爪、8mm spacer 和 `gripper_tcp`。
-- `RM75-B_lego_tool.urdf`：LEGO 小件 tool 版模型，保留 RM75 和 8mm spacer，把夹爪替换为 `lego_test_open_fixed.stl`，末端 frame 为 `lego_tool_tcp`。
+- `RM75-B_lego_tool.urdf`：LEGO 小件 tool overlay 版模型，保留 RM75、8mm spacer 和原夹爪扣具，再叠加 `lego_test_open_fixed.stl`，末端 frame 为 `lego_tool_tcp`。
 - `RM75-B.planning.tiny.urdf`：规划用简化 collision 版本。
 - `RM75-B.permissive.srdf`：规划器用的 group 和 collision disable 配置。
-- `lego_test_open_fixed.stl`：我们的自定义 LEGO/tool 相关 STL。
+- `lego_test_open_fixed.stl`：我们的自定义 LEGO/tool 相关 STL，放在 RM75-B 的 `meshes/` 下，方便 URDF 使用相对路径引用。
 
 不要优先使用：
 
