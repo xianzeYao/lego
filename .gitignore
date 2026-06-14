@@ -1,10 +1,7 @@
-# External upstream repositories kept locally for reference.
-APEX-MR/
-Robot_Digital_Twin/
-
 # Local/editor noise.
 .DS_Store
 *.log
+*:Zone.Identifier
 __pycache__/
 *.py[cod]
 
@@ -14,4 +11,3 @@ devel/
 install/
 log/
 *.egg-info/
-
