@@ -1,231 +1,410 @@
-# Linux 复现说明
+# Linux 复现步骤
 
-本仓库把 APEX-MR、Robot_Digital_Twin 和 BrickSim 作为 submodule 接入，并指向 `xianzeYao` 名下的 fork。顶层 `lego` 仓库只记录这些外部项目的精确 commit；如果要改外部项目源码，应该先在对应 submodule 里提交并推送到 fork，再回到顶层仓库提交新的 submodule 指针。
+这份文档只描述第一阶段要做的事：在一台 Linux/NVIDIA 电脑上，基于本仓库复现单臂 LEGO 拼装流程。目标不是一开始就复现完整 APEX-MR 多机器人系统，而是按下面这条路线一步一步跑通：
 
-## 外部 Submodule
+```text
+搭 Linux / Isaac Sim / BrickSim 环境
+        |
+        v
+复现 BrickSim 官方单臂/装配 demo
+        |
+        v
+换成我们自己的 RM75 机械臂和改装 tool
+        |
+        v
+拿一个给定 LEGO 装配说明书/简化 JSON
+        |
+        v
+用 APEX-MR 思路生成单臂顺序执行的 action sequence
+        |
+        v
+计算每一步的 RM75 joint 值或控制目标
+        |
+        v
+送进 Isaac Sim / BrickSim 里的 RM75 执行
+```
 
-- `APEX-MR/`
-  - 上游：`https://github.com/intelligent-control-lab/APEX-MR`
-  - Fork：`https://github.com/xianzeYao/APEX-MR.git`
-  - 固定版本：`46a9448d9eaac5bd5973e0cd064623c5e7f5254e`
-- `Robot_Digital_Twin/`
-  - 上游：`https://github.com/intelligent-control-lab/Robot_Digital_Twin.git`
-  - Fork：`https://github.com/xianzeYao/Robot_Digital_Twin.git`
-  - 固定版本：`017120d2b3fb2941fbeeb581d94f41b56d00df1d`
-- `BrickSim/`
-  - 上游：`https://github.com/intelligent-control-lab/BrickSim.git`
-  - Fork：`https://github.com/xianzeYao/BrickSim.git`
-  - 固定版本：`cbd5de3238e6ac12f44ef699e1507a9f16bdafc3`
+第一阶段不处理 text-to-LEGO，也不处理自动生成 LEGO 结构。可以先假设我们已经拿到一个按层搭建的 LEGO 说明书。
 
-## 推荐机器
+## 0. 推荐硬件和系统
+
+推荐：
 
 - Ubuntu 22.04 或 24.04。
-- 如果要跑 Isaac Sim / BrickSim，需要 NVIDIA GPU 和可用驱动。
-- 内存建议 32 GB；16 GB 可以先试小场景，但环境和仿真会更紧。
-- 1 TB SSD 足够放本仓库、Isaac Sim、BrickSim 和生成资产。
+- NVIDIA GPU 和正常驱动。
+- 32 GB RAM 更稳；16 GB 可以先跑小场景，但环境会比较紧。
+- 1 TB SSD 足够。
 
-## 先 Clone 仓库
+先检查 GPU：
 
-推荐直接带 submodule clone：
+```bash
+nvidia-smi
+```
+
+如果 `nvidia-smi` 不正常，先不要装 BrickSim，也不要调 RM75。
+
+## 1. 拉取仓库
+
+推荐直接带 submodule：
 
 ```bash
 git clone --recurse-submodules git@github.com:xianzeYao/lego.git
+cd lego
 ```
 
-如果已经 clone 过但没拉 submodule：
+如果已经 clone 过：
 
 ```bash
-cd lego
 git submodule update --init --recursive
 ```
 
-检查 submodule 是否到位：
+确认 third party 都在：
 
 ```bash
 git submodule status
 ```
 
-正常应该看到三个路径：
+应该看到：
 
 ```text
-APEX-MR
-Robot_Digital_Twin
-BrickSim
+third_party/APEX-MR
+third_party/BrickSim
+third_party/Robot_Digital_Twin
 ```
 
-## 路线 A：复现 APEX-MR / ROS Baseline
+三个 third party 的具体作用见：
 
-如果目标是先跑原始 APEX-MR 栈，再迁移到 Isaac Sim，用这条路线。
+```text
+Attempt/docs/repository_overview.md
+```
 
-适合场景：
+## 2. 安装 Isaac Sim 和 BrickSim 环境
 
-- 想验证原论文的 ROS/MoveIt 逻辑。
-- 想看 APEX-MR 原始任务格式、动作状态机和规划流程。
-- 暂时不改成 RM75，只先跑原始 GP4/数字孪生环境。
+先按 BrickSim 支持的版本安装 Isaac Sim。版本必须跟 BrickSim 要求对齐，不要随意升级。
 
-建议环境：
+进入 BrickSim：
 
-- Ubuntu 20.04 + ROS Noetic。
-- 或使用 APEX-MR 提供的 Docker 流程。
+```bash
+cd third_party/BrickSim
+```
 
-基本步骤：
+安装/同步 BrickSim 环境：
 
-1. 安装 ROS Noetic、MoveIt、catkin tools、rviz visual tools、moveit visual tools。
-2. 建立 catkin workspace：
+```bash
+./scripts/download_prebuilt_native.sh
+uv sync --locked
+```
 
-   ```bash
-   mkdir -p ~/catkin_ws/src
-   cd ~/catkin_ws/src
-   git clone --recurse-submodules git@github.com:xianzeYao/lego.git
-   ```
+如果这里失败，优先检查：
 
-3. 如果 clone 时没有带 submodule：
+- Isaac Sim 版本。
+- NVIDIA driver。
+- Python / `uv` 环境。
+- BrickSim native extension 是否下载成功。
 
-   ```bash
-   cd ~/catkin_ws/src/lego
-   git submodule update --init --recursive
-   ```
+## 3. 先跑 BrickSim 官方 Demo
 
-4. 把 submodule 里的 ROS package 暴露给 workspace。一个实用做法是建软链接：
+官方 demo 是第一道 smoke test：
 
-   ```bash
-   ln -s ~/catkin_ws/src/lego/APEX-MR ~/catkin_ws/src/apex_mr
-   ln -s ~/catkin_ws/src/lego/Robot_Digital_Twin/gazebo ~/catkin_ws/src/robot_digital_twin
-   ln -s ~/catkin_ws/src/lego/Robot_Digital_Twin/moveit_config ~/catkin_ws/src/dual_gp4_moveit_config
-   ```
+```bash
+uv run bricksim demos/demo_assembly.py
+```
 
-5. 编译：
+验收：
 
-   ```bash
-   cd ~/catkin_ws
-   catkin build
-   source devel/setup.bash
-   ```
+- Isaac Sim 能启动。
+- demo 场景能加载。
+- brick 能出现。
+- 仿真能 step。
+- 没有 native extension load error。
 
-6. 运行一个小任务：
+如果官方 demo 跑不通，不要继续导入 RM75。先把 BrickSim 自己跑通。
 
-   ```bash
-   roslaunch apex_mr lego_assign.launch task:=cliff
-   roslaunch apex_mr lego.launch task:=cliff
-   ```
+## 4. 确认我们的 RM75 和 Tool 资产
+
+本仓库主资产在：
+
+```text
+Attempt/RM75_gripper/
+```
+
+第一阶段建议使用：
+
+```text
+Attempt/RM75_gripper/RM75-B/urdf/RM75-B.urdf
+Attempt/RM75_gripper/RM75-B/urdf/RM75-B.planning.tiny.urdf
+Attempt/RM75_gripper/RM75-B/urdf/RM75-B.permissive.srdf
+Attempt/lego_test_open_fixed.stl
+```
+
+文件分工：
+
+- `RM75-B.urdf`：主视觉/仿真模型，包含 RM75、夹爪、8mm spacer 和 `gripper_tcp`。
+- `RM75-B.planning.tiny.urdf`：规划用简化 collision 版本。
+- `RM75-B.permissive.srdf`：规划器用的 group 和 collision disable 配置。
+- `lego_test_open_fixed.stl`：我们的自定义 LEGO/tool 相关 STL。
+
+不要优先使用：
+
+- `wrong_RM75-B.urdf`：名字已经标明错误。
+- `panda_stick.urdf`：Franka Panda 示例，不是 RM75。
+- `robot_ag2f90c.urdf`：Dobot CR5 + AG2F90-C 的旧模型，不是当前 RM75 路线。
+- `RM75-B_vhacd.urdf`：可以后续参考碰撞分解，但第一版先别当主模型。
+
+## 5. 在 Isaac Sim 中导入 RM75
+
+先只导入机器人，不要放 LEGO。
+
+检查顺序：
+
+- [ ] `RM75-B.urdf` 能导入。
+- [ ] mesh 路径都能解析。
+- [ ] robot scale 正确。
+- [ ] `joint_1` 到 `joint_7` 都能动。
+- [ ] joint axis 方向正确。
+- [ ] joint limit 与真实 RM75 控制器一致。
+- [ ] base frame / world frame 约定明确。
+- [ ] `gripper_tcp` 能看到或能通过 debug marker 表示。
+
+如果 robot 看起来能加载但运动不对，优先检查：
+
+- URDF joint origin。
+- joint axis。
+- STL/DAE 单位。
+- base link 朝向。
+- Isaac Sim URDF importer 是否改写了 articulation 设置。
+
+## 6. 挂载和校准改装 Tool
+
+当前 RM75 URDF 已经包含夹爪和 `gripper_tcp`，但 LEGO 拼装通常不只需要一个 TCP。APEX-MR 的经验是同一个物理 tool 会有多个任务 frame：
+
+- nominal tool frame。
+- assemble TCP。
+- disassemble TCP。
+- alt/place-up TCP。
+- press TCP。
+
+第一版要做：
+
+- [ ] 明确 flange frame。
+- [ ] 明确 gripper/tool body frame。
+- [ ] 可视化 `gripper_tcp`。
+- [ ] 增加或记录 assemble TCP。
+- [ ] 增加或记录 disassemble TCP。
+- [ ] 增加或记录 press TCP。
+- [ ] 确认 press 方向相对 LEGO stud 是正确的。
+
+这些 frame 可以先用 Isaac Sim debug marker 表示，不一定一开始就写回 URDF。
+
+## 7. 生成一块 LEGO 和目标位姿
+
+先不要做完整说明书，只放一块 LEGO。
+
+检查：
+
+- [ ] LEGO mesh 单位正确。
+- [ ] stud pitch 按 8 mm 理解。
+- [ ] brick 高度按 9.6 mm 理解。
+- [ ] brick 原点明确，是中心、角点，还是自定义位置。
+- [ ] 目标 pose 明确。
+- [ ] brick orientation 约定明确。
+
+第一版可以使用简单 rigid body 或 fake object attach，不要求马上进入 BrickSim interlocking metadata。
+
+## 8. 跑通单块 LEGO Fake Attach 流程
+
+第一阶段最小动作：
+
+```text
+move home
+approach brick
+descend to pick
+attach/grasp
+lift
+move above target
+descend to place
+press
+release
+retreat
+```
+
+验收：
+
+- [ ] approach pose 无碰撞。
+- [ ] pick TCP 对准 LEGO 抓取位置。
+- [ ] attach 后 LEGO 相对 tool 固定。
+- [ ] lift 不撞底板或邻近物。
+- [ ] place pose 对准目标位置。
+- [ ] press 距离小且可控。
+- [ ] release 不产生明显冲击。
+- [ ] retreat 方向能安全离开。
+
+这一阶段的目标只是验证 RM75 运动和 frame，不代表 LEGO 物理已经正确。
+
+## 9. 接入 APEX-MR 的动作思路
+
+APEX-MR 在这里主要当动作设计参考，不要先搬完整多机器人系统。
+
+重点参考：
+
+```text
+third_party/APEX-MR/src/lego_policy.cpp
+third_party/APEX-MR/include/task.h
+third_party/APEX-MR/src/lego/Lego.cpp
+third_party/APEX-MR/config/lego_tasks/
+third_party/APEX-MR/config/lego_tasks/robot_properties/
+```
+
+第一版单臂动作：
+
+- `pick_down`
+- `pick_twist`
+- `drop_down`
+- `drop_twist`
+- `press_down`
+
+先不做：
+
+- 双臂 support。
+- handover。
+- ILP 多机器人任务分配。
+- TPG/ADG 异步执行。
+
+实现方式可以很简单：
+
+```text
+instruction step
+  -> brick id + source pose + target pose
+  -> action sequence
+  -> TCP waypoints
+  -> IK / joint targets
+  -> Isaac Sim execution
+```
+
+## 10. 计算 RM75 Joint 值或控制目标
+
+第一版不要急着上复杂 planner。
+
+推荐顺序：
+
+1. 手写少量 joint waypoint。
+2. 手写 Cartesian waypoint。
+3. 对目标 TCP pose 做 IK。
+4. 增加简单 collision checking。
+5. frame 都对之后再考虑 RMPflow/Lula。
+6. 如果本地 waypoint 不够，再考虑 MoveIt2 或外部 planner。
+
+规划模型可先使用：
+
+```text
+Attempt/RM75_gripper/RM75-B/urdf/RM75-B.planning.tiny.urdf
+Attempt/RM75_gripper/RM75-B/urdf/RM75-B.permissive.srdf
+```
 
 注意：
 
-- 这条路线主要是复现原始工作，不是我们的最终 RM75 + Isaac Sim 路线。
-- 如果 ROS package 名、launch 文件或依赖缺失，需要回到 APEX-MR README 和 `Robot_Digital_Twin` 的 package 结构逐项对齐。
+- `RM75-B.planning.tiny.urdf` 是规划简化模型，不是最终视觉模型。
+- 如果规划器老是报自碰撞，先看 SRDF collision disable 和 tool collision。
+- 如果 IK 结果看起来怪，先怀疑 TCP frame，而不是 planner。
 
-## 路线 B：Isaac Sim / BrickSim 方向
+## 11. 把 Fake Attach 换成 BrickSim 物理
 
-如果目标是做单臂 LEGO manipulation 复现，优先用这条路线。
+单块动作能稳定执行后，再开始替换物理交互。
 
-适合场景：
+要验证：
 
-- 使用自己的 RM75 URDF。
-- 使用自己的改装 LEGO tool。
-- 想在 Isaac Sim / BrickSim 里做 LEGO 接触和连接仿真。
-- 第一阶段只做单臂顺序执行，不做多机器人任务分配。
+- [ ] tool 和 LEGO 接触能被检测到。
+- [ ] press 后 BrickSim 能报告 connection。
+- [ ] release 后 brick 不乱飞。
+- [ ] detach/disassembly threshold 合理。
+- [ ] reset/replay 稳定。
 
-基本步骤：
-
-1. 安装 NVIDIA driver，并确认 GPU 可用：
-
-   ```bash
-   nvidia-smi
-   ```
-
-2. 按 BrickSim 支持的版本安装 Isaac Sim。
-
-3. 进入 BrickSim submodule，先跑官方 demo：
-
-   ```bash
-   cd ~/catkin_ws/src/lego/BrickSim
-   ./scripts/download_prebuilt_native.sh
-   uv sync --locked
-   uv run bricksim demos/demo_assembly.py
-   ```
-
-4. 如果官方 demo 不能跑，不要先调 RM75。先解决：
-
-   - Isaac Sim 版本。
-   - Python / `uv` 环境。
-   - native extension 加载。
-   - NVIDIA driver 和 Vulkan/渲染问题。
-
-5. 官方 demo 成功后，再导入我们自己的资产：
-
-   ```text
-   Attempt/RM75_gripper/
-   Attempt/lego_test_open_fixed.stl
-   ```
-
-6. 按顺序验证：
-
-   - RM75 URDF 能导入。
-   - 所有关节能动，方向和限位正确。
-   - 改装 tool 正确挂到 flange。
-   - tool TCP / assemble TCP / disassemble TCP 等 frame 可视化正确。
-   - 单个 LEGO brick 能在已知 pose 生成。
-   - 一次 pick -> lift -> place -> press -> release 闭环能执行。
-
-7. 更详细的逐项检查见：
-
-   ```text
-   Attempt/docs/isaac_bricksim_lego_migration_checklist.md
-   ```
-
-8. 三个外部库的角色和取舍见：
-
-   ```text
-   Attempt/docs/repository_overview.md
-   ```
-
-## 第一目标
-
-第一阶段不要追求完整自动 LEGO 装配。目标应该收敛到：
+可能需要看的 BrickSim 代码：
 
 ```text
-single RM75 arm + modified LEGO tool + one LEGO brick
-pick -> lift -> place -> press -> release
+third_party/BrickSim/python/bricksim/mdp/connection_events.py
+third_party/BrickSim/python/bricksim/mdp/connection_state.py
+third_party/BrickSim/python/bricksim/mdp/brick_part.py
 ```
 
-验收标准：
+如果自定义 STL 没有 BrickSim 需要的 stud/hole/topology metadata，先不要硬接。可以先用已有 BrickSim brick asset 验证流程。
 
-- Isaac Sim / BrickSim 官方 demo 能跑。
-- RM75 能导入并控制。
-- 改装 tool 和 TCP frame 正确。
-- 单块积木能被拿起、移动、放下、按压、释放。
-- 日志里能记录目标 pose、实际 pose、接触/连接状态和最终误差。
+## 12. 输入一个简单 LEGO 说明书
 
-只有这个循环稳定后，再扩展到：
+等单块动作和 BrickSim 连接都能跑，再输入一个最小 instruction JSON。
 
-1. BrickSim 真实连接逻辑。
-2. 两块积木堆叠。
-3. 简单 instruction JSON。
-4. APEX-MR 风格 action sequence。
-5. 更自动的 planning。
+第一版 JSON 可以只包含：
 
-## 修改 Submodule 的建议流程
-
-如果之后要改 APEX-MR、Robot_Digital_Twin 或 BrickSim 源码，不要直接在 detached HEAD 上长期写。
-
-推荐流程：
-
-```bash
-cd APEX-MR
-git switch -c lego-rm75-adapter
-# 修改、提交、推送到 xianzeYao/APEX-MR
-git add .
-git commit -m "Add RM75 LEGO adapter notes"
-git push -u origin lego-rm75-adapter
+```text
+brick_id
+brick_type
+source_pose
+target_pose
+orientation
+layer
 ```
 
-然后回到顶层仓库提交 submodule 指针：
+执行方式：
 
-```bash
-cd ..
-git add APEX-MR
-git commit -m "Update APEX-MR submodule pointer"
-git push
+```text
+for each instruction step:
+    生成 action sequence
+    生成 TCP waypoints
+    求 IK / joint targets
+    Isaac Sim 执行
+    BrickSim 检查 contact/connection
+    记录日志
 ```
 
-同理适用于 `Robot_Digital_Twin/` 和 `BrickSim/`。
+不要一开始做 text-to-LEGO。那是前端任务生成问题，不是第一阶段仿真复现问题。
+
+## 13. 两块积木验收
+
+单块成功后，做两块上下堆叠。
+
+验收：
+
+- [ ] 第一块能稳定放置。
+- [ ] 第二块能对齐第一块 stud。
+- [ ] press 后 BrickSim 报告 connection。
+- [ ] release 后结构稳定。
+- [ ] retreat 不碰已经放好的 brick。
+- [ ] reset 后重复执行结果接近。
+
+两块成功前，不要扩展到很多块。
+
+## 14. 日志和停止条件
+
+每次执行至少记录：
+
+- target pose。
+- actual pose。
+- joint target。
+- joint actual。
+- TCP pose。
+- contact status。
+- connection status。
+- final pose error。
+
+扩展到多块前，必须满足：
+
+- [ ] RM75 joint axis 和 limit 已验证。
+- [ ] tool TCP / assemble TCP / press TCP 已验证。
+- [ ] 单块 fake attach 流程稳定。
+- [ ] BrickSim 官方 demo 稳定。
+- [ ] BrickSim 单块 connection 稳定。
+- [ ] 两块堆叠稳定。
+- [ ] reset/replay 基本确定。
+
+## 15. 暂时不做的事
+
+第一阶段明确不做：
+
+- text-to-LEGO。
+- 自动设计 LEGO 模型。
+- 完整 APEX-MR 多机器人 ILP。
+- TPG/ADG 异步执行。
+- 双臂 handover。
+- 从零写完整运动规划器。
+
+这些都可以后面补，但不是证明 RM75 + 改装 tool 能在 BrickSim/Isaac Sim 里拼 LEGO 的前置条件。
