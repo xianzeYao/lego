@@ -15,7 +15,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/eoat/femto_bolt.stl" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/eoat/femto_bolt.stl" />
       </geometry>
       <material name="">
         <color rgba="0.15 0.15 0.15 1.0" />
@@ -24,7 +24,7 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/eoat/femto_bolt.stl" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/eoat/femto_bolt.stl" />
       </geometry>
     </collision>
   </link>

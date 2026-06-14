@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<robot name="Yaskawa_gp50">
+<robot name="Yaskawa_gp4">
   <link name="world" />
   <joint name="world_fixed" type="fixed">
     <parent link="world" />
@@ -18,18 +18,16 @@
       <inertia ixx="0.64296" ixy="0.0012624" ixz="-0.068804" iyy="1.2709" iyz="-0.0010754" izz="1.3497" />
     </inertial>
     <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp50/base_link.STL" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/base_link.stl" />
       </geometry>
       <material name="">
         <color rgba="0.129411764706 0.149019607843 0.749019607843 1.0" />
       </material>
     </visual>
     <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp50/base_link.STL" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/base_link.stl" />
       </geometry>
     </collision>
   </link>
@@ -40,27 +38,19 @@
       <inertia ixx="0.95018" ixy="-0.14402" ixz="-0.064915" iyy="1.0578" iyz="0.037699" izz="1.094" />
     </inertial>
     <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp50/link_1.STL" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_1.stl" />
       </geometry>
       <material name="">
         <color rgba="0.129411764706 0.149019607843 0.749019607843 1.0" />
       </material>
     </visual>
     <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp50/link_1.STL" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_1.stl" />
       </geometry>
     </collision>
   </link>
-  <joint name="joint_1" type="continuous">
-    <origin xyz="0 0 0.223" rpy="1.5708 0 0" />
-    <parent link="base_link" />
-    <child link="link_1" />
-    <axis xyz="0 1 0" />
-  </joint>
   <link name="link_2">
     <inertial>
       <origin xyz="3.5083E-05 0.39008 0.15036" rpy="0 0 0" />
@@ -68,27 +58,19 @@
       <inertia ixx="1.7745" ixy="-0.0054743" ixz="0.00063015" iyy="0.15511" iyz="-0.09224" izz="1.826" />
     </inertial>
     <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp50/link_2.STL" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_2.stl" />
       </geometry>
       <material name="">
         <color rgba="0.129411764706 0.149019607843 0.749019607843 1.0" />
       </material>
     </visual>
     <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp50/link_2.STL" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_2.stl" />
       </geometry>
     </collision>
   </link>
-  <joint name="joint_2" type="continuous">
-    <origin xyz="0.145 0.315 0.0435" rpy="0 0 0" />
-    <parent link="link_1" />
-    <child link="link_2" />
-    <axis xyz="0 0 -1" />
-  </joint>
   <link name="link_3">
     <inertial>
       <origin xyz="0.086423 0.14427 -0.035793" rpy="0 0 0" />
@@ -96,27 +78,19 @@
       <inertia ixx="0.65771" ixy="-0.13627" ixz="-0.026219" iyy="0.52683" iyz="0.051956" izz="0.69722" />
     </inertial>
     <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp50/link_3.STL" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_3.stl" />
       </geometry>
       <material name="">
         <color rgba="0.129411764706 0.149019607843 0.749019607843 1.0" />
       </material>
     </visual>
     <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp50/link_3.STL" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_3.stl" />
       </geometry>
     </collision>
   </link>
-  <joint name="joint_3" type="continuous">
-    <origin xyz="0 0.87 0" rpy="0 0 0" />
-    <parent link="link_2" />
-    <child link="link_3" />
-    <axis xyz="0 0 1" />
-  </joint>
   <link name="link_4">
     <inertial>
       <origin xyz="0.37337 0.00033491 0.012656" rpy="0 0 0" />
@@ -124,27 +98,19 @@
       <inertia ixx="0.018151" ixy="-0.00033527" ixz="-0.031589" iyy="0.48072" iyz="3.3917E-05" izz="0.47647" />
     </inertial>
     <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp50/link_4.STL" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_4.stl" />
       </geometry>
       <material name="">
         <color rgba="0.129411764706 0.149019607843 0.749019607843 1.0" />
       </material>
     </visual>
     <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp50/link_4.STL" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_4.stl" />
       </geometry>
     </collision>
   </link>
-  <joint name="joint_4" type="continuous">
-    <origin xyz="0.317 0.21 -0.0435" rpy="0 0 0" />
-    <parent link="link_3" />
-    <child link="link_4" />
-    <axis xyz="-1 0 0" />
-  </joint>
   <link name="link_5">
     <inertial>
       <origin xyz="0.062818 3.3289E-05 0.0048991" rpy="0 0 0" />
@@ -152,27 +118,19 @@
       <inertia ixx="0.015161" ixy="-2.4835E-06" ixz="0.0016647" iyy="0.021382" iyz="-2.248E-06" izz="0.013473" />
     </inertial>
     <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp50/link_5.STL" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_5.stl" />
       </geometry>
       <material name="">
         <color rgba="0.129411764706 0.149019607843 0.749019607843 1.0" />
       </material>
     </visual>
     <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp50/link_5.STL" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_5.stl" />
       </geometry>
     </collision>
   </link>
-  <joint name="joint_5" type="continuous">
-    <origin xyz="0.7065 0 0" rpy="0 0 0" />
-    <parent link="link_4" />
-    <child link="link_5" />
-    <axis xyz="0 0 1" />
-  </joint>
   <link name="link_6">
     <inertial>
       <origin xyz="0.00015982 -0.00063018 -0.008266" rpy="0 0 0" />
@@ -180,26 +138,110 @@
       <inertia ixx="9.0129E-05" ixy="-1.0891E-08" ixz="9.1598E-09" iyy="9.2026E-05" iyz="-2.749E-07" izz="0.00017818" />
     </inertial>
     <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp50/link_6.STL" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_6.stl" />
       </geometry>
       <material name="">
-        <color rgba="0.129411764706 0.149019607843 0.749019607843 1.0" />
+        <color rgba="0.8 0.8 0.8 1" />
       </material>
     </visual>
     <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp50/link_6.STL" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_6.stl" />
       </geometry>
     </collision>
   </link>
+  <link name="fts">
+    <collision>
+      <origin xyz="0 0 0" rpy=" 0 0 0" />
+      <geometry>
+        <cylinder length="0.0505" radius="0.035" />
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder length="0.0505" radius="0.035" />
+      </geometry>
+      <material name="">
+        <color rgba="0.8 0.8 0.8 1" />
+      </material>
+    </visual>
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+  <link name="link_tool">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.10811" />
+      <inertia ixx="9.0129E-05" ixy="-1.0891E-08" ixz="9.1598E-09" iyy="9.2026E-05" iyz="-2.749E-07" izz="0.00017818" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/eoat/tool_with_cam_gen35.stl" />
+      </geometry>
+      <material name="">
+        <color rgba="0.8 0.8 0.8 1" />
+      </material>
+    </visual>
+  </link>
+  <joint name="joint_1" type="continuous">
+    <parent link="base_link" />
+    <child link="link_1" />
+    <origin xyz="0 0 0.330" rpy="0 0 0" />
+    <axis xyz="0 0 1" />
+  </joint>
+  <joint name="joint_2" type="continuous">
+    <parent link="link_1" />
+    <child link="link_2" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 1 0" />
+  </joint>
+  <joint name="joint_3" type="continuous">
+    <parent link="link_2" />
+    <child link="link_3" />
+    <origin xyz="0 0 0.260" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+  </joint>
+  <joint name="joint_4" type="continuous">
+    <parent link="link_3" />
+    <child link="link_4" />
+    <origin xyz="0.290 0 0.015" rpy="0 0 0" />
+    <axis xyz="-1 0 0" />
+  </joint>
+  <joint name="joint_5" type="continuous">
+    <parent link="link_4" />
+    <child link="link_5" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 -1 0" />
+  </joint>
   <joint name="joint_6" type="continuous">
-    <origin xyz="0.174 0 -0.001" rpy="1.5708 0 1.5708" />
     <parent link="link_5" />
     <child link="link_6" />
-    <axis xyz="0 0 -1" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="-1 0 0" />
+  </joint>
+  <link name="flange" />
+  <joint name="joint_6_t-flange" type="fixed">
+    <origin xyz="0.072 0 0" rpy="0 0 0" />
+    <parent link="link_6" />
+    <child link="flange" />
+  </joint>
+  <joint name="link_6_fts" type="fixed">
+    <origin xyz="0.02525 0 0" rpy="0 1.57079632679 0" />
+    <parent link="flange" />
+    <child link="fts" />
+  </joint>
+  <joint name="fts_tool" type="revolute">
+    <origin xyz="0 0 0.02525" rpy="0 0 3.14159265359" />
+    <parent link="fts" />
+    <child link="link_tool" />
+    <axis xyz="0 0 1" />
+    <limit velocity="0" effort="0" lower="0" upper="0" />
   </joint>
   <transmission name="trans_joint_1">
     <type>transmission_interface/SimpleTransmission</type>
@@ -267,6 +309,35 @@
       <legacyModeNS>true</legacyModeNS>
     </plugin>
   </gazebo>
+  <gazebo reference="fts_tool">
+    <provideFeedback>true</provideFeedback>
+  </gazebo>
+  <gazebo>
+    <provideFeedback>true</provideFeedback>
+    <plugin name="ft_sensor" filename="libgazebo_ros_ft_sensor.so">
+      <alwaysOn> true </alwaysOn>
+      <updateRate>125.0</updateRate>
+      <topicName>ft_sensor</topicName>
+      <jointName>fts_tool</jointName>
+      <noise>
+        <type>gaussian</type>
+        <mean>0.0</mean>
+        <stddev>0.001</stddev>
+      </noise>
+    </plugin>
+  </gazebo>
+  <gazebo reference="base">
+    <material>Gazebo/Blue</material>
+    <visual>
+      <transparency> 0 </transparency>
+    </visual>
+  </gazebo>
+  <gazebo reference="base_link">
+    <material>Gazebo/Blue</material>
+    <visual>
+      <transparency> 0 </transparency>
+    </visual>
+  </gazebo>
   <gazebo reference="link_1">
     <material>Gazebo/Blue</material>
     <visual>
@@ -298,13 +369,25 @@
     </visual>
   </gazebo>
   <gazebo reference="link_6">
-    <material>Gazebo/Blue</material>
+    <material>Gazebo/Black</material>
     <visual>
       <transparency> 0 </transparency>
     </visual>
   </gazebo>
-  <gazebo reference="base_link">
-    <material>Gazebo/Blue</material>
+  <gazebo reference="link_tool0">
+    <material>Gazebo/Black</material>
+    <visual>
+      <transparency> 0 </transparency>
+    </visual>
+  </gazebo>
+  <gazebo reference="fts">
+    <material>Gazebo/Black</material>
+    <visual>
+      <transparency> 0 </transparency>
+    </visual>
+  </gazebo>
+  <gazebo reference="link_camera_origin">
+    <material>Gazebo/Black</material>
     <visual>
       <transparency> 0 </transparency>
     </visual>

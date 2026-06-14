@@ -8,8 +8,8 @@
     <child link="base" />
     <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
   </joint>
-  <joint name="left_arm_to_${connected_to}" type="fixed">
-    <parent link="${connected_to}" />
+  <joint name="left_arm_to_base" type="fixed">
+    <parent link="base" />
     <child link="left_arm_base" />
     <origin rpy="0 0 0" xyz="0 0 0.9246" />
     <dynamics damping="1.0" />
@@ -28,7 +28,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/base_link.stl" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/base_link.stl" />
       </geometry>
       <material name="">
         <color rgba="0.129411764706 0.149019607843 0.749019607843 1.0" />
@@ -36,7 +36,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/base_link.stl" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/base_link.stl" />
       </geometry>
     </collision>
   </link>
@@ -48,7 +48,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_1.stl" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_1.stl" />
       </geometry>
       <material name="">
         <color rgba="0.129411764706 0.149019607843 0.749019607843 1.0" />
@@ -56,7 +56,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_1_scaled.stl" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_1_scaled.stl" />
       </geometry>
     </collision>
   </link>
@@ -68,7 +68,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_2.stl" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_2.stl" />
       </geometry>
       <material name="">
         <color rgba="0.129411764706 0.149019607843 0.749019607843 1.0" />
@@ -76,7 +76,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_2_scaled.stl" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_2_scaled.stl" />
       </geometry>
     </collision>
   </link>
@@ -88,7 +88,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_3.stl" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_3.stl" />
       </geometry>
       <material name="">
         <color rgba="0.129411764706 0.149019607843 0.749019607843 1.0" />
@@ -96,7 +96,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_3_scaled.stl" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_3_scaled.stl" />
       </geometry>
     </collision>
   </link>
@@ -108,7 +108,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_4.stl" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_4.stl" />
       </geometry>
       <material name="">
         <color rgba="0.129411764706 0.149019607843 0.749019607843 1.0" />
@@ -116,7 +116,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_4_scaled.stl" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_4_scaled.stl" />
       </geometry>
     </collision>
   </link>
@@ -128,7 +128,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_5.stl" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_5.stl" />
       </geometry>
       <material name="">
         <color rgba="0.129411764706 0.149019607843 0.749019607843 1.0" />
@@ -136,7 +136,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_5_scaled.stl" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_5_scaled.stl" />
       </geometry>
     </collision>
   </link>
@@ -148,7 +148,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_6.stl" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_6.stl" />
       </geometry>
       <material name="">
         <color rgba="0.8 0.8 0.8 1" />
@@ -156,7 +156,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_6_scaled.stl" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_6_scaled.stl" />
       </geometry>
     </collision>
   </link>
@@ -191,13 +191,13 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/eoat/tool.stl" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/eoat/tool.stl" />
       </geometry>
     </collision>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/eoat/tool.stl" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/eoat/tool.stl" />
       </geometry>
       <material name="">
         <color rgba="0.8 0.8 0.8 1" />
@@ -209,42 +209,42 @@
     <child link="left_arm_link_1" />
     <origin xyz="0 0 0.330" rpy="0 0 0" />
     <axis xyz="0 0 1" />
-    <limit effort="0" lower="${radians(-170)}" upper="${radians(170)}" velocity="${radians(465)}" />
+    <limit effort="0" lower="-2.96705972839" upper="2.96705972839" velocity="8.11578102177" />
   </joint>
   <joint name="left_arm_joint_2" type="revolute">
     <parent link="left_arm_link_1" />
     <child link="left_arm_link_2" />
     <origin xyz="0 0 0" rpy="0 0 0" />
     <axis xyz="0 1 0" />
-    <limit effort="100" lower="${radians(-110)}" upper="${radians(130)}" velocity="${radians(465)}" />
+    <limit effort="100" lower="-1.91986217719" upper="2.26892802759" velocity="8.11578102177" />
   </joint>
   <joint name="left_arm_joint_3" type="revolute">
     <parent link="left_arm_link_2" />
     <child link="left_arm_link_3" />
     <origin xyz="0 0 0.260" rpy="0 0 0" />
     <axis xyz="0 -1 0" />
-    <limit effort="0" lower="${radians(-65)}" upper="${radians(200)}" velocity="${radians(525)}" />
+    <limit effort="0" lower="-1.1344640138" upper="3.49065850399" velocity="9.16297857297" />
   </joint>
   <joint name="left_arm_joint_4" type="revolute">
     <parent link="left_arm_link_3" />
     <child link="left_arm_link_4" />
     <origin xyz="0.290 0 0.015" rpy="0 0 0" />
     <axis xyz="-1 0 0" />
-    <limit effort="0" lower="${radians(-200)}" upper="${radians(200)}" velocity="${radians(550)}" />
+    <limit effort="0" lower="-3.49065850399" upper="3.49065850399" velocity="9.59931088597" />
   </joint>
   <joint name="left_arm_joint_5" type="revolute">
     <parent link="left_arm_link_4" />
     <child link="left_arm_link_5" />
     <origin xyz="0 0 0" rpy="0 0 0" />
     <axis xyz="0 -1 0" />
-    <limit effort="0" lower="${radians(-123)}" upper="${radians(123)}" velocity="${radians(545)}" />
+    <limit effort="0" lower="-2.14675497995" upper="2.14675497995" velocity="9.51204442337" />
   </joint>
   <joint name="left_arm_joint_6" type="revolute">
     <parent link="left_arm_link_5" />
     <child link="left_arm_link_6" />
     <origin xyz="0 0 0" rpy="0 0 0" />
     <axis xyz="-1 0 0" />
-    <limit effort="0" lower="${radians(-455)}" upper="${radians(455)}" velocity="${radians(1000)}" />
+    <limit effort="0" lower="-7.94124809657" upper="7.94124809657" velocity="17.4532925199" />
   </joint>
   <link name="left_arm_flange" />
   <joint name="left_arm_joint_6_t-flange" type="fixed">
@@ -264,8 +264,8 @@
     <axis xyz="0 0 1" />
     <limit velocity="0" effort="0" lower="0" upper="0" />
   </joint>
-  <joint name="right_arm_to_${connected_to}" type="fixed">
-    <parent link="${connected_to}" />
+  <joint name="right_arm_to_base" type="fixed">
+    <parent link="base" />
     <child link="right_arm_base" />
     <origin rpy="0 0 3.13585279" xyz="0.88101137 -0.01304334 0.92460000" />
     <dynamics damping="1.0" />
@@ -284,7 +284,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/base_link.stl" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/base_link.stl" />
       </geometry>
       <material name="">
         <color rgba="0.129411764706 0.149019607843 0.749019607843 1.0" />
@@ -292,7 +292,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/base_link.stl" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/base_link.stl" />
       </geometry>
     </collision>
   </link>
@@ -304,7 +304,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_1.stl" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_1.stl" />
       </geometry>
       <material name="">
         <color rgba="0.129411764706 0.149019607843 0.749019607843 1.0" />
@@ -312,7 +312,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_1_scaled.stl" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_1_scaled.stl" />
       </geometry>
     </collision>
   </link>
@@ -324,7 +324,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_2.stl" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_2.stl" />
       </geometry>
       <material name="">
         <color rgba="0.129411764706 0.149019607843 0.749019607843 1.0" />
@@ -332,7 +332,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_2_scaled.stl" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_2_scaled.stl" />
       </geometry>
     </collision>
   </link>
@@ -344,7 +344,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_3.stl" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_3.stl" />
       </geometry>
       <material name="">
         <color rgba="0.129411764706 0.149019607843 0.749019607843 1.0" />
@@ -352,7 +352,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_3_scaled.stl" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_3_scaled.stl" />
       </geometry>
     </collision>
   </link>
@@ -364,7 +364,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_4.stl" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_4.stl" />
       </geometry>
       <material name="">
         <color rgba="0.129411764706 0.149019607843 0.749019607843 1.0" />
@@ -372,7 +372,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_4_scaled.stl" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_4_scaled.stl" />
       </geometry>
     </collision>
   </link>
@@ -384,7 +384,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_5.stl" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_5.stl" />
       </geometry>
       <material name="">
         <color rgba="0.129411764706 0.149019607843 0.749019607843 1.0" />
@@ -392,7 +392,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_5_scaled.stl" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_5_scaled.stl" />
       </geometry>
     </collision>
   </link>
@@ -404,7 +404,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_6.stl" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_6.stl" />
       </geometry>
       <material name="">
         <color rgba="0.8 0.8 0.8 1" />
@@ -412,7 +412,7 @@
     </visual>
     <collision>
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_6_scaled.stl" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/gp4/link_6_scaled.stl" />
       </geometry>
     </collision>
   </link>
@@ -447,13 +447,13 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/eoat/tool.stl" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/eoat/tool.stl" />
       </geometry>
     </collision>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/eoat/tool.stl" />
+        <mesh filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/eoat/tool.stl" />
       </geometry>
       <material name="">
         <color rgba="0.8 0.8 0.8 1" />
@@ -465,42 +465,42 @@
     <child link="right_arm_link_1" />
     <origin xyz="0 0 0.330" rpy="0 0 0" />
     <axis xyz="0 0 1" />
-    <limit effort="0" lower="${radians(-170)}" upper="${radians(170)}" velocity="${radians(465)}" />
+    <limit effort="0" lower="-2.96705972839" upper="2.96705972839" velocity="8.11578102177" />
   </joint>
   <joint name="right_arm_joint_2" type="revolute">
     <parent link="right_arm_link_1" />
     <child link="right_arm_link_2" />
     <origin xyz="0 0 0" rpy="0 0 0" />
     <axis xyz="0 1 0" />
-    <limit effort="100" lower="${radians(-110)}" upper="${radians(130)}" velocity="${radians(465)}" />
+    <limit effort="100" lower="-1.91986217719" upper="2.26892802759" velocity="8.11578102177" />
   </joint>
   <joint name="right_arm_joint_3" type="revolute">
     <parent link="right_arm_link_2" />
     <child link="right_arm_link_3" />
     <origin xyz="0 0 0.260" rpy="0 0 0" />
     <axis xyz="0 -1 0" />
-    <limit effort="0" lower="${radians(-65)}" upper="${radians(200)}" velocity="${radians(525)}" />
+    <limit effort="0" lower="-1.1344640138" upper="3.49065850399" velocity="9.16297857297" />
   </joint>
   <joint name="right_arm_joint_4" type="revolute">
     <parent link="right_arm_link_3" />
     <child link="right_arm_link_4" />
     <origin xyz="0.290 0 0.015" rpy="0 0 0" />
     <axis xyz="-1 0 0" />
-    <limit effort="0" lower="${radians(-200)}" upper="${radians(200)}" velocity="${radians(550)}" />
+    <limit effort="0" lower="-3.49065850399" upper="3.49065850399" velocity="9.59931088597" />
   </joint>
   <joint name="right_arm_joint_5" type="revolute">
     <parent link="right_arm_link_4" />
     <child link="right_arm_link_5" />
     <origin xyz="0 0 0" rpy="0 0 0" />
     <axis xyz="0 -1 0" />
-    <limit effort="0" lower="${radians(-123)}" upper="${radians(123)}" velocity="${radians(545)}" />
+    <limit effort="0" lower="-2.14675497995" upper="2.14675497995" velocity="9.51204442337" />
   </joint>
   <joint name="right_arm_joint_6" type="revolute">
     <parent link="right_arm_link_5" />
     <child link="right_arm_link_6" />
     <origin xyz="0 0 0" rpy="0 0 0" />
     <axis xyz="-1 0 0" />
-    <limit effort="0" lower="${radians(-455)}" upper="${radians(455)}" velocity="${radians(1000)}" />
+    <limit effort="0" lower="-7.94124809657" upper="7.94124809657" velocity="17.4532925199" />
   </joint>
   <link name="right_arm_flange" />
   <joint name="right_arm_joint_6_t-flange" type="fixed">

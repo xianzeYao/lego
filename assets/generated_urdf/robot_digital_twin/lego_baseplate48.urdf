@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding='utf-8'?>
-<robot name="b1x1">
-  <link name="brick">
+<robot name="base_plate48">
+  <link name="plate">
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <mass value="0.001" />
       <inertia ixx="0" ixy="-0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
     </inertial>
     <visual>
-      <origin xyz="0 0 0" rpy="0 0 1.57079632679" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh scale="0.001 0.001 0.001" filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/lego/b1x1.stl" />
+        <mesh scale="0.001 0.001 0.001" filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/lego/base48x48.stl" />
       </geometry>
       <material name="">
         <color rgba="1 1 1 1" />
@@ -17,8 +17,9 @@
     </visual>
     <gravity>0</gravity>
   </link>
-  <gazebo reference="brick">
+  <gazebo reference="plate">
     <kinematic>true</kinematic>
+    <material>Gazebo/Orange</material>
     <visual>
       <transparency> 0 </transparency>
     </visual>

@@ -9,7 +9,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 1.57079632679" />
       <geometry>
-        <mesh scale="0.001 0.001 0.001" filename="../../third_party/Robot_Digital_Twin/gazebo/meshes/lego/b1x2.stl" />
+        <mesh scale="0.001 0.001 0.001" filename="../../../third_party/Robot_Digital_Twin/gazebo/meshes/lego/b1x2.stl" />
       </geometry>
       <material name="">
         <color rgba="1 1 1 1" />
@@ -19,6 +19,7 @@
   </link>
   <gazebo reference="brick">
     <kinematic>true</kinematic>
+    <material>Gazebo/Orange</material>
     <visual>
       <transparency> 0 </transparency>
     </visual>

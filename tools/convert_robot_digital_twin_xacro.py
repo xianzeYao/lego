@@ -135,7 +135,7 @@ class XacroExpander:
                 if keep:
                     out: list[ET.Element] = []
                     for child in list(elem):
-                        out.extend(self._expand_element(child, args, dict(ctx)))
+                        out.extend(self._expand_element(child, args, ctx))
                     return out
                 return []
             if tag in self.macros:
@@ -166,7 +166,7 @@ class XacroExpander:
 
         out: list[ET.Element] = []
         for child in list(macro):
-            for expanded in self._expand_element(copy.deepcopy(child), local_args, dict(local_ctx)):
+            for expanded in self._expand_element(copy.deepcopy(child), local_args, local_ctx):
                 out.append(expanded)
         return out
 
@@ -183,7 +183,7 @@ class XacroExpander:
 
         def expr_repl(match: re.Match[str]) -> str:
             expr = match.group(1)
-            env = {"pi": math.pi, "true": True, "false": False}
+            env = {"pi": math.pi, "true": True, "false": False, "radians": math.radians}
             env.update(ctx)
             try:
                 result = eval(expr, {"__builtins__": {}}, env)
@@ -195,7 +195,7 @@ class XacroExpander:
 
     def _eval_bool(self, value: str, args: dict[str, str], ctx: dict[str, object]) -> bool:
         expr = self._subst(value, args, ctx)
-        env = {"pi": math.pi, "true": True, "false": False}
+        env = {"pi": math.pi, "true": True, "false": False, "radians": math.radians}
         env.update(ctx)
         try:
             return bool(eval(expr, {"__builtins__": {}}, env))
@@ -237,7 +237,7 @@ def main() -> int:
     repo = Path(__file__).resolve().parents[1]
     package_root = repo / "third_party" / "Robot_Digital_Twin" / "gazebo"
     src_dir = package_root / "urdf"
-    out_dir = repo / "generated_urdf" / "robot_digital_twin"
+    out_dir = repo / "assets" / "generated_urdf" / "robot_digital_twin"
     out_dir.mkdir(parents=True, exist_ok=True)
 
     targets = sorted(src_dir.glob("*.xacro"))
