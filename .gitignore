@@ -11,3 +11,6 @@ devel/
 install/
 log/
 *.egg-info/
+
+# Local validation artifacts.
+outputs/

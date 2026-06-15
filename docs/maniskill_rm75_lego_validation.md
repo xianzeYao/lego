@@ -340,13 +340,25 @@ contact_offset_tcp
 在 pick motion 的坐标计算稳定后，再做 place motion。这个阶段仍然只验证
 几何和 IK，不验证真实卡合。
 
+当前先落地了一个 fake-attached 版本，用来默认 LEGO 在 home 位姿已经卡在工具头上，
+然后只检查放置动作趋势：
+
+```text
+maniskill_rm75_lego/scripts/run_stage6_fake_attached_place_1x6.py
+docs/maniskill_rm75_lego_validation_stages/stage_6_fake_attached_place_motion.md
+```
+
 Place 动作预期：
 
 ```text
-home 或 picked pose
-pre_place       # contact/brick 目标在目标格点上方
+home 位姿 fake attach
+transfer
+place_offset    # APEX 风格小偏移 [-5mm, +5mm, -10mm]
+drop_up         # 目标上方，准备直上直下
 place_down      # 对齐目标 studs 后下压
-place_twist     # 使用无柱/释放侧方向 twist，让 LEGO 完成 place 语义
+place_press     # 可选，继续下压几毫米
+place_twist     # 使用释放方向 twist，观察工具脱离/释放趋势
+release         # 当前先 snap 到目标 grid pose
 place_up        # 保持或解除接触后抬起
 ```
 
@@ -359,6 +371,18 @@ target occupied studs
 place contact target
 place contact frame
 pre_place / place_down / place_twist / place_up TCP frame
+```
+
+当前 home-held fake-attached 几何是：
+
+```text
+world_T_contact_place:
+  +X = target brick long axis
+  +Z = world down
+  origin = target brick actor origin + approx 18 mm world z
+
+contact_T_brick = inverse(world_T_contact_place) * world_T_brick_target
+world_T_brick_home = world_T_contact_home * contact_T_brick
 ```
 
 place twist 的符号和轴不要直接照搬 pick。它要按实体工具的无柱一侧释放逻辑

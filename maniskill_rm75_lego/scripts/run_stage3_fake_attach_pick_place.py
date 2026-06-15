@@ -24,7 +24,7 @@ from maniskill_rm75_lego.agents.rm75_lego_tool import RM75LegoTool
 from maniskill_rm75_lego.envs.rm75_lego_pick_place import TARGET_POS
 
 
-CONTACT_OFFSET_TCP = np.array([0.0, 0.0, -0.015], dtype=np.float32)
+CONTACT_OFFSET_TCP = np.array([0.0, 0.0, 0.0], dtype=np.float32)
 
 
 def as_numpy(x):
@@ -170,4 +170,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

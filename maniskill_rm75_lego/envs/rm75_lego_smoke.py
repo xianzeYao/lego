@@ -14,7 +14,7 @@ from mani_skill.utils.registration import register_env
 from maniskill_rm75_lego.agents.rm75_lego_tool import ARM_JOINT_NAMES, RM75LegoTool
 
 
-CONTACT_OFFSET_TCP = [0.0, 0.0, -0.015]
+CONTACT_OFFSET_TCP = [0.0, 0.0, 0.0]
 
 
 @register_env("RM75LegoSmoke-v1", max_episode_steps=200)

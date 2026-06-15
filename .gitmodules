@@ -7,3 +7,7 @@
 [submodule "BrickSim"]
 	path = third_party/BrickSim
 	url = https://github.com/xianzeYao/BrickSim.git
+[submodule "third_party/lerobot-realman"]
+	path = third_party/lerobot-realman
+	url = https://github.com/longlongzzl/lerobot-realman.git
+	branch = 1.0.23

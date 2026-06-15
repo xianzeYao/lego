@@ -5,6 +5,7 @@ import argparse
 import os
 import sys
 import time
+from dataclasses import replace
 from pathlib import Path
 
 os.environ.setdefault("MPLCONFIGDIR", "/tmp/matplotlib")
@@ -26,10 +27,12 @@ from maniskill_rm75_lego.envs.rm75_lego_pick_place import (
     PLATE_SIZE_XY,
     PLATE_TOP_POS,
     PLATE_YAW,
+    brick_pose_for_placement,
     stage2_placement_by_key,
 )
 from maniskill_rm75_lego.envs.rm75_lego_smoke import CONTACT_OFFSET_TCP
 from maniskill_rm75_lego.lego_grid import (
+    LegoGridPose,
     matrix_to_sapien_pose,
     pick_target_from_press_side,
     translation_matrix,
@@ -39,6 +42,8 @@ from maniskill_rm75_lego.apex_mr_reference import APEX_TWIST_DEG
 
 JOINT_LOWER = np.array([-3.106, -2.2689, -3.106, -2.356, -3.106, -2.234, -6.28], dtype=np.float64)
 JOINT_UPPER = np.array([3.106, 2.2689, 3.106, 2.356, 3.106, 2.234, 6.28], dtype=np.float64)
+STACKED_2X4_GRID = LegoGridPose(x=15, y=13, z=1, ori=0)
+STACKED_2X4_SUPPORT_KEY = "lego_2x6"
 
 
 def as_numpy(x):
@@ -175,6 +180,11 @@ def parse_args(
     parser.add_argument("--ik-mode", choices=["regularized", "pinocchio"], default="regularized")
     parser.add_argument("--ik-regularization", type=float, default=0.18)
     parser.add_argument("--no-ik-fallback", action="store_true")
+    parser.add_argument(
+        "--use-stage2-placement",
+        action="store_true",
+        help="Use the original flat stage2 placement instead of stacking the default 2x4 on another brick.",
+    )
     parser.add_argument("--steps-per-segment", type=int, default=80)
     parser.add_argument("--twist-ik-steps", type=int, default=14)
     parser.add_argument("--hold-steps", type=int, default=30)
@@ -210,6 +220,12 @@ def main(
     base_env = env.unwrapped
 
     placement = stage2_placement_by_key(args.brick_key)
+    support_key = None
+    if args.brick_key == "lego_2x4" and not args.use_stage2_placement:
+        placement = replace(placement, grid=STACKED_2X4_GRID)
+        support_key = STACKED_2X4_SUPPORT_KEY
+        base_env.bricks[placement.key].set_pose(brick_pose_for_placement(placement))
+
     pick = pick_target_from_press_side(
         plate_top_pos=PLATE_TOP_POS,
         plate_size_xy=PLATE_SIZE_XY,
@@ -484,6 +500,9 @@ def main(
 
     print("stage4 brick:", args.brick_key)
     print("brick grid[x,y,z,ori]:", [placement.grid.x, placement.grid.y, placement.grid.z, placement.grid.ori])
+    if support_key is not None:
+        support = stage2_placement_by_key(support_key)
+        print("stacked on:", support_key, "grid[x,y,z,ori]:", [support.grid.x, support.grid.y, support.grid.z, support.grid.ori])
     print("press_side/press_offset:", args.press_side, args.press_offset)
     print("contact_offset_tcp:", contact_offset.tolist())
     print("tcp_orientation:", args.tcp_orientation)

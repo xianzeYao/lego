@@ -247,7 +247,7 @@
   </joint>
   <link name="lego_tool_tcp" />
   <joint name="lego_tool_tcp_joint" type="fixed">
-    <origin xyz="0 0 0.075000" rpy="0 0 0" />
+    <origin xyz="-0.001000 0 0.057000" rpy="0 0 0" />
     <parent link="lego_tool_link" />
     <child link="lego_tool_tcp" />
   </joint>

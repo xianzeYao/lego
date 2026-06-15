@@ -1,0 +1,41 @@
+{
+  "assumption": "Final selected rigid APEX three-frame mapping. Black/default tool frame is the RM75 lego_tool_tcp: x=-1mm, y=0, z=57mm in lego_tool_link coordinates. Relative offsets unchanged; blue axis reversed in X. Only black is encoded as the URDF TCP; blue/red remain calibration references.",
+  "mesh_path": "assets/rm75_gripper/RM75-B/meshes/lego_test_open_fixed.stl",
+  "x_correction_mm": -1.0,
+  "y_correction_mm": 0.0,
+  "tcp_origin_in_lego_tool_link_m": [
+    -0.001,
+    0.0,
+    0.057
+  ],
+  "relative_offsets_mm": {
+    "blue_minus_black": [
+      -7.8,
+      0.0,
+      -0.5
+    ],
+    "red_minus_black": [
+      0.0,
+      0.0,
+      9.0
+    ]
+  },
+  "mapped_rm75_points_mm_unflipped_coords": {
+    "tool / black": [
+      -1.0,
+      0.0,
+      57.0
+    ],
+    "tool_assemble / blue": [
+      -8.8,
+      0.0,
+      56.5
+    ],
+    "tool_disassemble / red": [
+      -1.0,
+      0.0,
+      66.0
+    ]
+  },
+  "image": "assets/tool_geometry/calibration_frames/rm75_apex_group_black_z57_rigid_edges.png"
+}
