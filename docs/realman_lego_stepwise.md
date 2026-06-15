@@ -20,4 +20,6 @@ At each waypoint:
 - Type `s` then `Enter` to skip the stage.
 - Type `q` then `Enter` to abort before moving.
 
-The script does not send the home pose by default. Add `--include-home` only when the real robot is already in a known safe configuration for that first move.
+For real execution, the generated waypoint list includes `home_start` before the LEGO motion and `home_end` after it by default. These are still stepwise prompts, so the robot will not move until `Enter` is pressed for each one. Use `--no-include-home` or `--no-return-home` only for a controlled debug run where the robot is already at the intended start or end pose.
+
+`--dry-run-no-prompts` only skips the keyboard prompts. It still will not send hardware commands unless `--execute-real` is also set.

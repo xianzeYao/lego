@@ -89,7 +89,18 @@ def parse_args():
     parser.add_argument("--transfer-up-height", type=float, default=0.08)
     parser.add_argument("--place-up-height", type=float, default=0.035)
     parser.add_argument("--twist-ik-steps", type=int, default=3)
-    parser.add_argument("--include-home", action="store_true")
+    parser.add_argument(
+        "--include-home",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Include a confirmed home waypoint before the LEGO motion.",
+    )
+    parser.add_argument(
+        "--return-home",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Include a confirmed home waypoint after the LEGO motion.",
+    )
     parser.add_argument("--render", action="store_true")
     parser.add_argument("--render-sleep", type=float, default=0.03)
     parser.add_argument("--execute-real", action="store_true")
@@ -271,7 +282,7 @@ def build_waypoints(args):
 
     waypoints: list[tuple[str, np.ndarray, np.ndarray]] = []
     if args.include_home:
-        waypoints.append(("home", q_seed.astype(np.float32), np.eye(4, dtype=np.float64)))
+        waypoints.append(("home_start", q_seed.astype(np.float32), np.eye(4, dtype=np.float64)))
 
     for name in ["pre_pick", "pick_down"]:
         pose = tcp_pose_from_contact(contact_poses[name], contact_offset)
@@ -309,6 +320,9 @@ def build_waypoints(args):
         if not success:
             raise RuntimeError(f"IK failed for {name}: err={np.round(err, 6).tolist()}")
         waypoints.append((name, q_seed.astype(np.float32), contact_poses[name]))
+
+    if args.return_home:
+        waypoints.append(("home_end", RM75LegoTool.keyframes["neutral"].qpos.astype(np.float32), np.eye(4, dtype=np.float64)))
 
     env.close()
     return waypoints
