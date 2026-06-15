@@ -2,11 +2,15 @@
 from __future__ import annotations
 
 import argparse
+import csv
 import importlib.util
+import json
 import os
 import sys
+import threading
 import time
 from dataclasses import replace
+from datetime import datetime
 from pathlib import Path
 
 os.environ.setdefault("MPLCONFIGDIR", "/tmp/matplotlib")
@@ -122,6 +126,8 @@ def parse_args():
     parser.add_argument("--real-gripper-command-hz", type=float, default=10.0)
     parser.add_argument("--real-execution-thread", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--real-shadow-render-hz", type=float, default=None)
+    parser.add_argument("--eef-log-hz", type=float, default=30.0)
+    parser.add_argument("--eef-log-dir", type=Path, default=Path("outputs/realman_eef_logs"))
     parser.add_argument("--assume-aligned", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--dry-run-no-prompts", action="store_true")
     return parser.parse_args()
@@ -397,6 +403,161 @@ def joint_limit_report(q: np.ndarray, margin_warn: float = 0.05) -> str:
     return ""
 
 
+class RealmanEefLogger:
+    def __init__(self, real_exec, args):
+        self.real_exec = real_exec
+        self.hz = float(max(args.eef_log_hz, 0.0))
+        self.out_dir = Path(args.eef_log_dir)
+        self.rows: list[dict] = []
+        self.stage = "idle"
+        self.target_contact = np.full(3, np.nan, dtype=np.float64)
+        self._lock = threading.Lock()
+        self._stop = threading.Event()
+        self._thread: threading.Thread | None = None
+        self._t0 = 0.0
+
+    def set_stage(self, stage: str, contact_pose: np.ndarray | None = None) -> None:
+        target = np.full(3, np.nan, dtype=np.float64)
+        if contact_pose is not None and not np.allclose(contact_pose, np.eye(4), atol=1e-9):
+            target = np.asarray(contact_pose[:3, 3], dtype=np.float64)
+        with self._lock:
+            self.stage = stage
+            self.target_contact = target
+
+    def start(self) -> None:
+        if self.hz <= 0.0:
+            return
+        self._t0 = time.perf_counter()
+        self._thread = threading.Thread(target=self._loop, name="realman-eef-logger", daemon=True)
+        self._thread.start()
+        print(f"[eef-log] recording controller EEF state at {self.hz:.1f} Hz")
+
+    def stop_and_save(self) -> Path | None:
+        if self._thread is None:
+            return None
+        self._stop.set()
+        self._thread.join(timeout=2.0)
+        return self._save()
+
+    def _loop(self) -> None:
+        period = 1.0 / max(self.hz, 1e-3)
+        next_t = time.perf_counter()
+        while not self._stop.is_set():
+            now = time.perf_counter()
+            if now < next_t:
+                time.sleep(min(next_t - now, 0.01))
+                continue
+            self._sample(now)
+            next_t += period
+
+    def _sample(self, now: float) -> None:
+        with self._lock:
+            stage = self.stage
+            target = self.target_contact.copy()
+        row = {
+            "t": now - self._t0,
+            "wall_time": time.time(),
+            "stage": stage,
+            "target_contact_x": float(target[0]),
+            "target_contact_y": float(target[1]),
+            "target_contact_z": float(target[2]),
+        }
+        try:
+            arm = getattr(self.real_exec.real_robot, "arm", None)
+            if arm is None:
+                row["ok"] = 0
+                row["error"] = "missing_real_robot_arm"
+            else:
+                with self.real_exec._io_lock:
+                    ret, state = arm.rm_get_current_arm_state()
+                row["ok"] = int(ret == 0 and state is not None)
+                row["ret"] = int(ret)
+                if ret == 0 and state is not None:
+                    pose = np.asarray(state.get("pose", [np.nan] * 6), dtype=np.float64).reshape(-1)
+                    joint = np.asarray(state.get("joint", []), dtype=np.float64).reshape(-1)
+                    for idx, name in enumerate(["x", "y", "z", "rx", "ry", "rz"]):
+                        row[f"eef_{name}"] = float(pose[idx]) if idx < pose.size else float("nan")
+                    for idx in range(7):
+                        row[f"joint{idx + 1}_deg"] = float(joint[idx]) if idx < joint.size else float("nan")
+                else:
+                    row["error"] = "rm_get_current_arm_state_failed"
+        except Exception as exc:
+            row["ok"] = 0
+            row["error"] = repr(exc)
+        self.rows.append(row)
+
+    def _save(self) -> Path | None:
+        if not self.rows:
+            print("[eef-log] no samples captured")
+            return None
+        self.out_dir.mkdir(parents=True, exist_ok=True)
+        stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        csv_path = self.out_dir / f"realman_eef_{stamp}.csv"
+        json_path = self.out_dir / f"realman_eef_{stamp}_summary.json"
+        fields = [
+            "t", "wall_time", "stage", "ok", "ret", "error",
+            "eef_x", "eef_y", "eef_z", "eef_rx", "eef_ry", "eef_rz",
+            "target_contact_x", "target_contact_y", "target_contact_z",
+        ] + [f"joint{i}_deg" for i in range(1, 8)]
+        with csv_path.open("w", newline="") as f:
+            writer = csv.DictWriter(f, fieldnames=fields, extrasaction="ignore")
+            writer.writeheader()
+            writer.writerows(self.rows)
+        summary = self._summary(csv_path)
+        with json_path.open("w") as f:
+            json.dump(summary, f, indent=2)
+        print(f"[eef-log] saved {len(self.rows)} samples to {csv_path}")
+        print(f"[eef-log] summary: {json_path}")
+        return csv_path
+
+    def _summary(self, csv_path: Path) -> dict:
+        summary = {"csv_path": str(csv_path), "num_samples": len(self.rows), "stages": {}}
+        stage_names = sorted({str(row.get("stage", "")) for row in self.rows})
+        for stage in stage_names:
+            samples = [
+                row for row in self.rows
+                if row.get("stage") == stage and int(row.get("ok", 0)) == 1
+            ]
+            if not samples:
+                continue
+            xyz = np.array(
+                [[row.get("eef_x", np.nan), row.get("eef_y", np.nan), row.get("eef_z", np.nan)] for row in samples],
+                dtype=np.float64,
+            )
+            xyz = xyz[np.all(np.isfinite(xyz), axis=1)]
+            if xyz.size == 0:
+                continue
+            start = xyz[0]
+            end = xyz[-1]
+            span = np.nanmax(xyz, axis=0) - np.nanmin(xyz, axis=0)
+            xy_from_line = _xy_deviation_from_line(xyz)
+            summary["stages"][stage] = {
+                "num_samples": int(len(xyz)),
+                "start_xyz": np.round(start, 6).tolist(),
+                "end_xyz": np.round(end, 6).tolist(),
+                "delta_xyz": np.round(end - start, 6).tolist(),
+                "span_xyz": np.round(span, 6).tolist(),
+                "span_xy_mm": np.round(span[:2] * 1000.0, 3).tolist(),
+                "max_xy_deviation_from_line_mm": round(float(xy_from_line) * 1000.0, 3),
+            }
+        return summary
+
+
+def _xy_deviation_from_line(xyz: np.ndarray) -> float:
+    if len(xyz) < 3:
+        return 0.0
+    xy = np.asarray(xyz[:, :2], dtype=np.float64)
+    a = xy[0]
+    b = xy[-1]
+    ab = b - a
+    denom = float(np.dot(ab, ab))
+    if denom < 1e-12:
+        return float(np.max(np.linalg.norm(xy - a, axis=1)))
+    t = np.clip(((xy - a) @ ab) / denom, 0.0, 1.0)
+    proj = a + t[:, None] * ab
+    return float(np.max(np.linalg.norm(xy - proj, axis=1)))
+
+
 def confirm(label: str, q_target: np.ndarray, args) -> str:
     print(f"\n[next] {label}")
     print("q(rad):", np.round(np.asarray(q_target, dtype=np.float64), 5).tolist())
@@ -431,11 +592,14 @@ def main() -> int:
             print(f"[limit] {label}: {limit_warning}")
 
     real_exec = None
+    eef_logger = None
     if args.execute_real:
         if not bool(args.assume_aligned):
             print("[warning] --no-assume-aligned was set; still executing raw generated waypoints step-by-step.")
         RealmanJointExecutor = load_realman_executor(args.realman_foundationpose_script)
         real_exec = RealmanJointExecutor(args)
+        eef_logger = RealmanEefLogger(real_exec, args)
+        eef_logger.start()
     else:
         print("[dry-run] --execute-real not set; no hardware commands will be sent.")
 
@@ -451,6 +615,8 @@ def main() -> int:
             if decision == "skip":
                 print("[skip]", label)
                 continue
+            if eef_logger is not None:
+                eef_logger.set_stage(label, _contact_pose)
             if real_exec is None:
                 if args.render:
                     shadow_q = move_shadow_linear(env, shadow_q, q_target, args, label)
@@ -470,6 +636,12 @@ def main() -> int:
             shadow_q = np.asarray(q_target, dtype=np.float32)
             print(f"[real] {label} done in {time.perf_counter() - t0:.2f}s")
     finally:
+        if eef_logger is not None:
+            try:
+                eef_logger.set_stage("finished", None)
+                eef_logger.stop_and_save()
+            except Exception as exc:
+                print(f"[eef-log] failed to save EEF log: {exc!r}")
         if real_exec is not None:
             try:
                 real_exec.close()
