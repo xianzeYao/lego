@@ -34,7 +34,7 @@ from maniskill_rm75_lego.envs.rm75_lego_pick_place import (
     PLATE_SIZE_XY,
     PLATE_TOP_POS,
     PLATE_YAW,
-    brick_pose_for_placement,
+    baseplate_origin_from_top,
     stage2_placement_by_key,
 )
 from maniskill_rm75_lego.envs.rm75_lego_smoke import CONTACT_OFFSET_TCP
@@ -79,6 +79,12 @@ def parse_args():
     parser.add_argument("--initial-grid", type=int, nargs=4, default=None)
     parser.add_argument("--target-grid", type=int, nargs=4, default=[14, 15, 1, 0])
     parser.add_argument("--contact-offset", type=float, nargs=3, default=CONTACT_OFFSET_TCP)
+    parser.add_argument(
+        "--plate-z-offset",
+        type=float,
+        default=0.0,
+        help="Unified real-world plate height correction in meters; positive moves the whole LEGO scene up.",
+    )
     parser.add_argument("--press-depth", type=float, default=0.0)
     parser.add_argument("--place-press-depth", type=float, default=0.0)
     parser.add_argument("--pick-attack-dir", type=int, choices=[-1, 1], default=1)
@@ -196,17 +202,28 @@ def build_waypoints(args):
     )
     env.reset(seed=0)
     base_env = env.unwrapped
+    plate_top_pos = np.asarray(PLATE_TOP_POS, dtype=np.float64).copy()
+    plate_top_pos[2] += float(args.plate_z_offset)
+    if abs(float(args.plate_z_offset)) > 0.0 and hasattr(base_env, "baseplate"):
+        base_env.baseplate.set_pose(sapien.Pose(p=baseplate_origin_from_top(plate_top_pos).tolist()))
 
     placement = stage2_placement_by_key(args.brick_key)
     if args.initial_grid is not None:
         placement = replace(placement, grid=LegoGridPose(*args.initial_grid))
     brick_actor = base_env.bricks[placement.key]
-    initial_brick_mat = pose_to_matrix(brick_pose_for_placement(placement))
+    initial_pose = apex_brick_actor_pose(
+        plate_top_pos,
+        PLATE_SIZE_XY,
+        placement.brick,
+        placement.grid,
+        PLATE_YAW,
+    )
+    initial_brick_mat = pose_to_matrix(initial_pose)
     brick_actor.set_pose(matrix_to_pose(initial_brick_mat))
 
     target_grid = LegoGridPose(*args.target_grid)
     target_pose = apex_brick_actor_pose(
-        PLATE_TOP_POS,
+        plate_top_pos,
         PLATE_SIZE_XY,
         placement.brick,
         target_grid,
@@ -215,7 +232,7 @@ def build_waypoints(args):
     target_brick_mat = pose_to_matrix(target_pose)
 
     pick = pick_target_from_press_side(
-        plate_top_pos=PLATE_TOP_POS,
+        plate_top_pos=plate_top_pos,
         plate_size_xy=PLATE_SIZE_XY,
         brick=placement.brick,
         grid=placement.grid,

@@ -15,8 +15,10 @@ APEX_TWIST_DEG = float(np.rad2deg(APEX_TWIST_RAD))
 APEX_HANDOVER_TWIST_RAD = 0.314159
 APEX_HANDOVER_TWIST_DEG = float(np.rad2deg(APEX_HANDOVER_TWIST_RAD))
 
-APEX_PLACE_BRICK_OFFSET = np.array([-0.005, 0.005, -0.005], dtype=np.float64)
-APEX_GRAB_BRICK_OFFSET = np.array([-0.005, 0.005, -0.0028], dtype=np.float64)
+# Keep the APEX vertical approach depths, but remove the small lateral
+# attack offsets so pick/place approach along the same contact-frame z axis.
+APEX_PLACE_BRICK_OFFSET = np.array([0.0, 0.0, -0.005], dtype=np.float64)
+APEX_GRAB_BRICK_OFFSET = np.array([0.0, 0.0, -0.0028], dtype=np.float64)
 APEX_PICK_TWIST_UP_WORLD_Z = 0.015
 APEX_DROP_TWIST_UP_WORLD_Z = 0.015
 
