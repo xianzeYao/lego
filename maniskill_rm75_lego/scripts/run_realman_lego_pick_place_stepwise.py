@@ -77,7 +77,7 @@ def parse_args():
     parser.add_argument("--press-side", type=int, default=2)
     parser.add_argument("--press-offset", type=int, default=1)
     parser.add_argument("--initial-grid", type=int, nargs=4, default=None)
-    parser.add_argument("--target-grid", type=int, nargs=4, default=[25, 28, 1, 0])
+    parser.add_argument("--target-grid", type=int, nargs=4, default=[14, 15, 1, 0])
     parser.add_argument("--contact-offset", type=float, nargs=3, default=CONTACT_OFFSET_TCP)
     parser.add_argument("--press-depth", type=float, default=0.0)
     parser.add_argument("--place-press-depth", type=float, default=0.0)

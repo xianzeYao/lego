@@ -98,7 +98,7 @@ STAGE2_BRICK_PLACEMENTS = (
     Stage2BrickPlacement(
         key="lego_2x4",
         brick=LEGO_2X4,
-        grid=LegoGridPose(x=25, y=28, z=0, ori=0),
+        grid=LegoGridPose(x=14, y=15, z=0, ori=0),
         color=(0.95, 0.12, 0.08, 1.0),
     ),
 )
@@ -121,7 +121,7 @@ BRICK_INITIAL_POS = np.asarray(
     ).p,
     dtype=np.float32,
 )
-TARGET_GRID_POSE = LegoGridPose(x=25, y=28, z=1, ori=0)
+TARGET_GRID_POSE = LegoGridPose(x=14, y=15, z=1, ori=0)
 TARGET_POS = np.asarray(
     apex_brick_actor_pose(PLATE_TOP_POS, PLATE_SIZE_XY, LEGO_1X4, TARGET_GRID_POSE, PLATE_YAW).p,
     dtype=np.float32,
