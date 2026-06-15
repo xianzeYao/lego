@@ -2,22 +2,22 @@
 
 This runner reuses the current ManiSkill LEGO stage-6 waypoint generation and sends the solved RM75 joint targets to the real robot one stage at a time.
 
-Shadow/render dry run only, no hardware commands:
+Shadow/render dry run only, no hardware commands. By default this uses the current LEGO scene: plate top center at `(x=0.300, y=0.000, z=0.0032)`, pick `lego_1x4` from grid `(2, 2, 0, 0)`, and place it on top of the `lego_2x4` at grid `(25, 28, 1, 0)`.
 
 ```bash
-/home/yxz/data/conda/envs/maniskill4lego/bin/python maniskill_rm75_lego/scripts/run_realman_lego_pick_place_stepwise.py --target-grid 14 13 1 0 --press-depth 0.0 --place-press-depth 0.0 --twist-ik-steps 3 --render
+/home/yxz/data/conda/envs/maniskill4lego/bin/python maniskill_rm75_lego/scripts/run_realman_lego_pick_place_stepwise.py --press-depth 0.0 --place-press-depth 0.0 --twist-ik-steps 3 --render
 ```
 
 Real robot, stepwise execution:
 
 ```bash
-/home/yxz/data/conda/envs/maniskill4lego/bin/python maniskill_rm75_lego/scripts/run_realman_lego_pick_place_stepwise.py --execute-real --robot-ip <RM75_IP> --target-grid 14 13 1 0 --press-depth 0.0 --place-press-depth 0.0 --twist-ik-steps 3
+/home/yxz/data/conda/envs/maniskill4lego/bin/python maniskill_rm75_lego/scripts/run_realman_lego_pick_place_stepwise.py --execute-real --robot-ip <RM75_IP> --press-depth 0.0 --place-press-depth 0.0 --twist-ik-steps 3
 ```
 
 Real robot with synchronized shadow rendering:
 
 ```bash
-/home/yxz/data/conda/envs/maniskill4lego/bin/python maniskill_rm75_lego/scripts/run_realman_lego_pick_place_stepwise.py --execute-real --robot-ip <RM75_IP> --target-grid 14 13 1 0 --press-depth 0.0 --place-press-depth 0.0 --twist-ik-steps 3 --render
+/home/yxz/data/conda/envs/maniskill4lego/bin/python maniskill_rm75_lego/scripts/run_realman_lego_pick_place_stepwise.py --execute-real --robot-ip <RM75_IP> --press-depth 0.0 --place-press-depth 0.0 --twist-ik-steps 3 --render
 ```
 
 At each waypoint:

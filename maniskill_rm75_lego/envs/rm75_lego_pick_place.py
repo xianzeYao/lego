@@ -61,7 +61,7 @@ LEGO_1X4_MESH_PATH = LEGO_1X4.mesh_path
 LEGO_2X4_MESH_PATH = LEGO_2X4.mesh_path
 
 PLATE_SIZE_XY = (32, 32)
-PLATE_TOP_POS = np.array([0.0, -0.3, 0.0032], dtype=np.float32)
+PLATE_TOP_POS = np.array([0.3, 0.0, 0.0032], dtype=np.float32)
 PLATE_YAW = 0.0
 PLATE_ORIGIN_POS = baseplate_origin_from_top(PLATE_TOP_POS).astype(np.float32)
 PLATE_AXIS_VISUAL_Z_LIFT = 0.004
@@ -90,58 +90,16 @@ class Stage2BrickPlacement:
 
 STAGE2_BRICK_PLACEMENTS = (
     Stage2BrickPlacement(
-        key="lego_1x1",
-        brick=LEGO_1X1,
-        grid=LegoGridPose(x=2, y=2, z=0, ori=0),
-        color=(0.95, 0.85, 0.15, 1.0),
-    ),
-    Stage2BrickPlacement(
-        key="lego_1x2",
-        brick=LEGO_1X2,
-        grid=LegoGridPose(x=5, y=3, z=0, ori=1),
-        color=(0.95, 0.95, 0.95, 1.0),
-    ),
-    Stage2BrickPlacement(
         key="lego_1x4",
         brick=LEGO_1X4,
-        grid=LegoGridPose(x=9, y=2, z=0, ori=0),
+        grid=LegoGridPose(x=2, y=2, z=0, ori=0),
         color=(0.1, 0.75, 0.25, 1.0),
-    ),
-    Stage2BrickPlacement(
-        key="lego_1x6",
-        brick=LEGO_1X6,
-        grid=LegoGridPose(x=15, y=3, z=0, ori=1),
-        color=(0.1, 0.45, 0.95, 1.0),
-    ),
-    Stage2BrickPlacement(
-        key="lego_1x8",
-        brick=LEGO_1X8,
-        grid=LegoGridPose(x=20, y=2, z=0, ori=0),
-        color=(0.8, 0.2, 0.9, 1.0),
-    ),
-    Stage2BrickPlacement(
-        key="lego_2x2",
-        brick=LEGO_2X2,
-        grid=LegoGridPose(x=3, y=12, z=0, ori=0),
-        color=(0.95, 0.45, 0.1, 1.0),
     ),
     Stage2BrickPlacement(
         key="lego_2x4",
         brick=LEGO_2X4,
-        grid=LegoGridPose(x=8, y=12, z=0, ori=1),
+        grid=LegoGridPose(x=25, y=28, z=0, ori=0),
         color=(0.95, 0.12, 0.08, 1.0),
-    ),
-    Stage2BrickPlacement(
-        key="lego_2x6",
-        brick=LEGO_2X6,
-        grid=LegoGridPose(x=14, y=13, z=0, ori=0),
-        color=(0.0, 0.75, 0.75, 1.0),
-    ),
-    Stage2BrickPlacement(
-        key="lego_2x8",
-        brick=LEGO_2X8,
-        grid=LegoGridPose(x=22, y=13, z=0, ori=1),
-        color=(0.55, 0.35, 0.15, 1.0),
     ),
 )
 
@@ -157,15 +115,15 @@ BRICK_INITIAL_POS = np.asarray(
     apex_brick_actor_pose(
         PLATE_TOP_POS,
         PLATE_SIZE_XY,
-        LEGO_1X2,
-        stage2_placement_by_key("lego_1x2").grid,
+        LEGO_1X4,
+        stage2_placement_by_key("lego_1x4").grid,
         PLATE_YAW,
     ).p,
     dtype=np.float32,
 )
-TARGET_GRID_POSE = LegoGridPose(x=25, y=23, z=0, ori=0)
+TARGET_GRID_POSE = LegoGridPose(x=25, y=28, z=1, ori=0)
 TARGET_POS = np.asarray(
-    apex_brick_actor_pose(PLATE_TOP_POS, PLATE_SIZE_XY, LEGO_1X2, TARGET_GRID_POSE, PLATE_YAW).p,
+    apex_brick_actor_pose(PLATE_TOP_POS, PLATE_SIZE_XY, LEGO_1X4, TARGET_GRID_POSE, PLATE_YAW).p,
     dtype=np.float32,
 )
 
@@ -240,7 +198,7 @@ def target_pose() -> sapien.Pose:
     return apex_brick_actor_pose(
         PLATE_TOP_POS,
         PLATE_SIZE_XY,
-        LEGO_1X2,
+        LEGO_1X4,
         TARGET_GRID_POSE,
         PLATE_YAW,
     )
@@ -336,12 +294,12 @@ class RM75LegoPickPlaceEnv(RM75LegoSmokeEnv):
                 pose=brick_pose_for_placement(placement),
                 body_type="kinematic",
             )
-        self.brick = self.bricks["lego_1x2"]
+        self.brick = self.bricks["lego_1x4"]
         self.goal_marker = build_colored_mesh_actor(
             self.scene,
             color=[0.1, 0.9, 0.15, 0.35],
-            name="lego_1x2_target_grid_marker",
-            mesh_path=LEGO_1X2_MESH_PATH,
+            name="lego_1x4_target_grid_marker",
+            mesh_path=LEGO_1X4_MESH_PATH,
             pose=target_pose(),
             body_type="kinematic",
         )

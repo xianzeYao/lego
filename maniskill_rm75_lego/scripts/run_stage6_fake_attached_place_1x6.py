@@ -65,11 +65,11 @@ from maniskill_rm75_lego.scripts.run_stage4_pick_2x4 import (
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--brick-key", default="lego_1x6")
+    parser.add_argument("--brick-key", default="lego_1x4")
     parser.add_argument("--press-side", type=int, default=2)
-    parser.add_argument("--press-offset", type=int, default=2)
+    parser.add_argument("--press-offset", type=int, default=1)
     parser.add_argument("--initial-grid", type=int, nargs=4, default=None)
-    parser.add_argument("--target-grid", type=int, nargs=4, default=[23, 22, 0, 0])
+    parser.add_argument("--target-grid", type=int, nargs=4, default=[25, 28, 1, 0])
     parser.add_argument("--contact-offset", type=float, nargs=3, default=CONTACT_OFFSET_TCP)
     parser.add_argument("--pre-height", type=float, default=0.06)
     parser.add_argument("--press-depth", type=float, default=0.0)
@@ -154,7 +154,7 @@ def main() -> int:
     )
     target_marker = build_colored_mesh_actor(
         base_env.scene,
-        name="stage6_target_lego_1x6_marker",
+        name=f"stage6_target_{placement.key}_marker",
         mesh_path=placement.brick.mesh_path,
         color=[0.1, 0.9, 0.15, 0.28],
         pose=target_pose,

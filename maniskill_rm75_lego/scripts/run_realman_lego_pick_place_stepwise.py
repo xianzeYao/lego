@@ -73,11 +73,11 @@ def parse_args():
             "step-by-step on a RealMan RM75 after pressing Enter for each stage."
         )
     )
-    parser.add_argument("--brick-key", default="lego_1x6")
+    parser.add_argument("--brick-key", default="lego_1x4")
     parser.add_argument("--press-side", type=int, default=2)
-    parser.add_argument("--press-offset", type=int, default=2)
+    parser.add_argument("--press-offset", type=int, default=1)
     parser.add_argument("--initial-grid", type=int, nargs=4, default=None)
-    parser.add_argument("--target-grid", type=int, nargs=4, default=[14, 13, 1, 0])
+    parser.add_argument("--target-grid", type=int, nargs=4, default=[25, 28, 1, 0])
     parser.add_argument("--contact-offset", type=float, nargs=3, default=CONTACT_OFFSET_TCP)
     parser.add_argument("--press-depth", type=float, default=0.0)
     parser.add_argument("--place-press-depth", type=float, default=0.0)
@@ -411,7 +411,10 @@ def main() -> int:
                 print("[skip]", label)
                 continue
             if real_exec is None:
-                shadow_q = move_shadow_linear(env, shadow_q, q_target, args, label)
+                if args.render:
+                    shadow_q = move_shadow_linear(env, shadow_q, q_target, args, label)
+                else:
+                    shadow_q = np.asarray(q_target, dtype=np.float32)
                 continue
             t0 = time.perf_counter()
             real_exec.move_linear(
