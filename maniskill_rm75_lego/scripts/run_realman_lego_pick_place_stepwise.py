@@ -115,7 +115,7 @@ def parse_args():
     parser.add_argument("--real-gripper-command-repeats", type=int, default=2)
     parser.add_argument("--real-gripper-command-hz", type=float, default=10.0)
     parser.add_argument("--real-execution-thread", action=argparse.BooleanOptionalAction, default=True)
-    parser.add_argument("--real-shadow-render-hz", type=float, default=0.0)
+    parser.add_argument("--real-shadow-render-hz", type=float, default=None)
     parser.add_argument("--assume-aligned", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--dry-run-no-prompts", action="store_true")
     return parser.parse_args()
@@ -324,8 +324,39 @@ def build_waypoints(args):
     if args.return_home:
         waypoints.append(("home_end", RM75LegoTool.keyframes["neutral"].qpos.astype(np.float32), np.eye(4, dtype=np.float64)))
 
-    env.close()
-    return waypoints
+    return env, waypoints
+
+
+def render_shadow_step(env, q_target: np.ndarray, args) -> None:
+    if not args.render:
+        return
+    env.step(np.asarray(q_target, dtype=np.float32))
+    env.render()
+    if args.render_sleep > 0 and not args.execute_real:
+        time.sleep(args.render_sleep)
+
+
+def make_shadow_callback(env, args):
+    if not args.render:
+        return None
+
+    def _callback(q_cmd: np.ndarray) -> None:
+        render_shadow_step(env, q_cmd, args)
+
+    return _callback
+
+
+def move_shadow_linear(env, q_start: np.ndarray, q_target: np.ndarray, args, label: str) -> np.ndarray:
+    q_start = np.asarray(q_start, dtype=np.float32).reshape(-1)
+    q_target = np.asarray(q_target, dtype=np.float32).reshape(-1)
+    q_delta = (q_target - q_start + np.pi) % (2 * np.pi) - np.pi
+    q_target_short = q_start + q_delta
+    max_delta = float(np.max(np.abs(q_delta))) if q_delta.size > 0 else 0.0
+    num_steps = max(1, int(np.ceil(max_delta / max(float(args.real_max_delta_per_step), 1e-6))))
+    print(f"[shadow {label}] render_linear num_steps={num_steps}")
+    for alpha in np.linspace(0.0, 1.0, num_steps + 1, dtype=np.float32)[1:]:
+        render_shadow_step(env, (1.0 - alpha) * q_start + alpha * q_target_short, args)
+    return q_target_short.astype(np.float32)
 
 
 def confirm(label: str, q_target: np.ndarray, args) -> str:
@@ -343,7 +374,16 @@ def confirm(label: str, q_target: np.ndarray, args) -> str:
 
 def main() -> int:
     args = parse_args()
-    waypoints = build_waypoints(args)
+    if args.render and args.execute_real:
+        if args.real_shadow_render_hz is None:
+            args.real_shadow_render_hz = float(args.real_control_hz)
+        if bool(args.real_execution_thread):
+            print("[render] forcing --no-real-execution-thread so real sends and shadow rendering stay synchronized")
+            args.real_execution_thread = False
+    if args.real_shadow_render_hz is None:
+        args.real_shadow_render_hz = 0.0
+
+    env, waypoints = build_waypoints(args)
     print(f"[plan] generated {len(waypoints)} LEGO waypoints")
     for idx, (label, q, contact_pose) in enumerate(waypoints, start=1):
         pos = np.round(contact_pose[:3, 3], 6).tolist()
@@ -358,7 +398,10 @@ def main() -> int:
     else:
         print("[dry-run] --execute-real not set; no hardware commands will be sent.")
 
+    shadow_q = RM75LegoTool.keyframes["neutral"].qpos.astype(np.float32)
     try:
+        if args.render:
+            render_shadow_step(env, shadow_q, args)
         for label, q_target, _contact_pose in waypoints:
             decision = confirm(label, q_target, args)
             if decision == "abort":
@@ -368,6 +411,7 @@ def main() -> int:
                 print("[skip]", label)
                 continue
             if real_exec is None:
+                shadow_q = move_shadow_linear(env, shadow_q, q_target, args, label)
                 continue
             t0 = time.perf_counter()
             real_exec.move_linear(
@@ -377,7 +421,9 @@ def main() -> int:
                 hz=args.real_control_hz,
                 hold_steps=args.real_hold_steps,
                 label=label,
+                shadow_callback=make_shadow_callback(env, args),
             )
+            shadow_q = np.asarray(q_target, dtype=np.float32)
             print(f"[real] {label} done in {time.perf_counter() - t0:.2f}s")
     finally:
         if real_exec is not None:
@@ -385,6 +431,7 @@ def main() -> int:
                 real_exec.close()
             except Exception:
                 pass
+        env.close()
     return 0
 
 
