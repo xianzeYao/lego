@@ -359,6 +359,26 @@ def move_shadow_linear(env, q_start: np.ndarray, q_target: np.ndarray, args, lab
     return q_target_short.astype(np.float32)
 
 
+def joint_limit_report(q: np.ndarray, margin_warn: float = 0.05) -> str:
+    q = np.asarray(q, dtype=np.float64).reshape(-1)
+    lower = JOINT_LOWER[: q.size]
+    upper = JOINT_UPPER[: q.size]
+    below = q - lower
+    above = upper - q
+    problems = []
+    for idx, (lo_margin, hi_margin, value, lo, hi) in enumerate(zip(below, above, q, lower, upper), start=1):
+        if lo_margin < 0.0:
+            problems.append(f"J{idx} below by {-lo_margin:.3f} rad (q={value:.3f}, lower={lo:.3f})")
+        elif hi_margin < 0.0:
+            problems.append(f"J{idx} above by {-hi_margin:.3f} rad (q={value:.3f}, upper={hi:.3f})")
+        elif min(lo_margin, hi_margin) < margin_warn:
+            side = "lower" if lo_margin < hi_margin else "upper"
+            problems.append(f"J{idx} near {side}, margin={min(lo_margin, hi_margin):.3f} rad (q={value:.3f})")
+    if problems:
+        return " | ".join(problems)
+    return ""
+
+
 def confirm(label: str, q_target: np.ndarray, args) -> str:
     print(f"\n[next] {label}")
     print("q(rad):", np.round(np.asarray(q_target, dtype=np.float64), 5).tolist())
@@ -388,6 +408,9 @@ def main() -> int:
     for idx, (label, q, contact_pose) in enumerate(waypoints, start=1):
         pos = np.round(contact_pose[:3, 3], 6).tolist()
         print(f"[plan] {idx:02d} {label:16s} contact_p={pos} q={np.round(q, 5).tolist()}")
+        limit_warning = joint_limit_report(q)
+        if limit_warning:
+            print(f"[limit] {label}: {limit_warning}")
 
     real_exec = None
     if args.execute_real:
