@@ -25,6 +25,7 @@ from scipy.spatial.transform import Rotation
 
 import maniskill_rm75_lego.envs  # noqa: F401
 from maniskill_rm75_lego.agents.rm75_lego_tool import RM75LegoTool
+from maniskill_rm75_lego.apex_mr_reference import RM75_TOOL_DISASSEMBLE_OFFSET_BLACK
 from maniskill_rm75_lego.envs.rm75_lego_pick_place import (
     PLATE_SIZE_XY,
     PLATE_TOP_POS,
@@ -39,8 +40,8 @@ from maniskill_rm75_lego.scripts.run_stage4_pick_2x4 import (
     apex_pick_contact_pose,
     as_numpy,
     pose_to_matrix,
-    rot_y_matrix,
     tcp_pose_from_contact,
+    twist_about_local_pivot,
 )
 from maniskill_rm75_lego.scripts.run_stage5_pick_dynamic_1x6 import (
     BRICK_DENSITY_MASS,
@@ -124,7 +125,11 @@ def main() -> int:
     contact_offset = np.asarray(args.contact_offset, dtype=np.float64)
 
     down_contact = apex_contact_pose @ translation_matrix([0.0, 0.0, args.press_depth])
-    twist_contact = down_contact @ rot_y_matrix(args.twist_before_lift_deg)
+    twist_contact = twist_about_local_pivot(
+        down_contact,
+        RM75_TOOL_DISASSEMBLE_OFFSET_BLACK,
+        args.twist_before_lift_deg,
+    )
     lift_contact = twist_contact.copy()
     lift_contact[:3, 3] += np.array([0.0, 0.0, args.lift_height], dtype=np.float64)
     target_tcp_poses = {

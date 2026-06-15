@@ -26,7 +26,7 @@ from scipy.spatial.transform import Rotation
 
 import maniskill_rm75_lego.envs  # noqa: F401
 from maniskill_rm75_lego.agents.rm75_lego_tool import RM75LegoTool
-from maniskill_rm75_lego.apex_mr_reference import APEX_TWIST_DEG
+from maniskill_rm75_lego.apex_mr_reference import APEX_TWIST_DEG, RM75_TOOL_DISASSEMBLE_OFFSET_BLACK
 from maniskill_rm75_lego.envs.rm75_lego_pick_place import (
     PLATE_SIZE_XY,
     PLATE_TOP_POS,
@@ -53,8 +53,8 @@ from maniskill_rm75_lego.scripts.run_stage4_pick_2x4 import (
     as_numpy,
     invert_transform,
     pose_to_matrix,
-    rot_y_matrix,
     tcp_pose_from_contact,
+    twist_about_local_pivot,
 )
 
 
@@ -383,7 +383,11 @@ def main() -> int:
     def contact_waypoint_poses() -> dict[str, np.ndarray]:
         pre_contact = apex_contact_pose @ translation_matrix([0.0, 0.0, -args.pre_height])
         down_contact = apex_contact_pose @ translation_matrix([0.0, 0.0, args.press_depth])
-        twist_contact = down_contact @ rot_y_matrix(args.pick_twist_deg)
+        twist_contact = twist_about_local_pivot(
+            down_contact,
+            RM75_TOOL_DISASSEMBLE_OFFSET_BLACK,
+            args.pick_twist_deg,
+        )
         twist_up_contact = twist_contact.copy()
         twist_up_contact[:3, 3] += np.array([0.0, 0.0, args.twist_up_height], dtype=np.float64)
         verify_1 = twist_up_contact.copy()

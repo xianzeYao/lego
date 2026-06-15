@@ -54,6 +54,10 @@ APEX_TOOL_DH_LAST_ROWS = {
 }
 
 
+RM75_TOOL_ASSEMBLE_OFFSET_BLACK = np.array([-0.0078, 0.0, -0.0005], dtype=np.float64)
+RM75_TOOL_DISASSEMBLE_OFFSET_BLACK = np.array([0.0, 0.0, 0.0090], dtype=np.float64)
+
+
 def apex_valid_press_offsets(studs_x: int, studs_y: int, press_side: int) -> range:
     if press_side in (1, 4):
         return range(max(0, studs_y - 1))

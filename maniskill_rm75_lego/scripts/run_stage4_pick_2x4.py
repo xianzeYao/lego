@@ -2,10 +2,12 @@
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import sys
 import time
 from dataclasses import replace
+from datetime import datetime
 from pathlib import Path
 
 os.environ.setdefault("MPLCONFIGDIR", "/tmp/matplotlib")
@@ -37,7 +39,11 @@ from maniskill_rm75_lego.lego_grid import (
     pick_target_from_press_side,
     translation_matrix,
 )
-from maniskill_rm75_lego.apex_mr_reference import APEX_TWIST_DEG
+from maniskill_rm75_lego.apex_mr_reference import (
+    APEX_GRAB_BRICK_OFFSET,
+    APEX_TWIST_DEG,
+    RM75_TOOL_DISASSEMBLE_OFFSET_BLACK,
+)
 
 
 JOINT_LOWER = np.array([-3.106, -2.2689, -3.106, -2.356, -3.106, -2.234, -6.28], dtype=np.float64)
@@ -74,6 +80,11 @@ def rot_y_matrix(deg: float) -> np.ndarray:
     mat = np.eye(4, dtype=np.float64)
     mat[:3, :3] = Rotation.from_euler("y", deg, degrees=True).as_matrix()
     return mat
+
+
+def twist_about_local_pivot(tool_pose: np.ndarray, pivot_offset_local, deg: float) -> np.ndarray:
+    pivot_offset = np.asarray(pivot_offset_local, dtype=np.float64)
+    return tool_pose @ translation_matrix(pivot_offset) @ rot_y_matrix(deg) @ translation_matrix(-pivot_offset)
 
 
 def apex_pick_contact_pose(pick) -> np.ndarray:
@@ -173,7 +184,9 @@ def parse_args(
     parser.add_argument("--press-offset", type=int, default=default_press_offset)
     parser.add_argument("--contact-offset", type=float, nargs=3, default=CONTACT_OFFSET_TCP)
     parser.add_argument("--pre-height", type=float, default=0.06)
-    parser.add_argument("--press-depth", type=float, default=0.005)
+    parser.add_argument("--press-depth", type=float, default=0.0)
+    parser.add_argument("--use-apex-grab-offset", action=argparse.BooleanOptionalAction, default=True)
+    parser.add_argument("--pick-attack-dir", type=int, choices=[-1, 1], default=1)
     parser.add_argument("--twist-up-height", type=float, default=0.015)
     parser.add_argument("--pick-twist-deg", type=float, default=-APEX_TWIST_DEG)
     parser.add_argument("--tcp-orientation", choices=["apex", "home", "legacy-contact"], default="apex")
@@ -194,6 +207,8 @@ def parse_args(
     parser.add_argument("--render-sleep", type=float, default=0.03)
     parser.add_argument("--wait-at-end", action="store_true")
     parser.add_argument("--seed", type=int, default=0)
+    parser.add_argument("--output-dir", default="outputs/stage4_pick_apex_offsets")
+    parser.add_argument("--run-name", default=None)
     return parser.parse_args()
 
 
@@ -207,6 +222,9 @@ def main(
         default_press_side=default_press_side,
         default_press_offset=default_press_offset,
     )
+    run_name = args.run_name or f"run_{datetime.now().strftime('%Y%m%d_%H%M%S_%f')}_pid{os.getpid()}"
+    run_dir = Path(args.output_dir) / run_name
+    run_dir.mkdir(parents=True, exist_ok=True)
 
     env = gym.make(
         "RM75LegoPickPlace-v1",
@@ -256,11 +274,24 @@ def main(
         return out
 
     contact_offset = np.asarray(args.contact_offset, dtype=np.float64)
+    grab_offset = np.asarray(APEX_GRAB_BRICK_OFFSET, dtype=np.float64).copy()
+    grab_offset[1] *= float(args.pick_attack_dir)
 
     def contact_waypoint_poses() -> dict[str, np.ndarray]:
-        pre_contact = apex_contact_pose @ translation_matrix([0.0, 0.0, -args.pre_height])
+        if args.use_apex_grab_offset:
+            pre_contact = apex_contact_pose @ translation_matrix([
+                float(grab_offset[0]),
+                float(grab_offset[1]),
+                float(grab_offset[2] - abs(grab_offset[2])),
+            ])
+        else:
+            pre_contact = apex_contact_pose @ translation_matrix([0.0, 0.0, -args.pre_height])
         down_contact = apex_contact_pose @ translation_matrix([0.0, 0.0, args.press_depth])
-        twist_contact = down_contact @ rot_y_matrix(args.pick_twist_deg)
+        twist_contact = twist_about_local_pivot(
+            down_contact,
+            RM75_TOOL_DISASSEMBLE_OFFSET_BLACK,
+            args.pick_twist_deg,
+        )
         twist_up_contact = shifted_pose(
             twist_contact,
             np.array([0.0, 0.0, args.twist_up_height], dtype=np.float64),
@@ -287,7 +318,11 @@ def main(
             contact_poses["pick_down_contact"],
             mode,
         )
-        twist_contact = down_contact @ rot_y_matrix(args.pick_twist_deg)
+        twist_contact = twist_about_local_pivot(
+            down_contact,
+            RM75_TOOL_DISASSEMBLE_OFFSET_BLACK,
+            args.pick_twist_deg,
+        )
         twist_up_contact = shifted_pose(
             twist_contact,
             np.array([0.0, 0.0, args.twist_up_height], dtype=np.float64),
@@ -306,7 +341,11 @@ def main(
             contact_poses["pick_down_contact"],
             mode,
         )
-        twist_contact = down_contact @ rot_y_matrix(twist_deg)
+        twist_contact = twist_about_local_pivot(
+            down_contact,
+            RM75_TOOL_DISASSEMBLE_OFFSET_BLACK,
+            twist_deg,
+        )
         if up_height:
             twist_contact = shifted_pose(
                 twist_contact,
@@ -505,6 +544,8 @@ def main(
         print("stacked on:", support_key, "grid[x,y,z,ori]:", [support.grid.x, support.grid.y, support.grid.z, support.grid.ori])
     print("press_side/press_offset:", args.press_side, args.press_offset)
     print("contact_offset_tcp:", contact_offset.tolist())
+    print("APEX grab offset:", grab_offset.tolist())
+    print("use_apex_grab_offset:", bool(args.use_apex_grab_offset))
     print("tcp_orientation:", args.tcp_orientation)
     print("executed_tcp_orientation:", executed_orientation)
     print("ik_mode:", args.ik_mode)
@@ -573,6 +614,29 @@ def main(
 
     actual_tcp = pose_pos_np(base_env.agent.tcp.pose)
     print("final tcp p:", np.round(actual_tcp, 6).tolist())
+    summary = {
+        "command": " ".join(sys.argv),
+        "run_dir": str(run_dir),
+        "brick_key": args.brick_key,
+        "brick_grid": [placement.grid.x, placement.grid.y, placement.grid.z, placement.grid.ori],
+        "press_side": args.press_side,
+        "press_offset": args.press_offset,
+        "contact_offset_tcp": contact_offset.tolist(),
+        "use_apex_grab_offset": bool(args.use_apex_grab_offset),
+        "apex_grab_offset": grab_offset.tolist(),
+        "pick_attack_dir": int(args.pick_attack_dir),
+        "pick_twist_deg": float(args.pick_twist_deg),
+        "twist_pivot_offset_black": RM75_TOOL_DISASSEMBLE_OFFSET_BLACK.tolist(),
+        "executed_tcp_orientation": executed_orientation,
+        "contact_targets": {
+            name: np.round(contact_poses[name][:3, 3], 6).tolist()
+            for name in ["pre_pick_contact", "pick_down_contact", "pick_twist_contact", "pick_twist_up_contact"]
+        },
+        "ik_success": {name: bool(value) for name, value in ik_success.items()},
+        "ik_errors": {name: np.round(value, 6).tolist() for name, value in ik_errors.items()},
+        "final_tcp_p": np.round(actual_tcp, 6).tolist(),
+    }
+    (run_dir / "summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
     print(f"PASS: stage4 pick geometry and IK motion for {args.brick_key}")
     if args.wait_at_end:
         input("Press Enter to close the ManiSkill viewer...")

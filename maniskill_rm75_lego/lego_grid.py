@@ -234,9 +234,9 @@ def pick_target_from_press_side(
 ) -> LegoPickTarget:
     """Compute the top-view pick target used by the LEGO tool.
 
-    The target point is the intersection between the selected two-stud midpoint
-    line and the neighboring brick edge, matching APEX-MR's press_side /
-    press_offset convention.
+    The selected studs are reported at the stud top for visualization/reference.
+    The actual contact point is on the brick top plane beside those studs,
+    matching the calibrated tool contact frame rather than the stud cap height.
     """
     bottom_pose = apex_brick_bottom_pose(
         plate_top_pos=plate_top_pos,
@@ -247,7 +247,8 @@ def pick_target_from_press_side(
     )
     length = brick.studs_x * STUD_PITCH
     width = brick.studs_y * STUD_PITCH
-    z = BRICK_BODY_HEIGHT + STUD_HEIGHT
+    stud_z = BRICK_BODY_HEIGHT + STUD_HEIGHT
+    contact_z = BRICK_BODY_HEIGHT
 
     if press_side in (1, 4):
         if not 0 <= press_offset < brick.studs_y - 1:
@@ -259,8 +260,10 @@ def pick_target_from_press_side(
         y1 = y0 + STUD_PITCH
         x_stud = length / 2.0 - STUD_PITCH / 2.0 if press_side == 1 else -length / 2.0 + STUD_PITCH / 2.0
         edge_x = length / 2.0 if press_side == 1 else -length / 2.0
-        selected_local = np.array([[x_stud, y0, z, 1.0], [x_stud, y1, z, 1.0]])
-        edge_local = np.array([edge_x, (y0 + y1) / 2.0, z, 1.0])
+        selected_local = np.array(
+            [[x_stud, y0, stud_z, 1.0], [x_stud, y1, stud_z, 1.0]]
+        )
+        edge_local = np.array([edge_x, (y0 + y1) / 2.0, contact_z, 1.0])
         outward_local = np.array([1.0 if press_side == 1 else -1.0, 0.0, 0.0])
         tangent_local = np.array([0.0, 1.0, 0.0])
     elif press_side in (2, 3):
@@ -273,8 +276,10 @@ def pick_target_from_press_side(
         x1 = x0 - STUD_PITCH
         y_stud = width / 2.0 - STUD_PITCH / 2.0 if press_side == 2 else -width / 2.0 + STUD_PITCH / 2.0
         edge_y = width / 2.0 if press_side == 2 else -width / 2.0
-        selected_local = np.array([[x0, y_stud, z, 1.0], [x1, y_stud, z, 1.0]])
-        edge_local = np.array([(x0 + x1) / 2.0, edge_y, z, 1.0])
+        selected_local = np.array(
+            [[x0, y_stud, stud_z, 1.0], [x1, y_stud, stud_z, 1.0]]
+        )
+        edge_local = np.array([(x0 + x1) / 2.0, edge_y, contact_z, 1.0])
         outward_local = np.array([0.0, 1.0 if press_side == 2 else -1.0, 0.0])
         tangent_local = np.array([1.0, 0.0, 0.0])
     else:
