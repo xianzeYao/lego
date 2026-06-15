@@ -130,6 +130,7 @@ def load_realman_executor(script_path: Path):
     if spec is None or spec.loader is None:
         raise ImportError(f"Could not load RealMan script from {script_path}")
     module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
     spec.loader.exec_module(module)
     return module.RealmanJointExecutor
 
