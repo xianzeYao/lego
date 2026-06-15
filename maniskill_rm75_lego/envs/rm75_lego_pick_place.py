@@ -92,7 +92,7 @@ STAGE2_BRICK_PLACEMENTS = (
     Stage2BrickPlacement(
         key="lego_1x4",
         brick=LEGO_1X4,
-        grid=LegoGridPose(x=2, y=2, z=0, ori=0),
+        grid=LegoGridPose(x=8, y=6, z=0, ori=0),
         color=(0.1, 0.75, 0.25, 1.0),
     ),
     Stage2BrickPlacement(
