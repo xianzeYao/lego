@@ -30,6 +30,8 @@ For real execution, the generated waypoint list includes `home_start` before the
 
 `--plate-z-offset` is the unified real-world height correction between the robot base frame and the LEGO plate top. The current synchronized real-robot render command uses `0.008` m and sets both `--press-depth` and `--place-press-depth` to `0.012` m.
 
+Short Cartesian primitives are densified before execution. For stages such as `pick_down`, `pick_attach`, `pick_upright`, `drop_up`, `place_down`, `place_press`, and `place_up`, the script samples intermediate TCP/contact poses at up to `--cartesian-step-size` spacing, solves IK for each sample, and executes the resulting joint subpath under one stage prompt. Set `--cartesian-step-size <= 0` to disable this densification.
+
 During real execution, `--eef-log-hz 30` records controller-reported EEF pose and joints to `outputs/realman_eef_logs/`. The CSV rows are tagged by waypoint stage, and the JSON summary reports per-stage `x/y/z` span plus XY deviation.
 
 `--render` controls the local ManiSkill shadow window. `--execute-real` controls whether hardware commands are sent. `--dry-run-no-prompts` only skips the keyboard prompts; it still will not send hardware commands unless `--execute-real` is also set.

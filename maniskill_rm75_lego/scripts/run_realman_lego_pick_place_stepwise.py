@@ -23,7 +23,7 @@ import gymnasium as gym
 import numpy as np
 import sapien
 from scipy.optimize import least_squares
-from scipy.spatial.transform import Rotation
+from scipy.spatial.transform import Rotation, Slerp
 
 import maniskill_rm75_lego.envs  # noqa: F401
 from maniskill_rm75_lego.agents.rm75_lego_tool import RM75LegoTool
@@ -99,6 +99,12 @@ def parse_args():
     parser.add_argument("--transfer-up-height", type=float, default=0.08)
     parser.add_argument("--place-up-height", type=float, default=0.035)
     parser.add_argument("--twist-ik-steps", type=int, default=3)
+    parser.add_argument(
+        "--cartesian-step-size",
+        type=float,
+        default=0.005,
+        help="Maximum TCP/contact Cartesian spacing in meters for short linear primitives. Set <=0 to disable.",
+    )
     parser.add_argument(
         "--include-home",
         action=argparse.BooleanOptionalAction,
@@ -195,6 +201,25 @@ def solve_ik_regularized(pin_model, tcp_link_index: int, target_pose: sapien.Pos
         damp=1e-6,
     )
     return np.asarray(q_pin, dtype=np.float64), bool(pin_success), np.asarray(pin_err, dtype=np.float64)
+
+
+def interpolate_transform_path(start_mat: np.ndarray, end_mat: np.ndarray, step_size: float) -> list[np.ndarray]:
+    start_mat = np.asarray(start_mat, dtype=np.float64).reshape(4, 4)
+    end_mat = np.asarray(end_mat, dtype=np.float64).reshape(4, 4)
+    distance = float(np.linalg.norm(end_mat[:3, 3] - start_mat[:3, 3]))
+    if step_size <= 0.0 or distance <= 1e-9:
+        return [end_mat.copy()]
+    num_steps = max(1, int(np.ceil(distance / step_size)))
+    key_times = [0.0, 1.0]
+    key_rots = Rotation.from_matrix(np.stack([start_mat[:3, :3], end_mat[:3, :3]], axis=0))
+    slerp = Slerp(key_times, key_rots)
+    out = []
+    for alpha in np.linspace(0.0, 1.0, num_steps + 1, dtype=np.float64)[1:]:
+        mat = np.eye(4, dtype=np.float64)
+        mat[:3, 3] = (1.0 - alpha) * start_mat[:3, 3] + alpha * end_mat[:3, 3]
+        mat[:3, :3] = slerp([float(alpha)]).as_matrix()[0]
+        out.append(mat)
+    return out
 
 
 def build_waypoints(args):
@@ -304,16 +329,42 @@ def build_waypoints(args):
     tcp_link_index = int(as_numpy(base_env.agent.tcp.index).reshape(-1)[0])
     q_seed = RM75LegoTool.keyframes["neutral"].qpos.astype(np.float64)
 
+    linear_cartesian_stages = {
+        "pick_down",
+        "pick_attach",
+        "pick_upright",
+        "drop_up",
+        "place_down",
+        "place_press",
+        "place_up",
+    }
+    cartesian_step_size = float(args.cartesian_step_size)
+
     waypoints: list[tuple[str, np.ndarray, np.ndarray]] = []
     if args.include_home:
-        waypoints.append(("home_start", q_seed.astype(np.float32), np.eye(4, dtype=np.float64)))
+        waypoints.append(("home_start", q_seed[None, :].astype(np.float32), np.eye(4, dtype=np.float64)))
+
+    last_contact_pose: np.ndarray | None = None
+
+    def append_contact_stage(name: str, contact_pose: np.ndarray) -> None:
+        nonlocal q_seed, last_contact_pose
+        contact_path = [np.asarray(contact_pose, dtype=np.float64)]
+        if name in linear_cartesian_stages and last_contact_pose is not None:
+            contact_path = interpolate_transform_path(last_contact_pose, contact_pose, cartesian_step_size)
+
+        q_path = []
+        for idx, contact_mat in enumerate(contact_path, start=1):
+            pose = tcp_pose_from_contact(contact_mat, contact_offset)
+            q_seed, success, err = solve_ik_regularized(pin_model, tcp_link_index, pose, q_seed)
+            if not success:
+                suffix = "" if len(contact_path) == 1 else f" segment {idx}/{len(contact_path)}"
+                raise RuntimeError(f"IK failed for {name}{suffix}: err={np.round(err, 6).tolist()}")
+            q_path.append(q_seed.astype(np.float32))
+        waypoints.append((name, np.stack(q_path, axis=0), contact_pose))
+        last_contact_pose = np.asarray(contact_pose, dtype=np.float64)
 
     for name in ["pre_pick", "pick_down"]:
-        pose = tcp_pose_from_contact(contact_poses[name], contact_offset)
-        q_seed, success, err = solve_ik_regularized(pin_model, tcp_link_index, pose, q_seed)
-        if not success:
-            raise RuntimeError(f"IK failed for {name}: err={np.round(err, 6).tolist()}")
-        waypoints.append((name, q_seed.astype(np.float32), contact_poses[name]))
+        append_contact_stage(name, contact_poses[name])
 
     twist_steps = max(1, int(args.twist_ik_steps))
     for idx, deg in enumerate(np.linspace(0.0, args.pick_twist_deg, twist_steps + 1)[1:], start=1):
@@ -326,7 +377,8 @@ def build_waypoints(args):
         q_seed, success, err = solve_ik_regularized(pin_model, tcp_link_index, pose, q_seed)
         if not success:
             raise RuntimeError(f"IK failed for pick_twist_{idx:02d}: err={np.round(err, 6).tolist()}")
-        waypoints.append((f"pick_twist_{idx:02d}", q_seed.astype(np.float32), twist_pose))
+        waypoints.append((f"pick_twist_{idx:02d}", q_seed[None, :].astype(np.float32), twist_pose))
+        last_contact_pose = np.asarray(twist_pose, dtype=np.float64)
 
     for name in [
         "pick_attach",
@@ -339,14 +391,10 @@ def build_waypoints(args):
         "place_twist",
         "place_up",
     ]:
-        pose = tcp_pose_from_contact(contact_poses[name], contact_offset)
-        q_seed, success, err = solve_ik_regularized(pin_model, tcp_link_index, pose, q_seed)
-        if not success:
-            raise RuntimeError(f"IK failed for {name}: err={np.round(err, 6).tolist()}")
-        waypoints.append((name, q_seed.astype(np.float32), contact_poses[name]))
+        append_contact_stage(name, contact_poses[name])
 
     if args.return_home:
-        waypoints.append(("home_end", RM75LegoTool.keyframes["neutral"].qpos.astype(np.float32), np.eye(4, dtype=np.float64)))
+        waypoints.append(("home_end", RM75LegoTool.keyframes["neutral"].qpos[None, :].astype(np.float32), np.eye(4, dtype=np.float64)))
 
     return env, waypoints
 
@@ -558,9 +606,20 @@ def _xy_deviation_from_line(xyz: np.ndarray) -> float:
     return float(np.max(np.linalg.norm(xy - proj, axis=1)))
 
 
-def confirm(label: str, q_target: np.ndarray, args) -> str:
+def stage_final_q(q_path: np.ndarray) -> np.ndarray:
+    q_path = np.asarray(q_path, dtype=np.float32)
+    if q_path.ndim == 1:
+        return q_path
+    return q_path[-1]
+
+
+def confirm(label: str, q_path: np.ndarray, args) -> str:
+    q_path = np.asarray(q_path, dtype=np.float32)
+    q_target = stage_final_q(q_path)
     print(f"\n[next] {label}")
-    print("q(rad):", np.round(np.asarray(q_target, dtype=np.float64), 5).tolist())
+    if q_path.ndim == 2 and q_path.shape[0] > 1:
+        print("subwaypoints:", int(q_path.shape[0]))
+    print("final q(rad):", np.round(np.asarray(q_target, dtype=np.float64), 5).tolist())
     if args.dry_run_no_prompts:
         return "run"
     text = input("Press Enter to execute this stage, 's' to skip, or 'q' to abort: ").strip().lower()
@@ -584,10 +643,15 @@ def main() -> int:
 
     env, waypoints = build_waypoints(args)
     print(f"[plan] generated {len(waypoints)} LEGO waypoints")
-    for idx, (label, q, contact_pose) in enumerate(waypoints, start=1):
+    for idx, (label, q_path, contact_pose) in enumerate(waypoints, start=1):
+        q_final = stage_final_q(q_path)
+        substeps = int(np.asarray(q_path).shape[0]) if np.asarray(q_path).ndim == 2 else 1
         pos = np.round(contact_pose[:3, 3], 6).tolist()
-        print(f"[plan] {idx:02d} {label:16s} contact_p={pos} q={np.round(q, 5).tolist()}")
-        limit_warning = joint_limit_report(q)
+        print(
+            f"[plan] {idx:02d} {label:16s} substeps={substeps:02d} "
+            f"contact_p={pos} q_final={np.round(q_final, 5).tolist()}"
+        )
+        limit_warning = joint_limit_report(q_final)
         if limit_warning:
             print(f"[limit] {label}: {limit_warning}")
 
@@ -607,8 +671,11 @@ def main() -> int:
     try:
         if args.render:
             render_shadow_step(env, shadow_q, args)
-        for label, q_target, _contact_pose in waypoints:
-            decision = confirm(label, q_target, args)
+        for label, q_path, _contact_pose in waypoints:
+            q_path = np.asarray(q_path, dtype=np.float32)
+            if q_path.ndim == 1:
+                q_path = q_path[None, :]
+            decision = confirm(label, q_path, args)
             if decision == "abort":
                 print("[abort] user aborted before stage", label)
                 return 1
@@ -618,22 +685,27 @@ def main() -> int:
             if eef_logger is not None:
                 eef_logger.set_stage(label, _contact_pose)
             if real_exec is None:
-                if args.render:
-                    shadow_q = move_shadow_linear(env, shadow_q, q_target, args, label)
-                else:
-                    shadow_q = np.asarray(q_target, dtype=np.float32)
+                for sub_idx, q_target in enumerate(q_path, start=1):
+                    sub_label = label if len(q_path) == 1 else f"{label}_{sub_idx:02d}"
+                    if args.render:
+                        shadow_q = move_shadow_linear(env, shadow_q, q_target, args, sub_label)
+                    else:
+                        shadow_q = np.asarray(q_target, dtype=np.float32)
                 continue
             t0 = time.perf_counter()
-            real_exec.move_linear(
-                q_target,
-                gripper_pos=args.real_gripper_pos,
-                max_delta_per_step=args.real_max_delta_per_step,
-                hz=args.real_control_hz,
-                hold_steps=args.real_hold_steps,
-                label=label,
-                shadow_callback=make_shadow_callback(env, args),
-            )
-            shadow_q = np.asarray(q_target, dtype=np.float32)
+            for sub_idx, q_target in enumerate(q_path, start=1):
+                sub_label = label if len(q_path) == 1 else f"{label}_{sub_idx:02d}"
+                hold_steps = args.real_hold_steps if sub_idx == len(q_path) else 0
+                real_exec.move_linear(
+                    q_target,
+                    gripper_pos=args.real_gripper_pos,
+                    max_delta_per_step=args.real_max_delta_per_step,
+                    hz=args.real_control_hz,
+                    hold_steps=hold_steps,
+                    label=sub_label,
+                    shadow_callback=make_shadow_callback(env, args),
+                )
+                shadow_q = np.asarray(q_target, dtype=np.float32)
             print(f"[real] {label} done in {time.perf_counter() - t0:.2f}s")
     finally:
         if eef_logger is not None:
