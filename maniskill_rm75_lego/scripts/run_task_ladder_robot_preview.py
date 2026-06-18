@@ -85,7 +85,9 @@ def parse_args():
     parser.add_argument("--place-up-height", type=float, default=0.035)
     parser.add_argument("--steps-per-segment", type=int, default=80)
     parser.add_argument("--cartesian-step-size", type=float, default=0.005)
+    parser.add_argument("--cartesian-rot-step-deg", type=float, default=2.0)
     parser.add_argument("--hold-steps", type=int, default=30)
+    parser.add_argument("--audit-dense-path", action="store_true")
     parser.add_argument("--render", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--render-sleep", type=float, default=0.03)
     parser.add_argument("--wait-at-end", action=argparse.BooleanOptionalAction, default=True)
@@ -93,7 +95,7 @@ def parse_args():
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--execute-real", action="store_true")
     parser.add_argument("--robot-ip", type=str, default=None)
-    parser.add_argument("--real-control-hz", type=float, default=10.0)
+    parser.add_argument("--real-control-hz", type=float, default=20.0)
     parser.add_argument("--real-max-delta-per-step", type=float, default=0.025)
     parser.add_argument("--real-hold-steps", type=int, default=2)
     parser.add_argument("--step", action="store_true", help="Pause before each motion stage; Enter runs, s skips, q aborts.")
@@ -185,13 +187,23 @@ def _solve_ik(pin_model, tcp_link_index: int, target_pose: sapien.Pose, q_seed: 
     return np.asarray(q_pin, dtype=np.float64), bool(pin_success), np.asarray(pin_err, dtype=np.float64)
 
 
-def interpolate_transform_path(start_mat: np.ndarray, end_mat: np.ndarray, step_size: float) -> list[np.ndarray]:
+def interpolate_transform_path(
+    start_mat: np.ndarray,
+    end_mat: np.ndarray,
+    step_size: float,
+    rot_step_deg: float,
+) -> list[np.ndarray]:
     start_mat = np.asarray(start_mat, dtype=np.float64).reshape(4, 4)
     end_mat = np.asarray(end_mat, dtype=np.float64).reshape(4, 4)
     distance = float(np.linalg.norm(end_mat[:3, 3] - start_mat[:3, 3]))
-    if step_size <= 0.0 or distance <= 1e-9:
+    rot_delta = Rotation.from_matrix(end_mat[:3, :3] @ start_mat[:3, :3].T)
+    angle = float(np.linalg.norm(rot_delta.as_rotvec()))
+    if step_size <= 0.0 and rot_step_deg <= 0.0:
         return [end_mat.copy()]
-    num_steps = max(1, int(np.ceil(distance / step_size)))
+    trans_steps = 0 if step_size <= 0.0 else int(np.ceil(distance / step_size))
+    rot_step_rad = np.deg2rad(rot_step_deg) if rot_step_deg > 0.0 else 0.0
+    rot_steps = 0 if rot_step_rad <= 0.0 else int(np.ceil(angle / rot_step_rad))
+    num_steps = max(1, trans_steps, rot_steps)
     key_rots = Rotation.from_matrix(np.stack([start_mat[:3, :3], end_mat[:3, :3]], axis=0))
     slerp = Slerp([0.0, 1.0], key_rots)
     out = []
@@ -201,6 +213,23 @@ def interpolate_transform_path(start_mat: np.ndarray, end_mat: np.ndarray, step_
         mat[:3, :3] = slerp([float(alpha)]).as_matrix()[0]
         out.append(mat)
     return out
+
+
+def _pose_path_stats(mats: list[np.ndarray] | np.ndarray) -> tuple[float, float, float]:
+    mats = np.asarray(mats, dtype=np.float64)
+    if mats.ndim == 2:
+        mats = mats[None, :, :]
+    positions = mats[:, :3, 3]
+    xy_span_m = float(np.max(np.linalg.norm(positions[:, :2] - positions[0, :2], axis=1))) if len(positions) else 0.0
+    z_span_m = float(np.max(positions[:, 2]) - np.min(positions[:, 2])) if len(positions) else 0.0
+    if len(mats) <= 1:
+        return xy_span_m, z_span_m, 0.0
+    r0 = mats[0, :3, :3]
+    rot_span_rad = max(
+        float(np.linalg.norm(Rotation.from_matrix(mat[:3, :3] @ r0.T).as_rotvec()))
+        for mat in mats
+    )
+    return xy_span_m, z_span_m, rot_span_rad
 
 
 def main() -> int:
@@ -303,13 +332,61 @@ def main() -> int:
 
     last_contact_pose: np.ndarray | None = None
 
+    def audit_contact_path(tag: str, target_contact_path: list[np.ndarray], q_path: np.ndarray) -> None:
+        if not args.audit_dense_path:
+            return
+        target_contact_path = [np.asarray(mat, dtype=np.float64).reshape(4, 4) for mat in target_contact_path]
+        q_path = np.asarray(q_path, dtype=np.float64)
+        fk_contact_path = []
+        pos_errs = []
+        rot_errs = []
+        for target_contact, q in zip(target_contact_path, q_path):
+            pin_model.compute_forward_kinematics(q)
+            tcp_mat = pose_to_matrix(pin_model.get_link_pose(tcp_link_index))
+            fk_contact = tcp_mat @ translation_matrix(contact_offset)
+            fk_contact_path.append(fk_contact)
+            pos_errs.append(float(np.linalg.norm(target_contact[:3, 3] - fk_contact[:3, 3])))
+            rot_errs.append(float(np.linalg.norm(
+                Rotation.from_matrix(target_contact[:3, :3] @ fk_contact[:3, :3].T).as_rotvec()
+            )))
+        target_xy, target_z, target_rot = _pose_path_stats(target_contact_path)
+        fk_xy, fk_z, fk_rot = _pose_path_stats(fk_contact_path)
+        if len(q_path) > 1:
+            dq = np.diff(q_path, axis=0)
+            max_joint_step = float(np.max(np.abs(dq)))
+            max_joint_accel = float(np.max(np.abs(np.diff(dq, axis=0)))) if len(q_path) > 2 else 0.0
+        else:
+            max_joint_step = 0.0
+            max_joint_accel = 0.0
+        max_pos_err = max(pos_errs, default=0.0)
+        max_rot_err = max(rot_errs, default=0.0)
+        print(
+            f"[audit {tag}] n={len(q_path)} "
+            f"target_xy={target_xy * 1000:.3f}mm target_z={target_z * 1000:.3f}mm "
+            f"target_rot={np.rad2deg(target_rot):.4f}deg"
+        )
+        print(
+            f"[audit {tag}] fk_xy={fk_xy * 1000:.3f}mm fk_z={fk_z * 1000:.3f}mm "
+            f"fk_rot={np.rad2deg(fk_rot):.4f}deg "
+            f"max_pos_err={max_pos_err * 1000:.3f}mm max_rot_err={np.rad2deg(max_rot_err):.4f}deg"
+        )
+        print(
+            f"[audit {tag}] max_joint_step={max_joint_step:.6f}rad "
+            f"max_joint_accel={max_joint_accel:.6f}rad"
+        )
+
     def solve_contact_path(contact_pose: np.ndarray, tag: str) -> np.ndarray:
         nonlocal q_seed
         nonlocal last_contact_pose
         contact_pose = np.asarray(contact_pose, dtype=np.float64).reshape(4, 4)
         contact_path = [contact_pose]
         if last_contact_pose is not None:
-            contact_path = interpolate_transform_path(last_contact_pose, contact_pose, float(args.cartesian_step_size))
+            contact_path = interpolate_transform_path(
+                last_contact_pose,
+                contact_pose,
+                float(args.cartesian_step_size),
+                float(args.cartesian_rot_step_deg),
+            )
         q_path = []
         for idx, contact_mat in enumerate(contact_path, start=1):
             tcp_pose = tcp_pose_from_contact(contact_mat, contact_offset)
@@ -319,7 +396,9 @@ def main() -> int:
                 raise RuntimeError(f"IK failed for {tag}{suffix}: err={np.round(err, 6).tolist()}")
             q_path.append(q_seed.astype(np.float32))
         last_contact_pose = contact_pose
-        return np.stack(q_path, axis=0)
+        q_path_arr = np.stack(q_path, axis=0)
+        audit_contact_path(tag, contact_path, q_path_arr)
+        return q_path_arr
 
     if not run_q_path_stage(
         label="home",
@@ -356,7 +435,7 @@ def main() -> int:
 
         target_ref_grid = op.place.target_grids[reference_id]
         target_ref_mat = pose_to_matrix(_brick_pose_from_grid(plate_top, ref_cfg.type, target_ref_grid))
-        ref_contact_t_object = invert_transform(pick_down_contact) @ current_mats[reference_id]
+        ref_contact_t_object = invert_transform(pick_contact) @ current_mats[reference_id]
         place_contact = target_ref_mat @ invert_transform(ref_contact_t_object)
         pre_place_contact = place_contact @ translation_matrix(
             [float(place_offset[0]), float(place_offset[1]), float(place_offset[2] - abs(place_offset[2]))]
@@ -393,7 +472,7 @@ def main() -> int:
 
         attached_ids = object_ids
         contact_t_object = {
-            brick_id: invert_transform(pick_down_contact) @ current_mats[brick_id]
+            brick_id: invert_transform(pick_contact) @ current_mats[brick_id]
             for brick_id in object_ids
         }
         released = False

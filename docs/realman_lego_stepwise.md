@@ -29,7 +29,7 @@ Task-ladder config run, simulation/shadow rendering only. The plate height corre
 Task-ladder config run on the real robot, with synchronized shadow rendering:
 
 ```bash
-/home/yxz/data/conda/envs/maniskill4lego/bin/python maniskill_rm75_lego/scripts/run_task_ladder_robot_preview.py --task-config config/ladder --execute-real --robot-ip 192.168.101.20 --plate-z-offset 0.008 --pick-press-depth 0.012 --place-press-depth 0.012 --render --step
+/home/yxz/data/conda/envs/maniskill4lego/bin/python maniskill_rm75_lego/scripts/run_task_ladder_robot_preview.py --task-config config/ladder --execute-real --robot-ip 192.168.101.20 --plate-z-offset 0.008 --pick-press-depth 0.014 --place-press-depth 0.014 --cartesian-rot-step-deg 2.0 --render --step
 ```
 
 For the task-ladder runner, stages run continuously by default. Add `--step` to pause before each stage:
@@ -40,13 +40,15 @@ For the task-ladder runner, stages run continuously by default. Add `--step` to 
 
 For task-ladder real execution, the generated motion includes `home` before the LEGO motion and `home_end` after it. By default it runs continuously. Add `--step` when you want an Enter prompt before each stage.
 
-`--plate-z-offset` is the unified real-world height correction between the robot base frame and the LEGO plate top. It is passed from the command line for both the single-stage and ladder scripts. The ladder command sets `--pick-press-depth` and `--place-press-depth` to `0.012` m from the command line. The older `--press-depth` spelling is still accepted by the ladder script as an alias for `--pick-press-depth`.
+`--plate-z-offset` is the unified real-world height correction between the robot base frame and the LEGO plate top. It is passed from the command line for both the single-stage and ladder scripts. The ladder real-robot command sets `--pick-press-depth` and `--place-press-depth` to `0.014` m from the command line. The older `--press-depth` spelling is still accepted by the ladder script as an alias for `--pick-press-depth`.
 
 The pick twist IK subdivision is fixed at `1` for the real-tested LEGO motion and is no longer exposed as a command-line parameter.
 
-Short Cartesian primitives are densified before execution. For stages such as `pick_down`, `pick_attach`, `pick_upright`, `drop_up`, `place_down`, `place_press`, and `place_up`, the script samples intermediate TCP/contact poses at up to `--cartesian-step-size` spacing, solves IK for each sample, and executes the resulting joint subpath under one stage prompt. Set `--cartesian-step-size <= 0` to disable this densification.
+Short Cartesian primitives are densified before execution. For stages such as `pick_down`, `pick_attach`, `pick_upright`, `drop_up`, `place_down`, `place_press`, and `place_up`, the script samples intermediate TCP/contact poses at up to `--cartesian-step-size` spacing, solves IK for each sample, and executes the resulting joint subpath under one stage prompt. Rotational changes such as twist are also sampled by `--cartesian-rot-step-deg`, currently recorded as `2.0` degrees for the ladder real-robot command. Set both `--cartesian-step-size <= 0` and `--cartesian-rot-step-deg <= 0` to disable this densification.
 
 For the task-ladder runner, real execution streams the generated dense joint path directly through `realman_step_runner.py`. It bypasses the third-party `move_linear()` interpolation and only applies adjacent-joint max-delta densification before calling the RealMan `send_action` stream.
+
+The task-ladder runner sends real robot commands at `--real-control-hz 20` by default. Lower it for slower debugging or raise it carefully after the motion is stable.
 
 For the legacy single-stage runner, `--eef-log-hz 30` records controller-reported EEF pose and joints to `outputs/realman_eef_logs/`. The task-ladder runner does not expose EEF logging yet.
 
