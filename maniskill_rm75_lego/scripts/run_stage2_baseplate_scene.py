@@ -32,7 +32,6 @@ from maniskill_rm75_lego.envs.rm75_lego_pick_place import (
     LEGO_BASEPLATE32_URDF_PATH,
     LEGO_BRICK_URDF_PATHS,
     PLATE_ORIGIN_POS,
-    PLATE_AXIS_VISUAL_Z_LIFT,
     PLATE_SIZE_XY,
     PLATE_TOP_POS,
     STAGE2_BRICK_PLACEMENTS,
@@ -41,6 +40,7 @@ from maniskill_rm75_lego.envs.rm75_lego_pick_place import (
     TARGET_POS,
     describe_plate_grid_points,
     describe_stage2_placements,
+    grid_origin_axis_pose,
 )
 
 
@@ -82,11 +82,8 @@ def main() -> int:
     print("plate size studs:", list(PLATE_SIZE_XY))
     print("plate mesh origin pos:", np.round(PLATE_ORIGIN_POS, 6).tolist())
     print("plate top/grid pos:", np.round(PLATE_TOP_POS, 6).tolist())
-    print(
-        "plate axis visual origin:",
-        np.round(PLATE_TOP_POS + np.array([0.0, 0.0, PLATE_AXIS_VISUAL_Z_LIFT]), 6).tolist(),
-    )
-    print("plate axis colors: +X red, +Y green, +Z blue")
+    print("plate grid (0,0) axis visual origin:", np.round(grid_origin_axis_pose().p, 6).tolist())
+    print("plate grid (0,0) axis colors: +X red, +Y green, +Z blue")
     print("plate grid point examples:")
     for row in describe_plate_grid_points():
         print(" ", "grid[x,y,z]", row["grid"], "world xyz", np.round(row["world"], 6).tolist())

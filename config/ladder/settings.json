@@ -1,0 +1,61 @@
+{
+  "name": "task_ladder_three_layer_v1",
+  "initial_bricks": [
+    {
+      "id": "B0",
+      "type": "lego_1x2",
+      "grid": [0, 0, 0, 0],
+      "role": "calibration_pick_place",
+      "color": [0.70, 0.92, 0.08, 1.0]
+    },
+    {
+      "id": "B1",
+      "type": "lego_2x4",
+      "grid": [13, 0, 0, 0],
+      "role": "ladder_base_layer_0",
+      "color": [0.78, 0.48, 0.92, 1.0]
+    },
+    {
+      "id": "B2",
+      "type": "lego_2x4",
+      "grid": [13, 5, 0, 0],
+      "role": "pick_for_layer_1",
+      "color": [0.02, 0.18, 0.10, 1.0]
+    },
+    {
+      "id": "B3",
+      "type": "lego_2x4",
+      "grid": [13, 10, 0, 0],
+      "role": "third_brick_receiver",
+      "color": [1.0, 0.68, 0.02, 1.0]
+    },
+    {
+      "id": "B4",
+      "type": "lego_2x4",
+      "grid": [13, 15, 0, 0],
+      "role": "reserve",
+      "color": [0.82, 0.05, 0.04, 1.0]
+    },
+    {
+      "id": "B5",
+      "type": "lego_2x4",
+      "grid": [13, 20, 0, 0],
+      "role": "reserve",
+      "color": [0.52, 0.86, 0.02, 1.0]
+    },
+    {
+      "id": "B6",
+      "type": "lego_2x4",
+      "grid": [13, 25, 0, 0],
+      "role": "reserve",
+      "color": [0.82, 0.05, 0.04, 1.0]
+    },
+    {
+      "id": "B7",
+      "type": "lego_2x4",
+      "grid": [13, 30, 0, 0],
+      "role": "reserve",
+      "color": [0.52, 0.86, 0.02, 1.0]
+    }
+  ]
+}

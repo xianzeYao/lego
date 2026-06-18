@@ -64,9 +64,9 @@ PLATE_SIZE_XY = (32, 32)
 PLATE_TOP_POS = np.array([0.3, 0.0, 0.0032], dtype=np.float32)
 PLATE_YAW = 0.0
 PLATE_ORIGIN_POS = baseplate_origin_from_top(PLATE_TOP_POS).astype(np.float32)
-PLATE_AXIS_VISUAL_Z_LIFT = 0.004
-PLATE_AXIS_LENGTH = 0.08
-PLATE_AXIS_THICKNESS = 0.0012
+GRID_ORIGIN_AXIS_VISUAL_Z_LIFT = 0.008
+GRID_ORIGIN_AXIS_LENGTH = 0.045
+GRID_ORIGIN_AXIS_THICKNESS = 0.0015
 
 BRICK_MESH_SIZE = np.array([0.016, 0.008, 0.0112], dtype=np.float32)
 BRICK_MESH_BOUNDS_MIN = np.array([-0.008, -0.004, -0.0096], dtype=np.float32)
@@ -178,9 +178,10 @@ def baseplate_pose() -> sapien.Pose:
     return sapien.Pose(p=PLATE_ORIGIN_POS.tolist(), q=yaw_quat(PLATE_YAW))
 
 
-def plate_axis_pose() -> sapien.Pose:
-    pos = np.asarray(PLATE_TOP_POS, dtype=np.float64).copy()
-    pos[2] += PLATE_AXIS_VISUAL_Z_LIFT
+def grid_origin_axis_pose(plate_top_pos=PLATE_TOP_POS) -> sapien.Pose:
+    pos = plate_grid_point_world(plate_top_pos, PLATE_SIZE_XY, x=0, y=0, z=0, plate_yaw=PLATE_YAW)
+    pos = np.asarray(pos, dtype=np.float64)
+    pos[2] += GRID_ORIGIN_AXIS_VISUAL_Z_LIFT
     return sapien.Pose(p=pos.tolist(), q=yaw_quat(PLATE_YAW))
 
 
@@ -260,29 +261,29 @@ class RM75LegoPickPlaceEnv(RM75LegoSmokeEnv):
             pose=baseplate_pose(),
             body_type="kinematic",
         )
-        self.plate_axis_x = build_axis_marker(
+        self.grid_origin_axis_x = build_axis_marker(
             self.scene,
-            name="stage2_plate_axis_x",
+            name="plate_grid_origin_axis_x",
             axis="x",
-            length=PLATE_AXIS_LENGTH,
-            thickness=PLATE_AXIS_THICKNESS,
-            color=[1.0, 0.0, 0.0, 0.9],
+            length=GRID_ORIGIN_AXIS_LENGTH,
+            thickness=GRID_ORIGIN_AXIS_THICKNESS,
+            color=[1.0, 0.0, 0.0, 0.95],
         )
-        self.plate_axis_y = build_axis_marker(
+        self.grid_origin_axis_y = build_axis_marker(
             self.scene,
-            name="stage2_plate_axis_y",
+            name="plate_grid_origin_axis_y",
             axis="y",
-            length=PLATE_AXIS_LENGTH,
-            thickness=PLATE_AXIS_THICKNESS,
-            color=[0.0, 1.0, 0.0, 0.9],
+            length=GRID_ORIGIN_AXIS_LENGTH,
+            thickness=GRID_ORIGIN_AXIS_THICKNESS,
+            color=[0.0, 1.0, 0.0, 0.95],
         )
-        self.plate_axis_z = build_axis_marker(
+        self.grid_origin_axis_z = build_axis_marker(
             self.scene,
-            name="stage2_plate_axis_z",
+            name="plate_grid_origin_axis_z",
             axis="z",
-            length=PLATE_AXIS_LENGTH,
-            thickness=PLATE_AXIS_THICKNESS,
-            color=[0.0, 0.2, 1.0, 0.9],
+            length=GRID_ORIGIN_AXIS_LENGTH,
+            thickness=GRID_ORIGIN_AXIS_THICKNESS,
+            color=[0.0, 0.2, 1.0, 0.95],
         )
         self.bricks = {}
         for placement in STAGE2_BRICK_PLACEMENTS:
@@ -311,12 +312,12 @@ class RM75LegoPickPlaceEnv(RM75LegoSmokeEnv):
             torch.as_tensor(PLATE_ORIGIN_POS, device=self.device, dtype=torch.float32).repeat(b, 1),
             torch.as_tensor(yaw_quat(PLATE_YAW), device=self.device, dtype=torch.float32).repeat(b, 1),
         ))
-        axis_pose = plate_axis_pose()
-        axis_p = torch.as_tensor(axis_pose.p, device=self.device, dtype=torch.float32).repeat(b, 1)
-        axis_q = torch.as_tensor(axis_pose.q, device=self.device, dtype=torch.float32).repeat(b, 1)
-        self.plate_axis_x.set_pose(Pose.create_from_pq(axis_p, axis_q))
-        self.plate_axis_y.set_pose(Pose.create_from_pq(axis_p, axis_q))
-        self.plate_axis_z.set_pose(Pose.create_from_pq(axis_p, axis_q))
+        origin_axis_pose = grid_origin_axis_pose()
+        origin_axis_p = torch.as_tensor(origin_axis_pose.p, device=self.device, dtype=torch.float32).repeat(b, 1)
+        origin_axis_q = torch.as_tensor(origin_axis_pose.q, device=self.device, dtype=torch.float32).repeat(b, 1)
+        self.grid_origin_axis_x.set_pose(Pose.create_from_pq(origin_axis_p, origin_axis_q))
+        self.grid_origin_axis_y.set_pose(Pose.create_from_pq(origin_axis_p, origin_axis_q))
+        self.grid_origin_axis_z.set_pose(Pose.create_from_pq(origin_axis_p, origin_axis_q))
         for placement in STAGE2_BRICK_PLACEMENTS:
             pose = brick_pose_for_placement(placement)
             self.bricks[placement.key].set_pose(Pose.create_from_pq(

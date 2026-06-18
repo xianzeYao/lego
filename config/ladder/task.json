@@ -1,0 +1,47 @@
+{
+  "name": "task_ladder_three_layer_v1",
+  "steps": [
+    {
+      "name": "calibration_pick_place_1x2",
+      "object": "B0",
+      "pick": {
+        "grid": [0, 0, 0, 0],
+        "press_side": 2,
+        "press_offset": 0
+      },
+      "place": {
+        "grid": [4, 2, 0, 1],
+        "pause_after": "Adjust physical plate until the placed 1x2 aligns with the intended reference location."
+      }
+    },
+    {
+      "name": "build_two_brick_stack",
+      "object": "B1",
+      "pick": {
+        "grid": [13, 0, 0, 0],
+        "press_side": 4,
+        "press_offset": 0
+      },
+      "place": {
+        "grid": [15, 5, 1, 0]
+      }
+    },
+    {
+      "name": "move_two_brick_stack_to_third_brick",
+      "objects": ["B2", "B1"],
+      "reference": "B2",
+      "pick": {
+        "grid": [13, 5, 0, 0],
+        "press_side": 4,
+        "press_offset": 0
+      },
+      "place": {
+        "reference_grid": [15, 10, 1, 0],
+        "object_grids": {
+          "B2": [15, 10, 1, 0],
+          "B1": [17, 10, 2, 0]
+        }
+      }
+    }
+  ]
+}

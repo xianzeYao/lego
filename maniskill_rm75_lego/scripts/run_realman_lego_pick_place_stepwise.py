@@ -68,6 +68,7 @@ DEFAULT_REALMAN_FOUNDATIONPOSE_SCRIPT = (
 )
 DEFAULT_LEROBOT_ROOT = DEFAULT_REALMAN_BASE
 DEFAULT_LEROBOT_SIM2REAL_ROOT = DEFAULT_REALMAN_BASE / "lerobot-sim2real"
+TWIST_IK_STEPS = 1
 
 
 def parse_args():
@@ -98,7 +99,6 @@ def parse_args():
     parser.add_argument("--pick-up-height", type=float, default=0.035)
     parser.add_argument("--transfer-up-height", type=float, default=0.08)
     parser.add_argument("--place-up-height", type=float, default=0.035)
-    parser.add_argument("--twist-ik-steps", type=int, default=3)
     parser.add_argument(
         "--cartesian-step-size",
         type=float,
@@ -366,7 +366,7 @@ def build_waypoints(args):
     for name in ["pre_pick", "pick_down"]:
         append_contact_stage(name, contact_poses[name])
 
-    twist_steps = max(1, int(args.twist_ik_steps))
+    twist_steps = TWIST_IK_STEPS
     for idx, deg in enumerate(np.linspace(0.0, args.pick_twist_deg, twist_steps + 1)[1:], start=1):
         twist_pose = twist_about_local_pivot(
             pick_down_contact,
