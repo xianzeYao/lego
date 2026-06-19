@@ -16,9 +16,9 @@
       "id": "B001",
       "type": "lego_2x2",
       "grid": [
-        0,
-        18,
-        0,
+        9,
+        1,
+        3,
         0
       ],
       "role": "apex_mr_vessel_brick_1",
@@ -33,10 +33,10 @@
       "id": "B002",
       "type": "lego_1x2",
       "grid": [
-        0,
+        9,
+        10,
         3,
-        0,
-        0
+        1
       ],
       "role": "apex_mr_vessel_brick_2",
       "color": [
@@ -50,10 +50,10 @@
       "id": "B003",
       "type": "lego_2x6",
       "grid": [
-        0,
-        21,
-        0,
-        0
+        9,
+        19,
+        1,
+        1
       ],
       "role": "apex_mr_vessel_brick_3",
       "color": [
@@ -67,10 +67,10 @@
       "id": "B004",
       "type": "lego_1x8",
       "grid": [
-        0,
-        12,
-        0,
-        0
+        9,
+        28,
+        3,
+        1
       ],
       "role": "apex_mr_vessel_brick_4",
       "color": [
@@ -81,15 +81,15 @@
       ]
     },
     {
-      "id": "B005",
-      "type": "lego_1x8",
+      "id": "B006",
+      "type": "lego_1x1",
       "grid": [
-        9,
         12,
-        0,
+        1,
+        1,
         0
       ],
-      "role": "apex_mr_vessel_brick_5",
+      "role": "apex_mr_vessel_brick_6",
       "color": [
         0.52,
         0.86,
@@ -98,15 +98,15 @@
       ]
     },
     {
-      "id": "B006",
-      "type": "lego_1x1",
+      "id": "B008",
+      "type": "lego_1x6",
       "grid": [
-        0,
-        0,
-        0,
-        0
+        12,
+        10,
+        3,
+        1
       ],
-      "role": "apex_mr_vessel_brick_6",
+      "role": "apex_mr_vessel_brick_8",
       "color": [
         0.7,
         0.92,
@@ -115,15 +115,15 @@
       ]
     },
     {
-      "id": "B007",
-      "type": "lego_1x2",
+      "id": "B005",
+      "type": "lego_1x8",
       "grid": [
-        3,
-        3,
-        0,
-        0
+        9,
+        28,
+        2,
+        1
       ],
-      "role": "apex_mr_vessel_brick_7",
+      "role": "apex_mr_vessel_brick_5",
       "color": [
         0.78,
         0.48,
@@ -132,15 +132,15 @@
       ]
     },
     {
-      "id": "B008",
-      "type": "lego_1x6",
+      "id": "B007",
+      "type": "lego_1x2",
       "grid": [
-        0,
-        9,
-        0,
+        12,
+        19,
+        3,
         0
       ],
-      "role": "apex_mr_vessel_brick_8",
+      "role": "apex_mr_vessel_brick_7",
       "color": [
         0.02,
         0.18,
@@ -152,10 +152,10 @@
       "id": "B009",
       "type": "lego_1x8",
       "grid": [
-        18,
-        12,
-        0,
-        0
+        9,
+        28,
+        1,
+        1
       ],
       "role": "apex_mr_vessel_brick_9",
       "color": [
@@ -169,10 +169,10 @@
       "id": "B010",
       "type": "lego_1x8",
       "grid": [
-        27,
-        12,
+        9,
+        28,
         0,
-        0
+        1
       ],
       "role": "apex_mr_vessel_brick_10",
       "color": [
@@ -186,10 +186,10 @@
       "id": "B011",
       "type": "lego_1x8",
       "grid": [
-        36,
         12,
-        0,
-        0
+        28,
+        3,
+        1
       ],
       "role": "apex_mr_vessel_brick_11",
       "color": [
@@ -200,15 +200,15 @@
       ]
     },
     {
-      "id": "B012",
-      "type": "lego_1x2",
+      "id": "B017",
+      "type": "lego_1x4",
       "grid": [
-        6,
-        3,
-        0,
-        0
+        15,
+        1,
+        2,
+        1
       ],
-      "role": "apex_mr_vessel_brick_12",
+      "role": "apex_mr_vessel_brick_17",
       "color": [
         0.7,
         0.92,
@@ -220,10 +220,10 @@
       "id": "B013",
       "type": "lego_1x6",
       "grid": [
-        7,
-        9,
-        0,
-        0
+        12,
+        10,
+        2,
+        1
       ],
       "role": "apex_mr_vessel_brick_13",
       "color": [
@@ -234,15 +234,15 @@
       ]
     },
     {
-      "id": "B014",
-      "type": "lego_1x6",
+      "id": "B018",
+      "type": "lego_1x4",
       "grid": [
-        14,
-        9,
-        0,
-        0
+        15,
+        1,
+        1,
+        1
       ],
-      "role": "apex_mr_vessel_brick_14",
+      "role": "apex_mr_vessel_brick_18",
       "color": [
         0.02,
         0.18,
@@ -251,15 +251,15 @@
       ]
     },
     {
-      "id": "B015",
-      "type": "lego_1x2",
+      "id": "B019",
+      "type": "lego_1x1",
       "grid": [
-        9,
-        3,
+        12,
+        1,
         0,
         0
       ],
-      "role": "apex_mr_vessel_brick_15",
+      "role": "apex_mr_vessel_brick_19",
       "color": [
         1.0,
         0.68,
@@ -268,15 +268,15 @@
       ]
     },
     {
-      "id": "B016",
-      "type": "lego_1x2",
+      "id": "B023",
+      "type": "lego_2x2",
       "grid": [
-        12,
-        3,
-        0,
+        9,
+        1,
+        2,
         0
       ],
-      "role": "apex_mr_vessel_brick_16",
+      "role": "apex_mr_vessel_brick_23",
       "color": [
         0.82,
         0.05,
@@ -285,15 +285,15 @@
       ]
     },
     {
-      "id": "B017",
-      "type": "lego_1x4",
+      "id": "B012",
+      "type": "lego_1x2",
       "grid": [
-        0,
-        6,
-        0,
+        12,
+        19,
+        2,
         0
       ],
-      "role": "apex_mr_vessel_brick_17",
+      "role": "apex_mr_vessel_brick_12",
       "color": [
         0.52,
         0.86,
@@ -302,15 +302,15 @@
       ]
     },
     {
-      "id": "B018",
-      "type": "lego_1x4",
+      "id": "B014",
+      "type": "lego_1x6",
       "grid": [
-        5,
-        6,
-        0,
-        0
+        12,
+        10,
+        1,
+        1
       ],
-      "role": "apex_mr_vessel_brick_18",
+      "role": "apex_mr_vessel_brick_14",
       "color": [
         0.7,
         0.92,
@@ -319,15 +319,15 @@
       ]
     },
     {
-      "id": "B019",
-      "type": "lego_1x1",
+      "id": "B015",
+      "type": "lego_1x2",
       "grid": [
-        2,
-        0,
-        0,
+        12,
+        19,
+        1,
         0
       ],
-      "role": "apex_mr_vessel_brick_19",
+      "role": "apex_mr_vessel_brick_15",
       "color": [
         0.78,
         0.48,
@@ -336,15 +336,15 @@
       ]
     },
     {
-      "id": "B020",
-      "type": "lego_1x8",
+      "id": "B016",
+      "type": "lego_1x2",
       "grid": [
-        0,
-        15,
+        12,
+        19,
         0,
         0
       ],
-      "role": "apex_mr_vessel_brick_20",
+      "role": "apex_mr_vessel_brick_16",
       "color": [
         0.02,
         0.18,
@@ -353,15 +353,15 @@
       ]
     },
     {
-      "id": "B021",
-      "type": "lego_1x2",
+      "id": "B020",
+      "type": "lego_1x8",
       "grid": [
-        15,
-        3,
-        0,
-        0
+        12,
+        28,
+        2,
+        1
       ],
-      "role": "apex_mr_vessel_brick_21",
+      "role": "apex_mr_vessel_brick_20",
       "color": [
         1.0,
         0.68,
@@ -370,15 +370,15 @@
       ]
     },
     {
-      "id": "B022",
-      "type": "lego_1x8",
+      "id": "B021",
+      "type": "lego_1x2",
       "grid": [
-        9,
         15,
-        0,
+        10,
+        2,
         0
       ],
-      "role": "apex_mr_vessel_brick_22",
+      "role": "apex_mr_vessel_brick_21",
       "color": [
         0.82,
         0.05,
@@ -387,15 +387,15 @@
       ]
     },
     {
-      "id": "B023",
-      "type": "lego_2x2",
+      "id": "B022",
+      "type": "lego_1x8",
       "grid": [
-        3,
-        18,
-        0,
-        0
+        12,
+        28,
+        1,
+        1
       ],
-      "role": "apex_mr_vessel_brick_23",
+      "role": "apex_mr_vessel_brick_22",
       "color": [
         0.52,
         0.86,
@@ -404,15 +404,15 @@
       ]
     },
     {
-      "id": "B024",
-      "type": "lego_1x8",
+      "id": "B025",
+      "type": "lego_1x2",
       "grid": [
-        18,
-        15,
-        0,
-        0
+        9,
+        10,
+        2,
+        1
       ],
-      "role": "apex_mr_vessel_brick_24",
+      "role": "apex_mr_vessel_brick_25",
       "color": [
         0.7,
         0.92,
@@ -421,15 +421,15 @@
       ]
     },
     {
-      "id": "B025",
-      "type": "lego_1x2",
+      "id": "B024",
+      "type": "lego_1x8",
       "grid": [
-        18,
-        3,
+        12,
+        28,
         0,
-        0
+        1
       ],
-      "role": "apex_mr_vessel_brick_25",
+      "role": "apex_mr_vessel_brick_24",
       "color": [
         0.78,
         0.48,
@@ -441,10 +441,10 @@
       "id": "B026",
       "type": "lego_1x8",
       "grid": [
-        27,
         15,
+        19,
         0,
-        0
+        1
       ],
       "role": "apex_mr_vessel_brick_26",
       "color": [
@@ -455,15 +455,15 @@
       ]
     },
     {
-      "id": "B027",
-      "type": "lego_1x2",
+      "id": "B029",
+      "type": "lego_2x2",
       "grid": [
-        21,
-        3,
-        0,
+        9,
+        1,
+        1,
         0
       ],
-      "role": "apex_mr_vessel_brick_27",
+      "role": "apex_mr_vessel_brick_29",
       "color": [
         1.0,
         0.68,
@@ -472,15 +472,15 @@
       ]
     },
     {
-      "id": "B028",
-      "type": "lego_1x2",
+      "id": "B032",
+      "type": "lego_1x4",
       "grid": [
-        24,
-        3,
+        15,
+        1,
         0,
-        0
+        1
       ],
-      "role": "apex_mr_vessel_brick_28",
+      "role": "apex_mr_vessel_brick_32",
       "color": [
         0.82,
         0.05,
@@ -489,15 +489,15 @@
       ]
     },
     {
-      "id": "B029",
+      "id": "B030",
       "type": "lego_2x2",
       "grid": [
-        6,
-        18,
+        9,
+        1,
         0,
         0
       ],
-      "role": "apex_mr_vessel_brick_29",
+      "role": "apex_mr_vessel_brick_30",
       "color": [
         0.52,
         0.86,
@@ -506,15 +506,15 @@
       ]
     },
     {
-      "id": "B030",
-      "type": "lego_2x2",
+      "id": "B031",
+      "type": "lego_1x6",
       "grid": [
-        9,
-        18,
+        12,
+        10,
         0,
-        0
+        1
       ],
-      "role": "apex_mr_vessel_brick_30",
+      "role": "apex_mr_vessel_brick_31",
       "color": [
         0.7,
         0.92,
@@ -523,15 +523,15 @@
       ]
     },
     {
-      "id": "B031",
-      "type": "lego_1x6",
+      "id": "B027",
+      "type": "lego_1x2",
       "grid": [
-        21,
         9,
-        0,
-        0
+        10,
+        1,
+        1
       ],
-      "role": "apex_mr_vessel_brick_31",
+      "role": "apex_mr_vessel_brick_27",
       "color": [
         0.78,
         0.48,
@@ -540,15 +540,15 @@
       ]
     },
     {
-      "id": "B032",
-      "type": "lego_1x4",
+      "id": "B028",
+      "type": "lego_1x2",
       "grid": [
+        15,
         10,
-        6,
-        0,
+        1,
         0
       ],
-      "role": "apex_mr_vessel_brick_32",
+      "role": "apex_mr_vessel_brick_28",
       "color": [
         0.02,
         0.18,
@@ -560,10 +560,10 @@
       "id": "B033",
       "type": "lego_1x2",
       "grid": [
-        27,
-        3,
+        9,
+        10,
         0,
-        0
+        1
       ],
       "role": "apex_mr_vessel_brick_33",
       "color": [
@@ -574,15 +574,15 @@
       ]
     },
     {
-      "id": "B034",
-      "type": "lego_1x6",
+      "id": "B035",
+      "type": "lego_2x6",
       "grid": [
-        28,
         9,
+        19,
         0,
-        0
+        1
       ],
-      "role": "apex_mr_vessel_brick_34",
+      "role": "apex_mr_vessel_brick_35",
       "color": [
         0.82,
         0.05,
@@ -591,15 +591,15 @@
       ]
     },
     {
-      "id": "B035",
-      "type": "lego_2x6",
+      "id": "B034",
+      "type": "lego_1x6",
       "grid": [
-        7,
-        21,
+        15,
+        28,
         0,
-        0
+        1
       ],
-      "role": "apex_mr_vessel_brick_35",
+      "role": "apex_mr_vessel_brick_34",
       "color": [
         0.52,
         0.86,
@@ -611,8 +611,8 @@
       "id": "B036",
       "type": "lego_1x2",
       "grid": [
-        30,
-        3,
+        15,
+        10,
         0,
         0
       ],

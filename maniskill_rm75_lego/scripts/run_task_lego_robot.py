@@ -69,10 +69,34 @@ DEFAULT_REALMAN_FOUNDATIONPOSE_SCRIPT = (
 )
 DEFAULT_LEROBOT_ROOT = DEFAULT_REALMAN_BASE
 DEFAULT_LEROBOT_SIM2REAL_ROOT = DEFAULT_REALMAN_BASE / "lerobot-sim2real"
+PERIODIC_JOINT_INDICES = (6,)
+
+
+def _nearest_periodic_angle(angle: float, reference: float, lower: float, upper: float) -> float:
+    period = 2.0 * np.pi
+    base = reference + ((float(angle) - float(reference) + np.pi) % period - np.pi)
+    candidates = [base + period * k for k in range(-2, 3)]
+    valid = [value for value in candidates if lower <= value <= upper]
+    if valid:
+        return min(valid, key=lambda value: abs(value - reference))
+    return float(np.clip(base, lower, upper))
+
+
+def _normalize_periodic_joints(q: np.ndarray, reference: np.ndarray) -> np.ndarray:
+    q = np.asarray(q, dtype=np.float64).copy()
+    reference = np.asarray(reference, dtype=np.float64).reshape(-1)
+    for joint_idx in PERIODIC_JOINT_INDICES:
+        q[joint_idx] = _nearest_periodic_angle(
+            q[joint_idx],
+            reference[joint_idx],
+            JOINT_LOWER[joint_idx],
+            JOINT_UPPER[joint_idx],
+        )
+    return q
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="Render RM75 task_ladder robot motion from config/settings.json + task.json.")
+    parser = argparse.ArgumentParser(description="Render RM75 LEGO robot motion from config/settings.json + task.json.")
     parser.add_argument("--task-config", default="config/ladder")
     parser.add_argument("--plate-z-offset", type=float, default=0.0)
     parser.add_argument("--contact-offset", type=float, nargs=3, default=CONTACT_OFFSET_TCP)
@@ -149,6 +173,7 @@ def _pose_to_matrix_any(pose) -> np.ndarray:
 def _solve_ik(pin_model, tcp_link_index: int, target_pose: sapien.Pose, q_seed: np.ndarray):
     target_mat = pose_to_matrix(target_pose)
     q_seed = np.asarray(q_seed, dtype=np.float64).reshape(-1)
+    q_seed = _normalize_periodic_joints(q_seed, RM75LegoTool.keyframes["neutral"].qpos)
 
     def residual(q):
         pin_model.compute_forward_kinematics(q)
@@ -167,7 +192,7 @@ def _solve_ik(pin_model, tcp_link_index: int, target_pose: sapien.Pose, q_seed: 
         ftol=1e-10,
         gtol=1e-10,
     )
-    q_sol = np.asarray(result.x, dtype=np.float64)
+    q_sol = _normalize_periodic_joints(np.asarray(result.x, dtype=np.float64), q_seed)
     pin_model.compute_forward_kinematics(q_sol)
     cur_mat = pose_to_matrix(pin_model.get_link_pose(tcp_link_index))
     pos_err = target_mat[:3, 3] - cur_mat[:3, 3]
@@ -184,7 +209,8 @@ def _solve_ik(pin_model, tcp_link_index: int, target_pose: sapien.Pose, q_seed: 
         dt=0.1,
         damp=1e-6,
     )
-    return np.asarray(q_pin, dtype=np.float64), bool(pin_success), np.asarray(pin_err, dtype=np.float64)
+    q_pin = _normalize_periodic_joints(np.asarray(q_pin, dtype=np.float64), q_seed)
+    return q_pin, bool(pin_success), np.asarray(pin_err, dtype=np.float64)
 
 
 def interpolate_transform_path(
@@ -267,7 +293,7 @@ def main() -> int:
         pose = _brick_pose_from_grid(plate_top, brick_cfg.type, brick_cfg.grid)
         actor = build_colored_mesh_actor(
             base_env.scene,
-            name=f"task_ladder_robot_{brick_cfg.id}",
+            name=f"task_lego_robot_{brick_cfg.id}",
             mesh_path=BRICK_BY_NAME[brick_cfg.type].mesh_path,
             color=brick_cfg.color,
             pose=pose,
@@ -422,7 +448,7 @@ def main() -> int:
             brick=BRICK_BY_NAME[ref_cfg.type],
             grid=LegoGridPose(*pick_grid),
             press_side=int(op.pick.press_side),
-            press_offset=int(op.pick.press_offset),
+            press_offset=op.pick.press_offset,
             plate_yaw=PLATE_YAW,
         )
         pick_contact = apex_pick_contact_pose(pick)
@@ -552,7 +578,7 @@ def main() -> int:
         **runner_kwargs,
     ):
         return 1
-    print("PASS: task_ladder robot motion preview")
+    print("PASS: LEGO robot motion preview")
     if args.render and args.wait_at_end:
         print("Preview is running. Press Enter or type 'q' then Enter to close.")
         while True:

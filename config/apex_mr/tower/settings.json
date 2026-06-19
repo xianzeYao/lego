@@ -16,10 +16,10 @@
       "id": "B001",
       "type": "lego_2x4",
       "grid": [
-        0,
-        0,
-        0,
-        0
+        7,
+        4,
+        4,
+        1
       ],
       "role": "apex_mr_tower_brick_1",
       "color": [
@@ -33,10 +33,10 @@
       "id": "B002",
       "type": "lego_2x4",
       "grid": [
-        5,
-        0,
-        0,
-        0
+        7,
+        4,
+        3,
+        1
       ],
       "role": "apex_mr_tower_brick_2",
       "color": [
@@ -50,10 +50,10 @@
       "id": "B003",
       "type": "lego_2x4",
       "grid": [
-        10,
-        0,
-        0,
-        0
+        7,
+        4,
+        2,
+        1
       ],
       "role": "apex_mr_tower_brick_3",
       "color": [
@@ -67,10 +67,10 @@
       "id": "B004",
       "type": "lego_2x4",
       "grid": [
-        15,
-        0,
-        0,
-        0
+        7,
+        4,
+        1,
+        1
       ],
       "role": "apex_mr_tower_brick_4",
       "color": [
@@ -84,10 +84,10 @@
       "id": "B005",
       "type": "lego_2x4",
       "grid": [
-        20,
+        7,
+        4,
         0,
-        0,
-        0
+        1
       ],
       "role": "apex_mr_tower_brick_5",
       "color": [

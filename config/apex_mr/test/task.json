@@ -6,17 +6,20 @@
       "object": "B001",
       "pick": {
         "grid": [
-          0,
-          0,
-          0,
-          0
+          7,
+          4,
+          1,
+          1
         ],
-        "press_side": 1,
-        "press_offset": 0
+        "press_side": 3,
+        "press_offset": [
+          0,
+          1
+        ]
       },
       "place": {
         "grid": [
-          24,
+          22,
           23,
           0,
           1
@@ -40,17 +43,20 @@
       "object": "B002",
       "pick": {
         "grid": [
-          3,
+          7,
+          4,
           0,
-          0,
-          0
+          1
         ],
-        "press_side": 1,
-        "press_offset": 0
+        "press_side": 3,
+        "press_offset": [
+          0,
+          1
+        ]
       },
       "place": {
         "grid": [
-          24,
+          22,
           23,
           1,
           1

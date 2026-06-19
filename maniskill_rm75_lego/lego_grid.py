@@ -229,7 +229,7 @@ def pick_target_from_press_side(
     brick: LegoBrickSpec,
     grid: LegoGridPose,
     press_side: int,
-    press_offset: int,
+    press_offset: int | list[int] | tuple[int, ...],
     plate_yaw: float = 0.0,
 ) -> LegoPickTarget:
     """Compute the top-view pick target used by the LEGO tool.
@@ -250,36 +250,49 @@ def pick_target_from_press_side(
     stud_z = BRICK_BODY_HEIGHT + STUD_HEIGHT
     contact_z = BRICK_BODY_HEIGHT
 
-    if press_side in (1, 4):
-        if not 0 <= press_offset < brick.studs_y - 1:
-            raise ValueError(
-                f"press_offset={press_offset} invalid for side {press_side} "
-                f"and {brick.name} width {brick.studs_y}; expected 0..{brick.studs_y - 2}"
+    def selected_offsets(stud_count: int) -> tuple[int, ...]:
+        if isinstance(press_offset, int):
+            offsets = (press_offset,)
+        elif isinstance(press_offset, (list, tuple)):
+            offsets = tuple(int(offset) for offset in press_offset)
+        else:
+            raise TypeError(
+                f"press_offset must be an int or a list of two adjacent ints, got {type(press_offset).__name__}"
             )
-        y0 = -width / 2.0 + (press_offset + 0.5) * STUD_PITCH
-        y1 = y0 + STUD_PITCH
+        if len(offsets) not in (1, 2):
+            raise ValueError(f"press_offset={press_offset!r} must select one stud or two adjacent studs")
+        if len(offsets) == 1 and stud_count > 1:
+            raise ValueError(
+                f"press_offset={press_offset!r} selects one stud on side {press_side} of {brick.name}, "
+                f"but that side has {stud_count} studs; use two adjacent stud indices"
+            )
+        if any(offset < 0 for offset in offsets):
+            raise ValueError(f"press_offset={press_offset!r} must not contain negative stud indices")
+        if any(offset >= stud_count for offset in offsets):
+            raise ValueError(
+                f"press_offset={press_offset!r} invalid for side {press_side} and {brick.name}; "
+                f"expected stud indices 0..{stud_count - 1}"
+            )
+        if len(offsets) == 2 and abs(offsets[0] - offsets[1]) != 1:
+            raise ValueError(f"press_offset={press_offset!r} must contain adjacent stud indices")
+        return offsets
+
+    if press_side in (1, 4):
+        offsets = selected_offsets(brick.studs_y)
+        y_values = [-width / 2.0 + (offset + 0.5) * STUD_PITCH for offset in offsets]
         x_stud = length / 2.0 - STUD_PITCH / 2.0 if press_side == 1 else -length / 2.0 + STUD_PITCH / 2.0
         edge_x = length / 2.0 if press_side == 1 else -length / 2.0
-        selected_local = np.array(
-            [[x_stud, y0, stud_z, 1.0], [x_stud, y1, stud_z, 1.0]]
-        )
-        edge_local = np.array([edge_x, (y0 + y1) / 2.0, contact_z, 1.0])
+        selected_local = np.array([[x_stud, y, stud_z, 1.0] for y in y_values], dtype=np.float64)
+        edge_local = np.array([edge_x, float(np.mean(y_values)), contact_z, 1.0])
         outward_local = np.array([1.0 if press_side == 1 else -1.0, 0.0, 0.0])
         tangent_local = np.array([0.0, 1.0, 0.0])
     elif press_side in (2, 3):
-        if not 0 <= press_offset < brick.studs_x - 1:
-            raise ValueError(
-                f"press_offset={press_offset} invalid for side {press_side} "
-                f"and {brick.name} length {brick.studs_x}; expected 0..{brick.studs_x - 2}"
-            )
-        x0 = length / 2.0 - (press_offset + 0.5) * STUD_PITCH
-        x1 = x0 - STUD_PITCH
+        offsets = selected_offsets(brick.studs_x)
+        x_values = [length / 2.0 - (offset + 0.5) * STUD_PITCH for offset in offsets]
         y_stud = width / 2.0 - STUD_PITCH / 2.0 if press_side == 2 else -width / 2.0 + STUD_PITCH / 2.0
         edge_y = width / 2.0 if press_side == 2 else -width / 2.0
-        selected_local = np.array(
-            [[x0, y_stud, stud_z, 1.0], [x1, y_stud, stud_z, 1.0]]
-        )
-        edge_local = np.array([(x0 + x1) / 2.0, edge_y, contact_z, 1.0])
+        selected_local = np.array([[x, y_stud, stud_z, 1.0] for x in x_values], dtype=np.float64)
+        edge_local = np.array([float(np.mean(x_values)), edge_y, contact_z, 1.0])
         outward_local = np.array([0.0, 1.0 if press_side == 2 else -1.0, 0.0])
         tangent_local = np.array([1.0, 0.0, 0.0])
     else:

@@ -6,19 +6,22 @@
       "object": "B001",
       "pick": {
         "grid": [
-          0,
-          3,
-          0,
+          7,
+          4,
+          5,
           0
         ],
         "press_side": 1,
-        "press_offset": 0
+        "press_offset": [
+          0,
+          1
+        ]
       },
       "place": {
         "grid": [
-          24,
-          21,
-          4,
+          22,
+          20,
+          0,
           0
         ]
       },
@@ -30,75 +33,7 @@
         "press_grid": [
           24,
           21,
-          5,
-          0
-        ]
-      }
-    },
-    {
-      "name": "place_b011",
-      "object": "B011",
-      "pick": {
-        "grid": [
-          0,
-          9,
-          0,
-          0
-        ],
-        "press_side": 1,
-        "press_offset": 2
-      },
-      "place": {
-        "grid": [
-          24,
-          22,
-          9,
-          1
-        ]
-      },
-      "apex_mr": {
-        "source_task": "R",
-        "source_key": "11",
-        "brick_id": 3,
-        "brick_seq": 1,
-        "press_grid": [
-          24,
-          24,
-          10,
-          1
-        ]
-      }
-    },
-    {
-      "name": "place_b012",
-      "object": "B012",
-      "pick": {
-        "grid": [
-          0,
-          0,
-          0,
-          0
-        ],
-        "press_side": 4,
-        "press_offset": 0
-      },
-      "place": {
-        "grid": [
-          24,
-          28,
-          9,
-          0
-        ]
-      },
-      "apex_mr": {
-        "source_task": "R",
-        "source_key": "12",
-        "brick_id": 9,
-        "brick_seq": 1,
-        "press_grid": [
-          24,
-          28,
-          10,
+          1,
           0
         ]
       }
@@ -108,19 +43,22 @@
       "object": "B002",
       "pick": {
         "grid": [
-          3,
-          3,
-          0,
+          7,
+          4,
+          4,
           0
         ],
         "press_side": 1,
-        "press_offset": 0
+        "press_offset": [
+          0,
+          1
+        ]
       },
       "place": {
         "grid": [
-          24,
-          27,
-          4,
+          22,
+          26,
+          0,
           0
         ]
       },
@@ -132,42 +70,8 @@
         "press_grid": [
           24,
           27,
-          5,
+          1,
           0
-        ]
-      }
-    },
-    {
-      "name": "place_b021",
-      "object": "B021",
-      "pick": {
-        "grid": [
-          7,
-          9,
-          0,
-          0
-        ],
-        "press_side": 1,
-        "press_offset": 3
-      },
-      "place": {
-        "grid": [
-          24,
-          23,
-          14,
-          1
-        ]
-      },
-      "apex_mr": {
-        "source_task": "R",
-        "source_key": "21",
-        "brick_id": 3,
-        "brick_seq": 2,
-        "press_grid": [
-          24,
-          26,
-          15,
-          1
         ]
       }
     },
@@ -176,19 +80,22 @@
       "object": "B003",
       "pick": {
         "grid": [
-          6,
+          7,
+          4,
           3,
-          0,
           0
         ],
         "press_side": 1,
-        "press_offset": 0
+        "press_offset": [
+          0,
+          1
+        ]
       },
       "place": {
         "grid": [
-          24,
-          21,
-          5,
+          22,
+          20,
+          1,
           0
         ]
       },
@@ -200,7 +107,7 @@
         "press_grid": [
           24,
           21,
-          6,
+          2,
           0
         ]
       }
@@ -210,19 +117,22 @@
       "object": "B004",
       "pick": {
         "grid": [
-          9,
-          3,
-          0,
+          7,
+          4,
+          2,
           0
         ],
         "press_side": 1,
-        "press_offset": 0
+        "press_offset": [
+          0,
+          1
+        ]
       },
       "place": {
         "grid": [
-          24,
-          27,
-          5,
+          22,
+          26,
+          1,
           0
         ]
       },
@@ -234,7 +144,7 @@
         "press_grid": [
           24,
           27,
-          6,
+          2,
           0
         ]
       }
@@ -244,19 +154,22 @@
       "object": "B005",
       "pick": {
         "grid": [
-          12,
-          3,
-          0,
+          7,
+          4,
+          1,
           0
         ],
         "press_side": 1,
-        "press_offset": 0
+        "press_offset": [
+          0,
+          1
+        ]
       },
       "place": {
         "grid": [
-          24,
-          21,
-          6,
+          22,
+          20,
+          2,
           0
         ]
       },
@@ -268,7 +181,7 @@
         "press_grid": [
           24,
           21,
-          7,
+          3,
           0
         ]
       }
@@ -278,19 +191,22 @@
       "object": "B006",
       "pick": {
         "grid": [
-          15,
-          3,
+          7,
+          4,
           0,
           0
         ],
         "press_side": 1,
-        "press_offset": 0
+        "press_offset": [
+          0,
+          1
+        ]
       },
       "place": {
         "grid": [
-          24,
-          27,
-          6,
+          22,
+          26,
+          2,
           0
         ]
       },
@@ -302,7 +218,7 @@
         "press_grid": [
           24,
           27,
-          7,
+          3,
           0
         ]
       }
@@ -312,19 +228,22 @@
       "object": "B007",
       "pick": {
         "grid": [
-          18,
-          3,
-          0,
+          7,
+          11,
+          5,
           0
         ],
         "press_side": 1,
-        "press_offset": 0
+        "press_offset": [
+          0,
+          1
+        ]
       },
       "place": {
         "grid": [
-          24,
-          21,
-          7,
+          22,
+          20,
+          3,
           0
         ]
       },
@@ -336,7 +255,7 @@
         "press_grid": [
           24,
           21,
-          8,
+          4,
           0
         ]
       }
@@ -346,19 +265,22 @@
       "object": "B008",
       "pick": {
         "grid": [
-          21,
-          3,
-          0,
+          7,
+          11,
+          4,
           0
         ],
         "press_side": 1,
-        "press_offset": 0
+        "press_offset": [
+          0,
+          1
+        ]
       },
       "place": {
         "grid": [
-          24,
-          27,
-          7,
+          22,
+          26,
+          3,
           0
         ]
       },
@@ -370,7 +292,7 @@
         "press_grid": [
           24,
           27,
-          8,
+          4,
           0
         ]
       }
@@ -380,19 +302,22 @@
       "object": "B009",
       "pick": {
         "grid": [
-          24,
+          7,
+          11,
           3,
-          0,
           0
         ],
         "press_side": 1,
-        "press_offset": 0
+        "press_offset": [
+          0,
+          1
+        ]
       },
       "place": {
         "grid": [
-          24,
-          21,
-          8,
+          22,
+          20,
+          4,
           0
         ]
       },
@@ -404,7 +329,7 @@
         "press_grid": [
           24,
           21,
-          9,
+          5,
           0
         ]
       }
@@ -414,19 +339,22 @@
       "object": "B010",
       "pick": {
         "grid": [
-          27,
-          3,
-          0,
+          7,
+          11,
+          2,
           0
         ],
         "press_side": 1,
-        "press_offset": 0
+        "press_offset": [
+          0,
+          1
+        ]
       },
       "place": {
         "grid": [
-          24,
-          27,
-          8,
+          22,
+          26,
+          4,
           0
         ]
       },
@@ -438,7 +366,81 @@
         "press_grid": [
           24,
           27,
-          9,
+          5,
+          0
+        ]
+      }
+    },
+    {
+      "name": "place_b011",
+      "object": "B011",
+      "pick": {
+        "grid": [
+          7,
+          11,
+          1,
+          1
+        ],
+        "press_side": 3,
+        "press_offset": [
+          2,
+          3
+        ]
+      },
+      "place": {
+        "grid": [
+          22,
+          21,
+          5,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "R",
+        "source_key": "11",
+        "brick_id": 3,
+        "brick_seq": 1,
+        "press_grid": [
+          24,
+          24,
+          6,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b012",
+      "object": "B012",
+      "pick": {
+        "grid": [
+          7,
+          18,
+          5,
+          0
+        ],
+        "press_side": 2,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          22,
+          27,
+          5,
+          0
+        ]
+      },
+      "apex_mr": {
+        "source_task": "R",
+        "source_key": "12",
+        "brick_id": 9,
+        "brick_seq": 1,
+        "press_grid": [
+          24,
+          28,
+          6,
           0
         ]
       }
@@ -448,19 +450,22 @@
       "object": "B013",
       "pick": {
         "grid": [
-          30,
-          3,
-          0,
+          7,
+          18,
+          4,
           0
         ],
         "press_side": 1,
-        "press_offset": 0
+        "press_offset": [
+          0,
+          1
+        ]
       },
       "place": {
         "grid": [
-          24,
           22,
-          10,
+          21,
+          6,
           0
         ]
       },
@@ -472,7 +477,7 @@
         "press_grid": [
           24,
           22,
-          11,
+          7,
           0
         ]
       }
@@ -482,19 +487,22 @@
       "object": "B014",
       "pick": {
         "grid": [
-          33,
+          7,
+          18,
           3,
-          0,
           0
         ],
         "press_side": 1,
-        "press_offset": 0
+        "press_offset": [
+          0,
+          1
+        ]
       },
       "place": {
         "grid": [
-          24,
-          27,
-          10,
+          22,
+          26,
+          6,
           0
         ]
       },
@@ -506,7 +514,7 @@
         "press_grid": [
           24,
           27,
-          11,
+          7,
           0
         ]
       }
@@ -516,19 +524,22 @@
       "object": "B015",
       "pick": {
         "grid": [
-          36,
-          3,
-          0,
+          7,
+          18,
+          2,
           0
         ],
         "press_side": 1,
-        "press_offset": 0
+        "press_offset": [
+          0,
+          1
+        ]
       },
       "place": {
         "grid": [
-          24,
-          27,
-          11,
+          22,
+          26,
+          7,
           0
         ]
       },
@@ -540,7 +551,7 @@
         "press_grid": [
           24,
           27,
-          12,
+          8,
           0
         ]
       }
@@ -550,19 +561,22 @@
       "object": "B016",
       "pick": {
         "grid": [
-          39,
-          3,
-          0,
+          7,
+          18,
+          1,
           0
         ],
-        "press_side": 2,
-        "press_offset": 0
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
       },
       "place": {
         "grid": [
-          24,
-          21,
-          11,
+          22,
+          20,
+          7,
           0
         ]
       },
@@ -574,7 +588,7 @@
         "press_grid": [
           24,
           22,
-          12,
+          8,
           0
         ]
       }
@@ -584,19 +598,22 @@
       "object": "B017",
       "pick": {
         "grid": [
-          42,
-          3,
+          7,
+          18,
           0,
           0
         ],
         "press_side": 1,
-        "press_offset": 0
+        "press_offset": [
+          0,
+          1
+        ]
       },
       "place": {
         "grid": [
-          24,
-          21,
-          12,
+          22,
+          20,
+          8,
           0
         ]
       },
@@ -608,7 +625,7 @@
         "press_grid": [
           24,
           21,
-          13,
+          9,
           0
         ]
       }
@@ -618,19 +635,22 @@
       "object": "B018",
       "pick": {
         "grid": [
-          45,
-          3,
-          0,
+          7,
+          25,
+          2,
           0
         ],
         "press_side": 1,
-        "press_offset": 0
+        "press_offset": [
+          0,
+          1
+        ]
       },
       "place": {
         "grid": [
-          24,
-          27,
-          12,
+          22,
+          26,
+          8,
           0
         ]
       },
@@ -642,7 +662,7 @@
         "press_grid": [
           24,
           27,
-          13,
+          9,
           0
         ]
       }
@@ -652,19 +672,22 @@
       "object": "B019",
       "pick": {
         "grid": [
-          0,
-          6,
-          0,
+          7,
+          25,
+          1,
           0
         ],
         "press_side": 1,
-        "press_offset": 0
+        "press_offset": [
+          0,
+          1
+        ]
       },
       "place": {
         "grid": [
-          24,
-          27,
-          13,
+          22,
+          26,
+          9,
           0
         ]
       },
@@ -676,7 +699,7 @@
         "press_grid": [
           24,
           27,
-          14,
+          10,
           0
         ]
       }
@@ -686,19 +709,22 @@
       "object": "B020",
       "pick": {
         "grid": [
-          3,
-          6,
+          7,
+          25,
           0,
           0
         ],
-        "press_side": 3,
-        "press_offset": 0
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
       },
       "place": {
         "grid": [
-          24,
           22,
-          13,
+          21,
+          9,
           0
         ]
       },
@@ -710,8 +736,45 @@
         "press_grid": [
           24,
           22,
-          14,
+          10,
           0
+        ]
+      }
+    },
+    {
+      "name": "place_b021",
+      "object": "B021",
+      "pick": {
+        "grid": [
+          7,
+          11,
+          0,
+          1
+        ],
+        "press_side": 3,
+        "press_offset": [
+          1,
+          2
+        ]
+      },
+      "place": {
+        "grid": [
+          22,
+          22,
+          10,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "R",
+        "source_key": "21",
+        "brick_id": 3,
+        "brick_seq": 2,
+        "press_grid": [
+          24,
+          26,
+          11,
+          1
         ]
       }
     }

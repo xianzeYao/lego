@@ -16,9 +16,9 @@
       "id": "B001",
       "type": "lego_2x2",
       "grid": [
-        0,
-        3,
-        0,
+        9,
+        4,
+        4,
         0
       ],
       "role": "apex_mr_guitar_brick_1",
@@ -33,10 +33,10 @@
       "id": "B002",
       "type": "lego_1x2",
       "grid": [
-        0,
-        0,
-        0,
-        0
+        9,
+        7,
+        5,
+        1
       ],
       "role": "apex_mr_guitar_brick_2",
       "color": [
@@ -50,10 +50,10 @@
       "id": "B003",
       "type": "lego_1x2",
       "grid": [
-        3,
-        0,
-        0,
-        0
+        9,
+        7,
+        4,
+        1
       ],
       "role": "apex_mr_guitar_brick_3",
       "color": [
@@ -64,15 +64,15 @@
       ]
     },
     {
-      "id": "B004",
-      "type": "lego_2x2",
+      "id": "B005",
+      "type": "lego_2x4",
       "grid": [
+        9,
+        4,
         3,
-        3,
-        0,
         0
       ],
-      "role": "apex_mr_guitar_brick_4",
+      "role": "apex_mr_guitar_brick_5",
       "color": [
         0.82,
         0.05,
@@ -81,15 +81,15 @@
       ]
     },
     {
-      "id": "B005",
-      "type": "lego_2x4",
+      "id": "B004",
+      "type": "lego_2x2",
       "grid": [
-        0,
-        6,
-        0,
+        9,
+        7,
+        3,
         0
       ],
-      "role": "apex_mr_guitar_brick_5",
+      "role": "apex_mr_guitar_brick_4",
       "color": [
         0.52,
         0.86,
@@ -101,9 +101,9 @@
       "id": "B006",
       "type": "lego_2x6",
       "grid": [
-        0,
         9,
-        0,
+        4,
+        2,
         0
       ],
       "role": "apex_mr_guitar_brick_6",
@@ -118,9 +118,9 @@
       "id": "B007",
       "type": "lego_2x6",
       "grid": [
-        7,
         9,
-        0,
+        4,
+        1,
         0
       ],
       "role": "apex_mr_guitar_brick_7",
@@ -132,15 +132,15 @@
       ]
     },
     {
-      "id": "B008",
-      "type": "lego_2x2",
+      "id": "B009",
+      "type": "lego_2x4",
       "grid": [
-        6,
-        3,
-        0,
+        9,
+        7,
+        2,
         0
       ],
-      "role": "apex_mr_guitar_brick_8",
+      "role": "apex_mr_guitar_brick_9",
       "color": [
         0.02,
         0.18,
@@ -149,15 +149,15 @@
       ]
     },
     {
-      "id": "B009",
-      "type": "lego_2x4",
+      "id": "B008",
+      "type": "lego_2x2",
       "grid": [
-        5,
-        6,
-        0,
+        9,
+        10,
+        1,
         0
       ],
-      "role": "apex_mr_guitar_brick_9",
+      "role": "apex_mr_guitar_brick_8",
       "color": [
         1.0,
         0.68,
@@ -169,9 +169,9 @@
       "id": "B010",
       "type": "lego_2x4",
       "grid": [
-        10,
-        6,
-        0,
+        9,
+        7,
+        1,
         0
       ],
       "role": "apex_mr_guitar_brick_10",
@@ -186,8 +186,8 @@
       "id": "B011",
       "type": "lego_2x4",
       "grid": [
-        15,
-        6,
+        9,
+        7,
         0,
         0
       ],
@@ -203,8 +203,8 @@
       "id": "B012",
       "type": "lego_2x6",
       "grid": [
-        14,
         9,
+        4,
         0,
         0
       ],
@@ -220,8 +220,8 @@
       "id": "B013",
       "type": "lego_2x4",
       "grid": [
-        20,
-        6,
+        9,
+        10,
         0,
         0
       ],
@@ -238,8 +238,8 @@
       "type": "lego_2x2",
       "grid": [
         9,
-        3,
-        0,
+        13,
+        5,
         0
       ],
       "role": "apex_mr_guitar_brick_14",
@@ -254,9 +254,9 @@
       "id": "B015",
       "type": "lego_2x2",
       "grid": [
-        12,
-        3,
-        0,
+        9,
+        13,
+        4,
         0
       ],
       "role": "apex_mr_guitar_brick_15",
@@ -271,9 +271,9 @@
       "id": "B016",
       "type": "lego_2x2",
       "grid": [
-        15,
+        9,
+        13,
         3,
-        0,
         0
       ],
       "role": "apex_mr_guitar_brick_16",
@@ -288,9 +288,9 @@
       "id": "B017",
       "type": "lego_2x2",
       "grid": [
-        18,
-        3,
-        0,
+        9,
+        13,
+        2,
         0
       ],
       "role": "apex_mr_guitar_brick_17",
@@ -305,9 +305,9 @@
       "id": "B018",
       "type": "lego_2x2",
       "grid": [
-        21,
-        3,
-        0,
+        9,
+        13,
+        1,
         0
       ],
       "role": "apex_mr_guitar_brick_18",
@@ -322,8 +322,8 @@
       "id": "B019",
       "type": "lego_2x2",
       "grid": [
-        24,
-        3,
+        9,
+        13,
         0,
         0
       ],
@@ -339,9 +339,9 @@
       "id": "B020",
       "type": "lego_2x2",
       "grid": [
-        27,
+        9,
+        16,
         3,
-        0,
         0
       ],
       "role": "apex_mr_guitar_brick_20",
@@ -356,9 +356,9 @@
       "id": "B021",
       "type": "lego_2x2",
       "grid": [
-        30,
-        3,
-        0,
+        9,
+        16,
+        2,
         0
       ],
       "role": "apex_mr_guitar_brick_21",
@@ -373,9 +373,9 @@
       "id": "B022",
       "type": "lego_2x2",
       "grid": [
-        33,
-        3,
-        0,
+        9,
+        16,
+        1,
         0
       ],
       "role": "apex_mr_guitar_brick_22",
@@ -390,8 +390,8 @@
       "id": "B023",
       "type": "lego_2x2",
       "grid": [
-        36,
-        3,
+        9,
+        16,
         0,
         0
       ],
@@ -407,8 +407,8 @@
       "id": "B024",
       "type": "lego_1x2",
       "grid": [
-        6,
-        0,
+        9,
+        19,
         0,
         0
       ],

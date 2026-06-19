@@ -6,17 +6,20 @@
       "object": "B001",
       "pick": {
         "grid": [
-          0,
-          18,
-          0,
+          9,
+          1,
+          3,
           0
         ],
         "press_side": 1,
-        "press_offset": 0
+        "press_offset": [
+          0,
+          1
+        ]
       },
       "place": {
         "grid": [
-          24,
+          22,
           25,
           0,
           0
@@ -40,17 +43,20 @@
       "object": "B002",
       "pick": {
         "grid": [
-          0,
+          9,
+          10,
           3,
-          0,
-          0
+          1
         ],
-        "press_side": 1,
-        "press_offset": 0
+        "press_side": 3,
+        "press_offset": [
+          0,
+          1
+        ]
       },
       "place": {
         "grid": [
-          25,
+          23,
           23,
           0,
           1
@@ -74,17 +80,20 @@
       "object": "B003",
       "pick": {
         "grid": [
-          0,
-          21,
-          0,
-          0
+          9,
+          19,
+          1,
+          1
         ],
-        "press_side": 1,
-        "press_offset": 2
+        "press_side": 3,
+        "press_offset": [
+          2,
+          3
+        ]
       },
       "place": {
         "grid": [
-          24,
+          22,
           27,
           0,
           1
@@ -108,17 +117,20 @@
       "object": "B004",
       "pick": {
         "grid": [
-          0,
-          12,
-          0,
-          0
+          9,
+          28,
+          3,
+          1
         ],
-        "press_side": 1,
-        "press_offset": 3
+        "press_side": 3,
+        "press_offset": [
+          3,
+          4
+        ]
       },
       "place": {
         "grid": [
-          25,
+          23,
           15,
           0,
           1
@@ -142,17 +154,17 @@
       "object": "B006",
       "pick": {
         "grid": [
-          0,
-          0,
-          0,
+          12,
+          1,
+          1,
           0
         ],
-        "press_side": 1,
+        "press_side": 3,
         "press_offset": 0
       },
       "place": {
         "grid": [
-          26,
+          24,
           33,
           0,
           0
@@ -176,17 +188,20 @@
       "object": "B008",
       "pick": {
         "grid": [
-          0,
-          9,
-          0,
-          0
+          12,
+          10,
+          3,
+          1
         ],
-        "press_side": 4,
-        "press_offset": 2
+        "press_side": 2,
+        "press_offset": [
+          2,
+          3
+        ]
       },
       "place": {
         "grid": [
-          26,
+          24,
           27,
           0,
           1
@@ -206,55 +221,24 @@
       }
     },
     {
-      "name": "place_b017",
-      "object": "B017",
-      "pick": {
-        "grid": [
-          0,
-          6,
-          0,
-          0
-        ],
-        "press_side": 4,
-        "press_offset": 1
-      },
-      "place": {
-        "grid": [
-          26,
-          25,
-          1,
-          1
-        ]
-      },
-      "apex_mr": {
-        "source_task": "vessel",
-        "source_key": "17",
-        "brick_id": 5,
-        "brick_seq": 1,
-        "press_grid": [
-          26,
-          26,
-          2,
-          1
-        ]
-      }
-    },
-    {
       "name": "place_b005",
       "object": "B005",
       "pick": {
         "grid": [
           9,
-          12,
-          0,
-          0
+          28,
+          2,
+          1
         ],
-        "press_side": 1,
-        "press_offset": 3
+        "press_side": 3,
+        "press_offset": [
+          3,
+          4
+        ]
       },
       "place": {
         "grid": [
-          24,
+          22,
           17,
           0,
           1
@@ -278,17 +262,20 @@
       "object": "B007",
       "pick": {
         "grid": [
+          12,
+          19,
           3,
-          3,
-          0,
           0
         ],
-        "press_side": 4,
-        "press_offset": 0
+        "press_side": 2,
+        "press_offset": [
+          0,
+          1
+        ]
       },
       "place": {
         "grid": [
-          24,
+          22,
           33,
           0,
           0
@@ -308,21 +295,169 @@
       }
     },
     {
+      "name": "place_b009",
+      "object": "B009",
+      "pick": {
+        "grid": [
+          9,
+          28,
+          1,
+          1
+        ],
+        "press_side": 3,
+        "press_offset": [
+          3,
+          4
+        ]
+      },
+      "place": {
+        "grid": [
+          21,
+          18,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "vessel",
+        "source_key": "9",
+        "brick_id": 4,
+        "brick_seq": 3,
+        "press_grid": [
+          23,
+          21,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b010",
+      "object": "B010",
+      "pick": {
+        "grid": [
+          9,
+          28,
+          0,
+          1
+        ],
+        "press_side": 1,
+        "press_offset": 0
+      },
+      "place": {
+        "grid": [
+          24,
+          19,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "vessel",
+        "source_key": "10",
+        "brick_id": 4,
+        "brick_seq": 4,
+        "press_grid": [
+          26,
+          22,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b011",
+      "object": "B011",
+      "pick": {
+        "grid": [
+          12,
+          28,
+          3,
+          1
+        ],
+        "press_side": 3,
+        "press_offset": [
+          3,
+          4
+        ]
+      },
+      "place": {
+        "grid": [
+          21,
+          26,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "vessel",
+        "source_key": "11",
+        "brick_id": 4,
+        "brick_seq": 5,
+        "press_grid": [
+          23,
+          29,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b017",
+      "object": "B017",
+      "pick": {
+        "grid": [
+          15,
+          1,
+          2,
+          1
+        ],
+        "press_side": 2,
+        "press_offset": [
+          1,
+          2
+        ]
+      },
+      "place": {
+        "grid": [
+          24,
+          25,
+          1,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "vessel",
+        "source_key": "17",
+        "brick_id": 5,
+        "brick_seq": 1,
+        "press_grid": [
+          26,
+          26,
+          2,
+          1
+        ]
+      }
+    },
+    {
       "name": "place_b013",
       "object": "B013",
       "pick": {
         "grid": [
-          7,
-          9,
-          0,
-          0
+          12,
+          10,
+          2,
+          1
         ],
-        "press_side": 1,
-        "press_offset": 2
+        "press_side": 3,
+        "press_offset": [
+          2,
+          3
+        ]
       },
       "place": {
         "grid": [
-          25,
+          23,
           18,
           1,
           1
@@ -346,17 +481,20 @@
       "object": "B018",
       "pick": {
         "grid": [
-          5,
-          6,
-          0,
-          0
+          15,
+          1,
+          1,
+          1
         ],
-        "press_side": 1,
-        "press_offset": 1
+        "press_side": 3,
+        "press_offset": [
+          1,
+          2
+        ]
       },
       "place": {
         "grid": [
-          25,
+          23,
           26,
           1,
           1
@@ -380,17 +518,17 @@
       "object": "B019",
       "pick": {
         "grid": [
-          2,
-          0,
+          12,
+          1,
           0,
           0
         ],
-        "press_side": 2,
+        "press_side": 1,
         "press_offset": 0
       },
       "place": {
         "grid": [
-          26,
+          24,
           29,
           1,
           0
@@ -414,17 +552,20 @@
       "object": "B023",
       "pick": {
         "grid": [
-          3,
-          18,
-          0,
+          9,
+          1,
+          2,
           0
         ],
-        "press_side": 2,
-        "press_offset": 0
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
       },
       "place": {
         "grid": [
-          25,
+          23,
           32,
           1,
           0
@@ -444,89 +585,24 @@
       }
     },
     {
-      "name": "place_b035",
-      "object": "B035",
-      "pick": {
-        "grid": [
-          7,
-          21,
-          0,
-          0
-        ],
-        "press_side": 4,
-        "press_offset": 2
-      },
-      "place": {
-        "grid": [
-          25,
-          25,
-          3,
-          1
-        ]
-      },
-      "apex_mr": {
-        "source_task": "vessel",
-        "source_key": "35",
-        "brick_id": 3,
-        "brick_seq": 2,
-        "press_grid": [
-          26,
-          27,
-          4,
-          1
-        ]
-      }
-    },
-    {
-      "name": "place_b009",
-      "object": "B009",
-      "pick": {
-        "grid": [
-          18,
-          12,
-          0,
-          0
-        ],
-        "press_side": 1,
-        "press_offset": 3
-      },
-      "place": {
-        "grid": [
-          23,
-          18,
-          0,
-          1
-        ]
-      },
-      "apex_mr": {
-        "source_task": "vessel",
-        "source_key": "9",
-        "brick_id": 4,
-        "brick_seq": 3,
-        "press_grid": [
-          23,
-          21,
-          1,
-          1
-        ]
-      }
-    },
-    {
       "name": "place_b012",
       "object": "B012",
       "pick": {
         "grid": [
-          6,
-          3,
-          0,
+          12,
+          19,
+          2,
           0
         ],
-        "press_side": 1,
-        "press_offset": 0
+        "press_side": 3,
+        "press_offset": [
+          0,
+          1
+        ]
       },
       "place": {
         "grid": [
-          25,
+          23,
           17,
           1,
           0
@@ -550,17 +626,20 @@
       "object": "B014",
       "pick": {
         "grid": [
-          14,
-          9,
-          0,
-          0
+          12,
+          10,
+          1,
+          1
         ],
-        "press_side": 4,
-        "press_offset": 2
+        "press_side": 2,
+        "press_offset": [
+          2,
+          3
+        ]
       },
       "place": {
         "grid": [
-          26,
+          24,
           18,
           1,
           1
@@ -580,123 +659,24 @@
       }
     },
     {
-      "name": "place_b029",
-      "object": "B029",
-      "pick": {
-        "grid": [
-          6,
-          18,
-          0,
-          0
-        ],
-        "press_side": 1,
-        "press_offset": 0
-      },
-      "place": {
-        "grid": [
-          24,
-          24,
-          2,
-          0
-        ]
-      },
-      "apex_mr": {
-        "source_task": "vessel",
-        "source_key": "29",
-        "brick_id": 12,
-        "brick_seq": 3,
-        "press_grid": [
-          24,
-          24,
-          3,
-          0
-        ]
-      }
-    },
-    {
-      "name": "place_b032",
-      "object": "B032",
-      "pick": {
-        "grid": [
-          10,
-          6,
-          0,
-          0
-        ],
-        "press_side": 1,
-        "press_offset": 1
-      },
-      "place": {
-        "grid": [
-          23,
-          28,
-          2,
-          1
-        ]
-      },
-      "apex_mr": {
-        "source_task": "vessel",
-        "source_key": "32",
-        "brick_id": 5,
-        "brick_seq": 3,
-        "press_grid": [
-          23,
-          29,
-          3,
-          1
-        ]
-      }
-    },
-    {
-      "name": "place_b010",
-      "object": "B010",
-      "pick": {
-        "grid": [
-          27,
-          12,
-          0,
-          0
-        ],
-        "press_side": 4,
-        "press_offset": 3
-      },
-      "place": {
-        "grid": [
-          26,
-          19,
-          0,
-          1
-        ]
-      },
-      "apex_mr": {
-        "source_task": "vessel",
-        "source_key": "10",
-        "brick_id": 4,
-        "brick_seq": 4,
-        "press_grid": [
-          26,
-          22,
-          1,
-          1
-        ]
-      }
-    },
-    {
       "name": "place_b015",
       "object": "B015",
       "pick": {
         "grid": [
-          9,
-          3,
-          0,
+          12,
+          19,
+          1,
           0
         ],
-        "press_side": 4,
-        "press_offset": 0
+        "press_side": 2,
+        "press_offset": [
+          0,
+          1
+        ]
       },
       "place": {
         "grid": [
-          25,
+          23,
           24,
           1,
           0
@@ -716,123 +696,24 @@
       }
     },
     {
-      "name": "place_b030",
-      "object": "B030",
-      "pick": {
-        "grid": [
-          9,
-          18,
-          0,
-          0
-        ],
-        "press_side": 1,
-        "press_offset": 0
-      },
-      "place": {
-        "grid": [
-          25,
-          30,
-          2,
-          0
-        ]
-      },
-      "apex_mr": {
-        "source_task": "vessel",
-        "source_key": "30",
-        "brick_id": 12,
-        "brick_seq": 4,
-        "press_grid": [
-          25,
-          30,
-          3,
-          0
-        ]
-      }
-    },
-    {
-      "name": "place_b031",
-      "object": "B031",
-      "pick": {
-        "grid": [
-          21,
-          9,
-          0,
-          0
-        ],
-        "press_side": 1,
-        "press_offset": 2
-      },
-      "place": {
-        "grid": [
-          24,
-          27,
-          2,
-          1
-        ]
-      },
-      "apex_mr": {
-        "source_task": "vessel",
-        "source_key": "31",
-        "brick_id": 6,
-        "brick_seq": 4,
-        "press_grid": [
-          24,
-          29,
-          3,
-          1
-        ]
-      }
-    },
-    {
-      "name": "place_b011",
-      "object": "B011",
-      "pick": {
-        "grid": [
-          36,
-          12,
-          0,
-          0
-        ],
-        "press_side": 1,
-        "press_offset": 3
-      },
-      "place": {
-        "grid": [
-          23,
-          26,
-          0,
-          1
-        ]
-      },
-      "apex_mr": {
-        "source_task": "vessel",
-        "source_key": "11",
-        "brick_id": 4,
-        "brick_seq": 5,
-        "press_grid": [
-          23,
-          29,
-          1,
-          1
-        ]
-      }
-    },
-    {
       "name": "place_b016",
       "object": "B016",
       "pick": {
         "grid": [
           12,
-          3,
+          19,
           0,
           0
         ],
-        "press_side": 4,
-        "press_offset": 0
+        "press_side": 2,
+        "press_offset": [
+          0,
+          1
+        ]
       },
       "place": {
         "grid": [
-          24,
+          22,
           25,
           1,
           0
@@ -852,55 +733,24 @@
       }
     },
     {
-      "name": "place_b034",
-      "object": "B034",
-      "pick": {
-        "grid": [
-          28,
-          9,
-          0,
-          0
-        ],
-        "press_side": 1,
-        "press_offset": 2
-      },
-      "place": {
-        "grid": [
-          24,
-          25,
-          3,
-          1
-        ]
-      },
-      "apex_mr": {
-        "source_task": "vessel",
-        "source_key": "34",
-        "brick_id": 6,
-        "brick_seq": 5,
-        "press_grid": [
-          24,
-          27,
-          4,
-          1
-        ]
-      }
-    },
-    {
       "name": "place_b020",
       "object": "B020",
       "pick": {
         "grid": [
-          0,
-          15,
-          0,
-          0
+          12,
+          28,
+          2,
+          1
         ],
-        "press_side": 1,
-        "press_offset": 3
+        "press_side": 3,
+        "press_offset": [
+          3,
+          4
+        ]
       },
       "place": {
         "grid": [
-          24,
+          22,
           17,
           1,
           1
@@ -925,16 +775,19 @@
       "pick": {
         "grid": [
           15,
-          3,
-          0,
+          10,
+          2,
           0
         ],
-        "press_side": 4,
-        "press_offset": 0
+        "press_side": 2,
+        "press_offset": [
+          0,
+          1
+        ]
       },
       "place": {
         "grid": [
-          25,
+          23,
           30,
           1,
           0
@@ -958,17 +811,20 @@
       "object": "B022",
       "pick": {
         "grid": [
-          9,
-          15,
-          0,
-          0
+          12,
+          28,
+          1,
+          1
         ],
-        "press_side": 1,
-        "press_offset": 3
+        "press_side": 3,
+        "press_offset": [
+          3,
+          4
+        ]
       },
       "place": {
         "grid": [
-          24,
+          22,
           26,
           1,
           1
@@ -992,17 +848,20 @@
       "object": "B025",
       "pick": {
         "grid": [
-          18,
-          3,
-          0,
-          0
+          9,
+          10,
+          2,
+          1
         ],
-        "press_side": 1,
-        "press_offset": 0
+        "press_side": 3,
+        "press_offset": [
+          0,
+          1
+        ]
       },
       "place": {
         "grid": [
-          25,
+          23,
           15,
           1,
           1
@@ -1026,17 +885,20 @@
       "object": "B024",
       "pick": {
         "grid": [
-          18,
-          15,
+          12,
+          28,
           0,
-          0
+          1
         ],
-        "press_side": 1,
-        "press_offset": 3
+        "press_side": 3,
+        "press_offset": [
+          3,
+          4
+        ]
       },
       "place": {
         "grid": [
-          23,
+          21,
           18,
           1,
           1
@@ -1056,55 +918,24 @@
       }
     },
     {
-      "name": "place_b027",
-      "object": "B027",
-      "pick": {
-        "grid": [
-          21,
-          3,
-          0,
-          0
-        ],
-        "press_side": 1,
-        "press_offset": 0
-      },
-      "place": {
-        "grid": [
-          25,
-          27,
-          2,
-          1
-        ]
-      },
-      "apex_mr": {
-        "source_task": "vessel",
-        "source_key": "27",
-        "brick_id": 9,
-        "brick_seq": 8,
-        "press_grid": [
-          25,
-          27,
-          3,
-          1
-        ]
-      }
-    },
-    {
       "name": "place_b026",
       "object": "B026",
       "pick": {
         "grid": [
-          27,
           15,
+          19,
           0,
-          0
+          1
         ],
-        "press_side": 1,
-        "press_offset": 3
+        "press_side": 3,
+        "press_offset": [
+          3,
+          4
+        ]
       },
       "place": {
         "grid": [
-          23,
+          21,
           26,
           1,
           1
@@ -1124,21 +955,209 @@
       }
     },
     {
+      "name": "place_b029",
+      "object": "B029",
+      "pick": {
+        "grid": [
+          9,
+          1,
+          1,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          22,
+          24,
+          2,
+          0
+        ]
+      },
+      "apex_mr": {
+        "source_task": "vessel",
+        "source_key": "29",
+        "brick_id": 12,
+        "brick_seq": 3,
+        "press_grid": [
+          24,
+          24,
+          3,
+          0
+        ]
+      }
+    },
+    {
+      "name": "place_b032",
+      "object": "B032",
+      "pick": {
+        "grid": [
+          15,
+          1,
+          0,
+          1
+        ],
+        "press_side": 3,
+        "press_offset": [
+          1,
+          2
+        ]
+      },
+      "place": {
+        "grid": [
+          21,
+          28,
+          2,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "vessel",
+        "source_key": "32",
+        "brick_id": 5,
+        "brick_seq": 3,
+        "press_grid": [
+          23,
+          29,
+          3,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b030",
+      "object": "B030",
+      "pick": {
+        "grid": [
+          9,
+          1,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          23,
+          30,
+          2,
+          0
+        ]
+      },
+      "apex_mr": {
+        "source_task": "vessel",
+        "source_key": "30",
+        "brick_id": 12,
+        "brick_seq": 4,
+        "press_grid": [
+          25,
+          30,
+          3,
+          0
+        ]
+      }
+    },
+    {
+      "name": "place_b031",
+      "object": "B031",
+      "pick": {
+        "grid": [
+          12,
+          10,
+          0,
+          1
+        ],
+        "press_side": 3,
+        "press_offset": [
+          2,
+          3
+        ]
+      },
+      "place": {
+        "grid": [
+          22,
+          27,
+          2,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "vessel",
+        "source_key": "31",
+        "brick_id": 6,
+        "brick_seq": 4,
+        "press_grid": [
+          24,
+          29,
+          3,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b027",
+      "object": "B027",
+      "pick": {
+        "grid": [
+          9,
+          10,
+          1,
+          1
+        ],
+        "press_side": 3,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          23,
+          27,
+          2,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "vessel",
+        "source_key": "27",
+        "brick_id": 9,
+        "brick_seq": 8,
+        "press_grid": [
+          25,
+          27,
+          3,
+          1
+        ]
+      }
+    },
+    {
       "name": "place_b028",
       "object": "B028",
       "pick": {
         "grid": [
-          24,
-          3,
-          0,
+          15,
+          10,
+          1,
           0
         ],
-        "press_side": 4,
-        "press_offset": 0
+        "press_side": 2,
+        "press_offset": [
+          0,
+          1
+        ]
       },
       "place": {
         "grid": [
-          25,
+          23,
           29,
           2,
           0
@@ -1162,17 +1181,20 @@
       "object": "B033",
       "pick": {
         "grid": [
-          27,
-          3,
+          9,
+          10,
           0,
-          0
+          1
         ],
-        "press_side": 4,
-        "press_offset": 0
+        "press_side": 2,
+        "press_offset": [
+          0,
+          1
+        ]
       },
       "place": {
         "grid": [
-          26,
+          24,
           26,
           2,
           1
@@ -1192,21 +1214,98 @@
       }
     },
     {
+      "name": "place_b035",
+      "object": "B035",
+      "pick": {
+        "grid": [
+          9,
+          19,
+          0,
+          1
+        ],
+        "press_side": 2,
+        "press_offset": [
+          2,
+          3
+        ]
+      },
+      "place": {
+        "grid": [
+          23,
+          25,
+          3,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "vessel",
+        "source_key": "35",
+        "brick_id": 3,
+        "brick_seq": 2,
+        "press_grid": [
+          26,
+          27,
+          4,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b034",
+      "object": "B034",
+      "pick": {
+        "grid": [
+          15,
+          28,
+          0,
+          1
+        ],
+        "press_side": 3,
+        "press_offset": [
+          2,
+          3
+        ]
+      },
+      "place": {
+        "grid": [
+          22,
+          25,
+          3,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "vessel",
+        "source_key": "34",
+        "brick_id": 6,
+        "brick_seq": 5,
+        "press_grid": [
+          24,
+          27,
+          4,
+          1
+        ]
+      }
+    },
+    {
       "name": "place_b036",
       "object": "B036",
       "pick": {
         "grid": [
-          30,
-          3,
+          15,
+          10,
           0,
           0
         ],
-        "press_side": 1,
-        "press_offset": 0
+        "press_side": 3,
+        "press_offset": [
+          0,
+          1
+        ]
       },
       "place": {
         "grid": [
-          24,
+          22,
           27,
           4,
           0

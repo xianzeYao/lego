@@ -16,9 +16,9 @@
       "id": "B001",
       "type": "lego_2x2",
       "grid": [
-        0,
-        3,
-        0,
+        7,
+        4,
+        5,
         0
       ],
       "role": "apex_mr_R_brick_1",
@@ -33,9 +33,9 @@
       "id": "B002",
       "type": "lego_2x2",
       "grid": [
-        3,
-        3,
-        0,
+        7,
+        4,
+        4,
         0
       ],
       "role": "apex_mr_R_brick_2",
@@ -50,9 +50,9 @@
       "id": "B003",
       "type": "lego_2x2",
       "grid": [
-        6,
+        7,
+        4,
         3,
-        0,
         0
       ],
       "role": "apex_mr_R_brick_3",
@@ -67,9 +67,9 @@
       "id": "B004",
       "type": "lego_2x2",
       "grid": [
-        9,
-        3,
-        0,
+        7,
+        4,
+        2,
         0
       ],
       "role": "apex_mr_R_brick_4",
@@ -84,9 +84,9 @@
       "id": "B005",
       "type": "lego_2x2",
       "grid": [
-        12,
-        3,
-        0,
+        7,
+        4,
+        1,
         0
       ],
       "role": "apex_mr_R_brick_5",
@@ -101,8 +101,8 @@
       "id": "B006",
       "type": "lego_2x2",
       "grid": [
-        15,
-        3,
+        7,
+        4,
         0,
         0
       ],
@@ -118,9 +118,9 @@
       "id": "B007",
       "type": "lego_2x2",
       "grid": [
-        18,
-        3,
-        0,
+        7,
+        11,
+        5,
         0
       ],
       "role": "apex_mr_R_brick_7",
@@ -135,9 +135,9 @@
       "id": "B008",
       "type": "lego_2x2",
       "grid": [
-        21,
-        3,
-        0,
+        7,
+        11,
+        4,
         0
       ],
       "role": "apex_mr_R_brick_8",
@@ -152,9 +152,9 @@
       "id": "B009",
       "type": "lego_2x2",
       "grid": [
-        24,
+        7,
+        11,
         3,
-        0,
         0
       ],
       "role": "apex_mr_R_brick_9",
@@ -169,9 +169,9 @@
       "id": "B010",
       "type": "lego_2x2",
       "grid": [
-        27,
-        3,
-        0,
+        7,
+        11,
+        2,
         0
       ],
       "role": "apex_mr_R_brick_10",
@@ -186,10 +186,10 @@
       "id": "B011",
       "type": "lego_2x6",
       "grid": [
-        0,
-        9,
-        0,
-        0
+        7,
+        11,
+        1,
+        1
       ],
       "role": "apex_mr_R_brick_11",
       "color": [
@@ -203,9 +203,9 @@
       "id": "B012",
       "type": "lego_1x2",
       "grid": [
-        0,
-        0,
-        0,
+        7,
+        18,
+        5,
         0
       ],
       "role": "apex_mr_R_brick_12",
@@ -220,9 +220,9 @@
       "id": "B013",
       "type": "lego_2x2",
       "grid": [
-        30,
-        3,
-        0,
+        7,
+        18,
+        4,
         0
       ],
       "role": "apex_mr_R_brick_13",
@@ -237,9 +237,9 @@
       "id": "B014",
       "type": "lego_2x2",
       "grid": [
-        33,
+        7,
+        18,
         3,
-        0,
         0
       ],
       "role": "apex_mr_R_brick_14",
@@ -254,9 +254,9 @@
       "id": "B015",
       "type": "lego_2x2",
       "grid": [
-        36,
-        3,
-        0,
+        7,
+        18,
+        2,
         0
       ],
       "role": "apex_mr_R_brick_15",
@@ -271,9 +271,9 @@
       "id": "B016",
       "type": "lego_2x2",
       "grid": [
-        39,
-        3,
-        0,
+        7,
+        18,
+        1,
         0
       ],
       "role": "apex_mr_R_brick_16",
@@ -288,8 +288,8 @@
       "id": "B017",
       "type": "lego_2x2",
       "grid": [
-        42,
-        3,
+        7,
+        18,
         0,
         0
       ],
@@ -305,9 +305,9 @@
       "id": "B018",
       "type": "lego_2x2",
       "grid": [
-        45,
-        3,
-        0,
+        7,
+        25,
+        2,
         0
       ],
       "role": "apex_mr_R_brick_18",
@@ -322,9 +322,9 @@
       "id": "B019",
       "type": "lego_2x2",
       "grid": [
-        0,
-        6,
-        0,
+        7,
+        25,
+        1,
         0
       ],
       "role": "apex_mr_R_brick_19",
@@ -339,8 +339,8 @@
       "id": "B020",
       "type": "lego_2x2",
       "grid": [
-        3,
-        6,
+        7,
+        25,
         0,
         0
       ],
@@ -357,9 +357,9 @@
       "type": "lego_2x6",
       "grid": [
         7,
-        9,
+        11,
         0,
-        0
+        1
       ],
       "role": "apex_mr_R_brick_21",
       "color": [

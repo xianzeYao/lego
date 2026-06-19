@@ -6,18 +6,21 @@
       "object": "B001",
       "pick": {
         "grid": [
-          0,
-          0,
-          0,
-          0
+          7,
+          4,
+          4,
+          1
         ],
-        "press_side": 1,
-        "press_offset": 1
+        "press_side": 3,
+        "press_offset": [
+          1,
+          2
+        ]
       },
       "place": {
         "grid": [
-          24,
-          24,
+          22,
+          22,
           0,
           1
         ]
@@ -40,18 +43,21 @@
       "object": "B002",
       "pick": {
         "grid": [
-          5,
-          0,
-          0,
-          0
+          7,
+          4,
+          3,
+          1
         ],
-        "press_side": 1,
-        "press_offset": 1
+        "press_side": 3,
+        "press_offset": [
+          1,
+          2
+        ]
       },
       "place": {
         "grid": [
-          24,
-          24,
+          22,
+          22,
           1,
           1
         ]
@@ -74,18 +80,21 @@
       "object": "B003",
       "pick": {
         "grid": [
-          10,
-          0,
-          0,
-          0
+          7,
+          4,
+          2,
+          1
         ],
-        "press_side": 1,
-        "press_offset": 1
+        "press_side": 3,
+        "press_offset": [
+          1,
+          2
+        ]
       },
       "place": {
         "grid": [
-          24,
-          24,
+          22,
+          22,
           2,
           1
         ]
@@ -108,18 +117,21 @@
       "object": "B004",
       "pick": {
         "grid": [
-          15,
-          0,
-          0,
-          0
+          7,
+          4,
+          1,
+          1
         ],
-        "press_side": 1,
-        "press_offset": 1
+        "press_side": 3,
+        "press_offset": [
+          1,
+          2
+        ]
       },
       "place": {
         "grid": [
-          24,
-          24,
+          22,
+          22,
           3,
           1
         ]
@@ -142,18 +154,21 @@
       "object": "B005",
       "pick": {
         "grid": [
-          20,
+          7,
+          4,
           0,
-          0,
-          0
+          1
         ],
-        "press_side": 1,
-        "press_offset": 1
+        "press_side": 3,
+        "press_offset": [
+          1,
+          2
+        ]
       },
       "place": {
         "grid": [
-          24,
-          24,
+          22,
+          22,
           4,
           1
         ]

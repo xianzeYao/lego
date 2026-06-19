@@ -23,13 +23,13 @@ Real robot with synchronized shadow rendering:
 Task-ladder config run, simulation/shadow rendering only. The plate height correction is passed explicitly with `--plate-z-offset`:
 
 ```bash
-/home/yxz/data/conda/envs/maniskill4lego/bin/python maniskill_rm75_lego/scripts/run_task_ladder_robot_preview.py --task-config config/ladder --plate-z-offset 0.008 --pick-press-depth 0.012 --place-press-depth 0.012 --render
+/home/yxz/data/conda/envs/maniskill4lego/bin/python maniskill_rm75_lego/scripts/run_task_lego_robot.py --task-config config/ladder --plate-z-offset 0.008 --pick-press-depth 0.012 --place-press-depth 0.012 --render
 ```
 
 Task-ladder config run on the real robot, with synchronized shadow rendering:
 
 ```bash
-/home/yxz/data/conda/envs/maniskill4lego/bin/python maniskill_rm75_lego/scripts/run_task_ladder_robot_preview.py --task-config config/ladder --execute-real --robot-ip 192.168.101.20 --plate-z-offset 0.008 --pick-press-depth 0.014 --place-press-depth 0.014 --cartesian-rot-step-deg 2.0 --render --step
+/home/yxz/data/conda/envs/maniskill4lego/bin/python maniskill_rm75_lego/scripts/run_task_lego_robot.py --task-config config/ladder --execute-real --robot-ip 192.168.101.20 --plate-z-offset 0.008 --pick-press-depth 0.014 --place-press-depth 0.014 --cartesian-rot-step-deg 2.0 --render --step
 ```
 
 For the task-ladder runner, stages run continuously by default. Add `--step` to pause before each stage:

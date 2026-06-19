@@ -7,7 +7,7 @@
       "pick": {
         "grid": [0, 0, 0, 0],
         "press_side": 2,
-        "press_offset": 0
+        "press_offset": [0, 1]
       },
       "place": {
         "grid": [4, 2, 0, 1],
@@ -20,7 +20,7 @@
       "pick": {
         "grid": [13, 0, 0, 0],
         "press_side": 4,
-        "press_offset": 0
+        "press_offset": [0, 1]
       },
       "place": {
         "grid": [15, 5, 1, 0]
@@ -33,7 +33,7 @@
       "pick": {
         "grid": [13, 5, 0, 0],
         "press_side": 4,
-        "press_offset": 0
+        "press_offset": [0, 1]
       },
       "place": {
         "reference_grid": [15, 10, 1, 0],

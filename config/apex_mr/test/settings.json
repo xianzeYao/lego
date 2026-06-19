@@ -16,10 +16,10 @@
       "id": "B001",
       "type": "lego_1x2",
       "grid": [
-        0,
-        0,
-        0,
-        0
+        7,
+        4,
+        1,
+        1
       ],
       "role": "apex_mr_test_brick_1",
       "color": [
@@ -33,10 +33,10 @@
       "id": "B002",
       "type": "lego_1x2",
       "grid": [
-        3,
+        7,
+        4,
         0,
-        0,
-        0
+        1
       ],
       "role": "apex_mr_test_brick_2",
       "color": [

@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 
+PressOffset = int | list[int]
+
 
 @dataclass(frozen=True)
 class PickSpec:
@@ -9,7 +11,7 @@ class PickSpec:
     reference_id: str
     grid: list[int] | None = None
     press_side: int | None = None
-    press_offset: int | None = None
+    press_offset: PressOffset | None = None
 
 
 @dataclass(frozen=True)
