@@ -1,0 +1,175 @@
+{
+  "name": "apex_mr_tower",
+  "steps": [
+    {
+      "name": "place_b001",
+      "object": "B001",
+      "pick": {
+        "grid": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          24,
+          24,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "tower",
+        "source_key": "1",
+        "brick_id": 2,
+        "brick_seq": 1,
+        "press_grid": [
+          24,
+          25,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b002",
+      "object": "B002",
+      "pick": {
+        "grid": [
+          5,
+          0,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          24,
+          24,
+          1,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "tower",
+        "source_key": "2",
+        "brick_id": 2,
+        "brick_seq": 2,
+        "press_grid": [
+          24,
+          25,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b003",
+      "object": "B003",
+      "pick": {
+        "grid": [
+          10,
+          0,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          24,
+          24,
+          2,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "tower",
+        "source_key": "3",
+        "brick_id": 2,
+        "brick_seq": 3,
+        "press_grid": [
+          24,
+          25,
+          3,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b004",
+      "object": "B004",
+      "pick": {
+        "grid": [
+          15,
+          0,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          24,
+          24,
+          3,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "tower",
+        "source_key": "4",
+        "brick_id": 2,
+        "brick_seq": 4,
+        "press_grid": [
+          24,
+          25,
+          4,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b005",
+      "object": "B005",
+      "pick": {
+        "grid": [
+          20,
+          0,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          24,
+          24,
+          4,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "tower",
+        "source_key": "5",
+        "brick_id": 2,
+        "brick_seq": 5,
+        "press_grid": [
+          24,
+          25,
+          5,
+          1
+        ]
+      }
+    }
+  ]
+}

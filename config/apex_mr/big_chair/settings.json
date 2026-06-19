@@ -1,0 +1,4402 @@
+{
+  "name": "apex_mr_big_chair",
+  "source": {
+    "format": "APEX-MR",
+    "assembly_task": "third_party/APEX-MR/config/lego_tasks/assembly_tasks/big_chair.json"
+  },
+  "plate": {
+    "plate_z_offset": 0.0,
+    "plate_size_xy": [
+      48,
+      48
+    ]
+  },
+  "initial_bricks": [
+    {
+      "id": "B001",
+      "type": "lego_2x4",
+      "grid": [
+        0,
+        21,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_1",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B002",
+      "type": "lego_2x6",
+      "grid": [
+        0,
+        75,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_2",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B003",
+      "type": "lego_1x2",
+      "grid": [
+        0,
+        3,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_3",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B004",
+      "type": "lego_2x4",
+      "grid": [
+        5,
+        21,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_4",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B005",
+      "type": "lego_2x4",
+      "grid": [
+        10,
+        21,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_5",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B006",
+      "type": "lego_2x4",
+      "grid": [
+        15,
+        21,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_6",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B007",
+      "type": "lego_2x6",
+      "grid": [
+        7,
+        75,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_7",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B008",
+      "type": "lego_2x4",
+      "grid": [
+        20,
+        21,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_8",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B009",
+      "type": "lego_2x6",
+      "grid": [
+        14,
+        75,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_9",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B010",
+      "type": "lego_2x2",
+      "grid": [
+        0,
+        18,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_10",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B011",
+      "type": "lego_2x6",
+      "grid": [
+        21,
+        75,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_11",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B012",
+      "type": "lego_2x6",
+      "grid": [
+        28,
+        75,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_12",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B013",
+      "type": "lego_2x4",
+      "grid": [
+        25,
+        21,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_13",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B014",
+      "type": "lego_2x4",
+      "grid": [
+        30,
+        21,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_14",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B015",
+      "type": "lego_2x4",
+      "grid": [
+        35,
+        21,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_15",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B016",
+      "type": "lego_2x6",
+      "grid": [
+        35,
+        75,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_16",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B017",
+      "type": "lego_2x6",
+      "grid": [
+        42,
+        75,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_17",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B018",
+      "type": "lego_2x4",
+      "grid": [
+        40,
+        21,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_18",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B019",
+      "type": "lego_2x4",
+      "grid": [
+        0,
+        24,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_19",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B020",
+      "type": "lego_1x4",
+      "grid": [
+        0,
+        6,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_20",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B021",
+      "type": "lego_1x4",
+      "grid": [
+        5,
+        6,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_21",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B022",
+      "type": "lego_1x4",
+      "grid": [
+        10,
+        6,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_22",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B023",
+      "type": "lego_1x4",
+      "grid": [
+        15,
+        6,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_23",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B024",
+      "type": "lego_2x2",
+      "grid": [
+        3,
+        18,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_24",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B025",
+      "type": "lego_1x2",
+      "grid": [
+        3,
+        3,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_25",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B026",
+      "type": "lego_1x2",
+      "grid": [
+        6,
+        3,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_26",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B027",
+      "type": "lego_2x4",
+      "grid": [
+        5,
+        24,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_27",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B028",
+      "type": "lego_2x4",
+      "grid": [
+        10,
+        24,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_28",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B029",
+      "type": "lego_2x4",
+      "grid": [
+        15,
+        24,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_29",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B030",
+      "type": "lego_2x4",
+      "grid": [
+        20,
+        24,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_30",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B031",
+      "type": "lego_2x6",
+      "grid": [
+        0,
+        78,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_31",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B032",
+      "type": "lego_1x2",
+      "grid": [
+        9,
+        3,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_32",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B033",
+      "type": "lego_1x4",
+      "grid": [
+        20,
+        6,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_33",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B034",
+      "type": "lego_2x6",
+      "grid": [
+        7,
+        78,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_34",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B035",
+      "type": "lego_1x4",
+      "grid": [
+        25,
+        6,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_35",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B036",
+      "type": "lego_1x2",
+      "grid": [
+        12,
+        3,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_36",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B037",
+      "type": "lego_1x2",
+      "grid": [
+        15,
+        3,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_37",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B038",
+      "type": "lego_1x2",
+      "grid": [
+        18,
+        3,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_38",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B039",
+      "type": "lego_2x4",
+      "grid": [
+        25,
+        24,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_39",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B040",
+      "type": "lego_2x4",
+      "grid": [
+        30,
+        24,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_40",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B041",
+      "type": "lego_2x4",
+      "grid": [
+        35,
+        24,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_41",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B042",
+      "type": "lego_2x6",
+      "grid": [
+        14,
+        78,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_42",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B043",
+      "type": "lego_2x4",
+      "grid": [
+        40,
+        24,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_43",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B044",
+      "type": "lego_2x4",
+      "grid": [
+        0,
+        27,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_44",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B045",
+      "type": "lego_2x6",
+      "grid": [
+        21,
+        78,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_45",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B046",
+      "type": "lego_2x4",
+      "grid": [
+        5,
+        27,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_46",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B047",
+      "type": "lego_2x4",
+      "grid": [
+        10,
+        27,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_47",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B048",
+      "type": "lego_2x6",
+      "grid": [
+        28,
+        78,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_48",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B049",
+      "type": "lego_2x4",
+      "grid": [
+        15,
+        27,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_49",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B050",
+      "type": "lego_2x4",
+      "grid": [
+        20,
+        27,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_50",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B051",
+      "type": "lego_2x6",
+      "grid": [
+        35,
+        78,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_51",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B052",
+      "type": "lego_2x4",
+      "grid": [
+        25,
+        27,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_52",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B053",
+      "type": "lego_2x4",
+      "grid": [
+        30,
+        27,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_53",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B054",
+      "type": "lego_2x6",
+      "grid": [
+        42,
+        78,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_54",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B055",
+      "type": "lego_2x4",
+      "grid": [
+        35,
+        27,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_55",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B056",
+      "type": "lego_2x4",
+      "grid": [
+        40,
+        27,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_56",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B057",
+      "type": "lego_2x6",
+      "grid": [
+        0,
+        81,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_57",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B058",
+      "type": "lego_2x4",
+      "grid": [
+        0,
+        30,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_58",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B059",
+      "type": "lego_2x4",
+      "grid": [
+        5,
+        30,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_59",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B060",
+      "type": "lego_2x6",
+      "grid": [
+        7,
+        81,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_60",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B061",
+      "type": "lego_2x4",
+      "grid": [
+        10,
+        30,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_61",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B062",
+      "type": "lego_1x4",
+      "grid": [
+        30,
+        6,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_62",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B063",
+      "type": "lego_2x6",
+      "grid": [
+        14,
+        81,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_63",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B064",
+      "type": "lego_1x4",
+      "grid": [
+        35,
+        6,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_64",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B065",
+      "type": "lego_2x4",
+      "grid": [
+        15,
+        30,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_65",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B066",
+      "type": "lego_1x4",
+      "grid": [
+        40,
+        6,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_66",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B067",
+      "type": "lego_2x4",
+      "grid": [
+        20,
+        30,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_67",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B068",
+      "type": "lego_1x2",
+      "grid": [
+        21,
+        3,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_68",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B069",
+      "type": "lego_2x6",
+      "grid": [
+        21,
+        81,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_69",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B070",
+      "type": "lego_2x4",
+      "grid": [
+        25,
+        30,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_70",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B071",
+      "type": "lego_2x4",
+      "grid": [
+        30,
+        30,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_71",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B072",
+      "type": "lego_2x4",
+      "grid": [
+        35,
+        30,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_72",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B073",
+      "type": "lego_2x6",
+      "grid": [
+        28,
+        81,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_73",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B074",
+      "type": "lego_2x4",
+      "grid": [
+        40,
+        30,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_74",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B075",
+      "type": "lego_2x4",
+      "grid": [
+        0,
+        33,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_75",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B076",
+      "type": "lego_2x6",
+      "grid": [
+        35,
+        81,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_76",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B077",
+      "type": "lego_2x4",
+      "grid": [
+        5,
+        33,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_77",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B078",
+      "type": "lego_2x4",
+      "grid": [
+        10,
+        33,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_78",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B079",
+      "type": "lego_2x6",
+      "grid": [
+        42,
+        81,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_79",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B080",
+      "type": "lego_2x4",
+      "grid": [
+        15,
+        33,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_80",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B081",
+      "type": "lego_2x4",
+      "grid": [
+        20,
+        33,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_81",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B082",
+      "type": "lego_2x6",
+      "grid": [
+        0,
+        84,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_82",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B083",
+      "type": "lego_2x4",
+      "grid": [
+        25,
+        33,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_83",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B084",
+      "type": "lego_2x4",
+      "grid": [
+        30,
+        33,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_84",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B085",
+      "type": "lego_2x6",
+      "grid": [
+        7,
+        84,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_85",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B086",
+      "type": "lego_2x4",
+      "grid": [
+        35,
+        33,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_86",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B087",
+      "type": "lego_2x4",
+      "grid": [
+        40,
+        33,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_87",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B088",
+      "type": "lego_2x6",
+      "grid": [
+        14,
+        84,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_88",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B089",
+      "type": "lego_2x4",
+      "grid": [
+        0,
+        36,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_89",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B090",
+      "type": "lego_2x4",
+      "grid": [
+        5,
+        36,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_90",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B091",
+      "type": "lego_2x6",
+      "grid": [
+        21,
+        84,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_91",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B092",
+      "type": "lego_2x4",
+      "grid": [
+        10,
+        36,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_92",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B093",
+      "type": "lego_1x4",
+      "grid": [
+        0,
+        9,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_93",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B094",
+      "type": "lego_2x6",
+      "grid": [
+        28,
+        84,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_94",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B095",
+      "type": "lego_1x4",
+      "grid": [
+        5,
+        9,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_95",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B096",
+      "type": "lego_2x4",
+      "grid": [
+        15,
+        36,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_96",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B097",
+      "type": "lego_1x4",
+      "grid": [
+        10,
+        9,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_97",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B098",
+      "type": "lego_2x4",
+      "grid": [
+        20,
+        36,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_98",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B099",
+      "type": "lego_1x2",
+      "grid": [
+        24,
+        3,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_99",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B100",
+      "type": "lego_2x6",
+      "grid": [
+        35,
+        84,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_100",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B101",
+      "type": "lego_2x4",
+      "grid": [
+        25,
+        36,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_101",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B102",
+      "type": "lego_2x4",
+      "grid": [
+        30,
+        36,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_102",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B103",
+      "type": "lego_2x4",
+      "grid": [
+        35,
+        36,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_103",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B104",
+      "type": "lego_2x4",
+      "grid": [
+        40,
+        36,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_104",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B105",
+      "type": "lego_2x6",
+      "grid": [
+        42,
+        84,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_105",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B106",
+      "type": "lego_2x6",
+      "grid": [
+        0,
+        87,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_106",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B107",
+      "type": "lego_2x4",
+      "grid": [
+        0,
+        39,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_107",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B108",
+      "type": "lego_2x4",
+      "grid": [
+        5,
+        39,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_108",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B109",
+      "type": "lego_2x4",
+      "grid": [
+        10,
+        39,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_109",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B110",
+      "type": "lego_2x4",
+      "grid": [
+        15,
+        39,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_110",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B111",
+      "type": "lego_2x6",
+      "grid": [
+        7,
+        87,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_111",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B112",
+      "type": "lego_2x6",
+      "grid": [
+        14,
+        87,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_112",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B113",
+      "type": "lego_2x4",
+      "grid": [
+        20,
+        39,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_113",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B114",
+      "type": "lego_2x4",
+      "grid": [
+        25,
+        39,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_114",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B115",
+      "type": "lego_2x4",
+      "grid": [
+        30,
+        39,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_115",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B116",
+      "type": "lego_2x4",
+      "grid": [
+        35,
+        39,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_116",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B117",
+      "type": "lego_2x6",
+      "grid": [
+        21,
+        87,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_117",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B118",
+      "type": "lego_2x6",
+      "grid": [
+        28,
+        87,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_118",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B119",
+      "type": "lego_2x4",
+      "grid": [
+        40,
+        39,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_119",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B120",
+      "type": "lego_2x4",
+      "grid": [
+        0,
+        42,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_120",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B121",
+      "type": "lego_2x4",
+      "grid": [
+        5,
+        42,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_121",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B122",
+      "type": "lego_2x4",
+      "grid": [
+        10,
+        42,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_122",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B123",
+      "type": "lego_2x6",
+      "grid": [
+        35,
+        87,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_123",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B124",
+      "type": "lego_2x6",
+      "grid": [
+        42,
+        87,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_124",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B125",
+      "type": "lego_1x4",
+      "grid": [
+        15,
+        9,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_125",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B126",
+      "type": "lego_2x4",
+      "grid": [
+        15,
+        42,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_126",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B127",
+      "type": "lego_1x4",
+      "grid": [
+        20,
+        9,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_127",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B128",
+      "type": "lego_2x4",
+      "grid": [
+        20,
+        42,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_128",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B129",
+      "type": "lego_1x4",
+      "grid": [
+        25,
+        9,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_129",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B130",
+      "type": "lego_2x6",
+      "grid": [
+        0,
+        90,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_130",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B131",
+      "type": "lego_1x2",
+      "grid": [
+        27,
+        3,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_131",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B132",
+      "type": "lego_2x4",
+      "grid": [
+        25,
+        42,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_132",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B133",
+      "type": "lego_2x4",
+      "grid": [
+        30,
+        42,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_133",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B134",
+      "type": "lego_2x4",
+      "grid": [
+        35,
+        42,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_134",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B135",
+      "type": "lego_1x2",
+      "grid": [
+        30,
+        3,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_135",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B136",
+      "type": "lego_1x4",
+      "grid": [
+        30,
+        9,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_136",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B137",
+      "type": "lego_2x4",
+      "grid": [
+        40,
+        42,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_137",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B138",
+      "type": "lego_1x4",
+      "grid": [
+        35,
+        9,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_138",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B139",
+      "type": "lego_2x4",
+      "grid": [
+        0,
+        45,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_139",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B140",
+      "type": "lego_1x4",
+      "grid": [
+        40,
+        9,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_140",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B141",
+      "type": "lego_2x4",
+      "grid": [
+        5,
+        45,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_141",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B142",
+      "type": "lego_1x4",
+      "grid": [
+        0,
+        12,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_142",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B143",
+      "type": "lego_1x4",
+      "grid": [
+        5,
+        12,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_143",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B144",
+      "type": "lego_2x4",
+      "grid": [
+        10,
+        45,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_144",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B145",
+      "type": "lego_2x4",
+      "grid": [
+        15,
+        45,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_145",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B146",
+      "type": "lego_2x4",
+      "grid": [
+        20,
+        45,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_146",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B147",
+      "type": "lego_2x4",
+      "grid": [
+        25,
+        45,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_147",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B148",
+      "type": "lego_2x4",
+      "grid": [
+        30,
+        45,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_148",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B149",
+      "type": "lego_2x4",
+      "grid": [
+        35,
+        45,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_149",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B150",
+      "type": "lego_2x4",
+      "grid": [
+        40,
+        45,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_150",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B151",
+      "type": "lego_1x4",
+      "grid": [
+        10,
+        12,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_151",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B152",
+      "type": "lego_2x4",
+      "grid": [
+        0,
+        48,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_152",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B153",
+      "type": "lego_2x4",
+      "grid": [
+        5,
+        48,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_153",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B154",
+      "type": "lego_2x4",
+      "grid": [
+        10,
+        48,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_154",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B155",
+      "type": "lego_2x4",
+      "grid": [
+        15,
+        48,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_155",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B156",
+      "type": "lego_1x4",
+      "grid": [
+        15,
+        12,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_156",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B157",
+      "type": "lego_2x4",
+      "grid": [
+        20,
+        48,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_157",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B158",
+      "type": "lego_2x4",
+      "grid": [
+        25,
+        48,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_158",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B159",
+      "type": "lego_1x2",
+      "grid": [
+        33,
+        3,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_159",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B160",
+      "type": "lego_2x4",
+      "grid": [
+        30,
+        48,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_160",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B161",
+      "type": "lego_2x4",
+      "grid": [
+        35,
+        48,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_161",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B162",
+      "type": "lego_2x6",
+      "grid": [
+        7,
+        90,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_162",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B163",
+      "type": "lego_2x4",
+      "grid": [
+        40,
+        48,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_163",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B164",
+      "type": "lego_2x4",
+      "grid": [
+        0,
+        51,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_164",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B165",
+      "type": "lego_2x4",
+      "grid": [
+        5,
+        51,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_165",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B166",
+      "type": "lego_2x4",
+      "grid": [
+        10,
+        51,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_166",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B167",
+      "type": "lego_1x1",
+      "grid": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_167",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B168",
+      "type": "lego_2x6",
+      "grid": [
+        14,
+        90,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_168",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B169",
+      "type": "lego_2x4",
+      "grid": [
+        15,
+        51,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_169",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B170",
+      "type": "lego_2x4",
+      "grid": [
+        20,
+        51,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_170",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B171",
+      "type": "lego_2x4",
+      "grid": [
+        25,
+        51,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_171",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B172",
+      "type": "lego_2x4",
+      "grid": [
+        30,
+        51,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_172",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B173",
+      "type": "lego_1x4",
+      "grid": [
+        20,
+        12,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_173",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B174",
+      "type": "lego_2x4",
+      "grid": [
+        35,
+        51,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_174",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B175",
+      "type": "lego_2x4",
+      "grid": [
+        40,
+        51,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_175",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B176",
+      "type": "lego_2x4",
+      "grid": [
+        0,
+        54,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_176",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B177",
+      "type": "lego_2x4",
+      "grid": [
+        5,
+        54,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_177",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B178",
+      "type": "lego_2x4",
+      "grid": [
+        10,
+        54,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_178",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B179",
+      "type": "lego_2x6",
+      "grid": [
+        21,
+        90,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_179",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B180",
+      "type": "lego_2x6",
+      "grid": [
+        28,
+        90,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_180",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B181",
+      "type": "lego_2x4",
+      "grid": [
+        15,
+        54,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_181",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B182",
+      "type": "lego_2x4",
+      "grid": [
+        20,
+        54,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_182",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B183",
+      "type": "lego_2x4",
+      "grid": [
+        25,
+        54,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_183",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B184",
+      "type": "lego_2x4",
+      "grid": [
+        30,
+        54,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_184",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B185",
+      "type": "lego_2x6",
+      "grid": [
+        35,
+        90,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_185",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B186",
+      "type": "lego_2x6",
+      "grid": [
+        42,
+        90,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_186",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B187",
+      "type": "lego_2x4",
+      "grid": [
+        35,
+        54,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_187",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B188",
+      "type": "lego_2x4",
+      "grid": [
+        40,
+        54,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_188",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B189",
+      "type": "lego_2x4",
+      "grid": [
+        0,
+        57,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_189",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B190",
+      "type": "lego_2x4",
+      "grid": [
+        5,
+        57,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_190",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B191",
+      "type": "lego_1x4",
+      "grid": [
+        25,
+        12,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_191",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B192",
+      "type": "lego_2x4",
+      "grid": [
+        10,
+        57,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_192",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B193",
+      "type": "lego_2x4",
+      "grid": [
+        15,
+        57,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_193",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B194",
+      "type": "lego_2x4",
+      "grid": [
+        20,
+        57,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_194",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B195",
+      "type": "lego_2x4",
+      "grid": [
+        25,
+        57,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_195",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B196",
+      "type": "lego_2x4",
+      "grid": [
+        30,
+        57,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_196",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B197",
+      "type": "lego_2x6",
+      "grid": [
+        0,
+        93,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_197",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B198",
+      "type": "lego_2x6",
+      "grid": [
+        7,
+        93,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_198",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B199",
+      "type": "lego_2x4",
+      "grid": [
+        35,
+        57,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_199",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B200",
+      "type": "lego_2x4",
+      "grid": [
+        40,
+        57,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_200",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B201",
+      "type": "lego_2x4",
+      "grid": [
+        0,
+        60,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_201",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B202",
+      "type": "lego_2x4",
+      "grid": [
+        5,
+        60,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_202",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B203",
+      "type": "lego_2x6",
+      "grid": [
+        14,
+        93,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_203",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B204",
+      "type": "lego_2x6",
+      "grid": [
+        21,
+        93,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_204",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B205",
+      "type": "lego_2x4",
+      "grid": [
+        10,
+        60,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_205",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B206",
+      "type": "lego_2x4",
+      "grid": [
+        15,
+        60,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_206",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B207",
+      "type": "lego_2x4",
+      "grid": [
+        20,
+        60,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_207",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B208",
+      "type": "lego_2x4",
+      "grid": [
+        25,
+        60,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_208",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B209",
+      "type": "lego_1x4",
+      "grid": [
+        30,
+        12,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_209",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B210",
+      "type": "lego_2x4",
+      "grid": [
+        30,
+        60,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_210",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B211",
+      "type": "lego_2x4",
+      "grid": [
+        35,
+        60,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_211",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B212",
+      "type": "lego_2x4",
+      "grid": [
+        40,
+        60,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_212",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B213",
+      "type": "lego_2x4",
+      "grid": [
+        0,
+        63,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_213",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B214",
+      "type": "lego_2x4",
+      "grid": [
+        5,
+        63,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_214",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B215",
+      "type": "lego_2x6",
+      "grid": [
+        28,
+        93,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_215",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B216",
+      "type": "lego_2x6",
+      "grid": [
+        35,
+        93,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_216",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B217",
+      "type": "lego_2x4",
+      "grid": [
+        10,
+        63,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_217",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B218",
+      "type": "lego_2x4",
+      "grid": [
+        15,
+        63,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_218",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B219",
+      "type": "lego_2x4",
+      "grid": [
+        20,
+        63,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_219",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B220",
+      "type": "lego_2x4",
+      "grid": [
+        25,
+        63,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_220",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B221",
+      "type": "lego_2x6",
+      "grid": [
+        42,
+        93,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_221",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B222",
+      "type": "lego_2x6",
+      "grid": [
+        0,
+        96,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_222",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B223",
+      "type": "lego_2x4",
+      "grid": [
+        30,
+        63,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_223",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B224",
+      "type": "lego_2x4",
+      "grid": [
+        35,
+        63,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_224",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B225",
+      "type": "lego_2x4",
+      "grid": [
+        40,
+        63,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_225",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B226",
+      "type": "lego_2x4",
+      "grid": [
+        0,
+        66,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_226",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B227",
+      "type": "lego_1x4",
+      "grid": [
+        35,
+        12,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_227",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B228",
+      "type": "lego_2x4",
+      "grid": [
+        5,
+        66,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_228",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B229",
+      "type": "lego_2x4",
+      "grid": [
+        10,
+        66,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_229",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B230",
+      "type": "lego_2x4",
+      "grid": [
+        15,
+        66,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_230",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B231",
+      "type": "lego_2x4",
+      "grid": [
+        20,
+        66,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_231",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B232",
+      "type": "lego_2x4",
+      "grid": [
+        25,
+        66,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_232",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B233",
+      "type": "lego_2x6",
+      "grid": [
+        7,
+        96,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_233",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B234",
+      "type": "lego_2x6",
+      "grid": [
+        14,
+        96,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_234",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B235",
+      "type": "lego_2x4",
+      "grid": [
+        30,
+        66,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_235",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B236",
+      "type": "lego_2x4",
+      "grid": [
+        35,
+        66,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_236",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B237",
+      "type": "lego_2x4",
+      "grid": [
+        40,
+        66,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_237",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B238",
+      "type": "lego_2x4",
+      "grid": [
+        0,
+        69,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_238",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B239",
+      "type": "lego_2x6",
+      "grid": [
+        21,
+        96,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_239",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B240",
+      "type": "lego_2x6",
+      "grid": [
+        28,
+        96,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_240",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B241",
+      "type": "lego_2x4",
+      "grid": [
+        5,
+        69,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_241",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B242",
+      "type": "lego_2x4",
+      "grid": [
+        10,
+        69,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_242",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B243",
+      "type": "lego_2x4",
+      "grid": [
+        15,
+        69,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_243",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B244",
+      "type": "lego_2x4",
+      "grid": [
+        20,
+        69,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_244",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B245",
+      "type": "lego_2x4",
+      "grid": [
+        25,
+        69,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_245",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B246",
+      "type": "lego_2x4",
+      "grid": [
+        30,
+        69,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_246",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B247",
+      "type": "lego_1x2",
+      "grid": [
+        36,
+        3,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_247",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B248",
+      "type": "lego_2x4",
+      "grid": [
+        35,
+        69,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_248",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B249",
+      "type": "lego_2x4",
+      "grid": [
+        40,
+        69,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_249",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B250",
+      "type": "lego_2x4",
+      "grid": [
+        0,
+        72,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_250",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B251",
+      "type": "lego_2x4",
+      "grid": [
+        5,
+        72,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_251",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B252",
+      "type": "lego_2x4",
+      "grid": [
+        10,
+        72,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_252",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B253",
+      "type": "lego_2x4",
+      "grid": [
+        15,
+        72,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_253",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B254",
+      "type": "lego_1x2",
+      "grid": [
+        39,
+        3,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_254",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B255",
+      "type": "lego_1x4",
+      "grid": [
+        40,
+        12,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_255",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B256",
+      "type": "lego_1x2",
+      "grid": [
+        42,
+        3,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_256",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B257",
+      "type": "lego_1x4",
+      "grid": [
+        0,
+        15,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_257",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B258",
+      "type": "lego_1x2",
+      "grid": [
+        45,
+        3,
+        0,
+        0
+      ],
+      "role": "apex_mr_big_chair_brick_258",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    }
+  ]
+}

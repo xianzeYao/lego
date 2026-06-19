@@ -1,0 +1,50 @@
+{
+  "name": "apex_mr_test",
+  "source": {
+    "format": "APEX-MR",
+    "assembly_task": "third_party/APEX-MR/config/lego_tasks/assembly_tasks/test.json"
+  },
+  "plate": {
+    "plate_z_offset": 0.0,
+    "plate_size_xy": [
+      48,
+      48
+    ]
+  },
+  "initial_bricks": [
+    {
+      "id": "B001",
+      "type": "lego_1x2",
+      "grid": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "role": "apex_mr_test_brick_1",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B002",
+      "type": "lego_1x2",
+      "grid": [
+        3,
+        0,
+        0,
+        0
+      ],
+      "role": "apex_mr_test_brick_2",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    }
+  ]
+}

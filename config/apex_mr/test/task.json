@@ -1,0 +1,73 @@
+{
+  "name": "apex_mr_test",
+  "steps": [
+    {
+      "name": "place_b001",
+      "object": "B001",
+      "pick": {
+        "grid": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 0
+      },
+      "place": {
+        "grid": [
+          24,
+          23,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "test",
+        "source_key": "1",
+        "brick_id": 9,
+        "brick_seq": null,
+        "press_grid": [
+          24,
+          23,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b002",
+      "object": "B002",
+      "pick": {
+        "grid": [
+          3,
+          0,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 0
+      },
+      "place": {
+        "grid": [
+          24,
+          23,
+          1,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "test",
+        "source_key": "2",
+        "brick_id": 9,
+        "brick_seq": null,
+        "press_grid": [
+          24,
+          23,
+          2,
+          1
+        ]
+      }
+    }
+  ]
+}

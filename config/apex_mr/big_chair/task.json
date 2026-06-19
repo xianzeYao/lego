@@ -1,0 +1,8777 @@
+{
+  "name": "apex_mr_big_chair",
+  "steps": [
+    {
+      "name": "place_b001",
+      "object": "B001",
+      "pick": {
+        "grid": [
+          0,
+          21,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          24,
+          18,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "1",
+        "brick_id": 2,
+        "brick_seq": 1,
+        "press_grid": [
+          24,
+          19,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b002",
+      "object": "B002",
+      "pick": {
+        "grid": [
+          0,
+          75,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          24,
+          22,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "2",
+        "brick_id": 3,
+        "brick_seq": 1,
+        "press_grid": [
+          24,
+          24,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b003",
+      "object": "B003",
+      "pick": {
+        "grid": [
+          0,
+          3,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 0
+      },
+      "place": {
+        "grid": [
+          23,
+          28,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "3",
+        "brick_id": 9,
+        "brick_seq": 1,
+        "press_grid": [
+          23,
+          28,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b010",
+      "object": "B010",
+      "pick": {
+        "grid": [
+          0,
+          18,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 0
+      },
+      "place": {
+        "grid": [
+          22,
+          30,
+          0,
+          0
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "10",
+        "brick_id": 12,
+        "brick_seq": 1,
+        "press_grid": [
+          22,
+          30,
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "name": "place_b020",
+      "object": "B020",
+      "pick": {
+        "grid": [
+          0,
+          6,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          17,
+          24,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "20",
+        "brick_id": 5,
+        "brick_seq": 1,
+        "press_grid": [
+          17,
+          25,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b167",
+      "object": "B167",
+      "pick": {
+        "grid": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "press_side": 2,
+        "press_offset": 0
+      },
+      "place": {
+        "grid": [
+          33,
+          31,
+          4,
+          0
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "167",
+        "brick_id": 10,
+        "brick_seq": 1,
+        "press_grid": [
+          33,
+          31,
+          5,
+          0
+        ]
+      }
+    },
+    {
+      "name": "place_b004",
+      "object": "B004",
+      "pick": {
+        "grid": [
+          5,
+          21,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          24,
+          28,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "4",
+        "brick_id": 2,
+        "brick_seq": 2,
+        "press_grid": [
+          25,
+          29,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b007",
+      "object": "B007",
+      "pick": {
+        "grid": [
+          7,
+          75,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          22,
+          18,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "7",
+        "brick_id": 3,
+        "brick_seq": 2,
+        "press_grid": [
+          22,
+          20,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b021",
+      "object": "B021",
+      "pick": {
+        "grid": [
+          5,
+          6,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          30,
+          18,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "21",
+        "brick_id": 5,
+        "brick_seq": 2,
+        "press_grid": [
+          30,
+          19,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b024",
+      "object": "B024",
+      "pick": {
+        "grid": [
+          3,
+          18,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 0
+      },
+      "place": {
+        "grid": [
+          16,
+          18,
+          0,
+          0
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "24",
+        "brick_id": 12,
+        "brick_seq": 2,
+        "press_grid": [
+          16,
+          18,
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "name": "place_b025",
+      "object": "B025",
+      "pick": {
+        "grid": [
+          3,
+          3,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 0
+      },
+      "place": {
+        "grid": [
+          30,
+          30,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "25",
+        "brick_id": 9,
+        "brick_seq": 2,
+        "press_grid": [
+          30,
+          30,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b005",
+      "object": "B005",
+      "pick": {
+        "grid": [
+          10,
+          21,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          22,
+          24,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "5",
+        "brick_id": 2,
+        "brick_seq": 3,
+        "press_grid": [
+          22,
+          25,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b009",
+      "object": "B009",
+      "pick": {
+        "grid": [
+          14,
+          75,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          17,
+          28,
+          0,
+          0
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "9",
+        "brick_id": 3,
+        "brick_seq": 3,
+        "press_grid": [
+          19,
+          29,
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "name": "place_b022",
+      "object": "B022",
+      "pick": {
+        "grid": [
+          10,
+          6,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          17,
+          20,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "22",
+        "brick_id": 5,
+        "brick_seq": 3,
+        "press_grid": [
+          17,
+          21,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b026",
+      "object": "B026",
+      "pick": {
+        "grid": [
+          6,
+          3,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 0
+      },
+      "place": {
+        "grid": [
+          15,
+          20,
+          0,
+          0
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "26",
+        "brick_id": 9,
+        "brick_seq": 3,
+        "press_grid": [
+          15,
+          20,
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "name": "place_b006",
+      "object": "B006",
+      "pick": {
+        "grid": [
+          15,
+          21,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          26,
+          18,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "6",
+        "brick_id": 2,
+        "brick_seq": 4,
+        "press_grid": [
+          27,
+          19,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b011",
+      "object": "B011",
+      "pick": {
+        "grid": [
+          21,
+          75,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          26,
+          26,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "11",
+        "brick_id": 3,
+        "brick_seq": 4,
+        "press_grid": [
+          27,
+          28,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b023",
+      "object": "B023",
+      "pick": {
+        "grid": [
+          15,
+          6,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          30,
+          26,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "23",
+        "brick_id": 5,
+        "brick_seq": 4,
+        "press_grid": [
+          30,
+          27,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b032",
+      "object": "B032",
+      "pick": {
+        "grid": [
+          9,
+          3,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 0
+      },
+      "place": {
+        "grid": [
+          15,
+          29,
+          0,
+          0
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "32",
+        "brick_id": 9,
+        "brick_seq": 4,
+        "press_grid": [
+          15,
+          29,
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "name": "place_b008",
+      "object": "B008",
+      "pick": {
+        "grid": [
+          20,
+          21,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          26,
+          22,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "8",
+        "brick_id": 2,
+        "brick_seq": 5,
+        "press_grid": [
+          27,
+          23,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b012",
+      "object": "B012",
+      "pick": {
+        "grid": [
+          28,
+          75,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          20,
+          22,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "12",
+        "brick_id": 3,
+        "brick_seq": 5,
+        "press_grid": [
+          20,
+          24,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b033",
+      "object": "B033",
+      "pick": {
+        "grid": [
+          20,
+          6,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          33,
+          18,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "33",
+        "brick_id": 5,
+        "brick_seq": 5,
+        "press_grid": [
+          33,
+          19,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b036",
+      "object": "B036",
+      "pick": {
+        "grid": [
+          12,
+          3,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 0
+      },
+      "place": {
+        "grid": [
+          15,
+          18,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "36",
+        "brick_id": 9,
+        "brick_seq": 5,
+        "press_grid": [
+          15,
+          18,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b013",
+      "object": "B013",
+      "pick": {
+        "grid": [
+          25,
+          21,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          28,
+          18,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "13",
+        "brick_id": 2,
+        "brick_seq": 6,
+        "press_grid": [
+          29,
+          19,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b016",
+      "object": "B016",
+      "pick": {
+        "grid": [
+          35,
+          75,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          18,
+          22,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "16",
+        "brick_id": 3,
+        "brick_seq": 6,
+        "press_grid": [
+          18,
+          24,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b035",
+      "object": "B035",
+      "pick": {
+        "grid": [
+          25,
+          6,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          33,
+          26,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "35",
+        "brick_id": 5,
+        "brick_seq": 6,
+        "press_grid": [
+          33,
+          27,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b037",
+      "object": "B037",
+      "pick": {
+        "grid": [
+          15,
+          3,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 0
+      },
+      "place": {
+        "grid": [
+          33,
+          30,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "37",
+        "brick_id": 9,
+        "brick_seq": 6,
+        "press_grid": [
+          33,
+          30,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b014",
+      "object": "B014",
+      "pick": {
+        "grid": [
+          30,
+          21,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          20,
+          18,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "14",
+        "brick_id": 2,
+        "brick_seq": 7,
+        "press_grid": [
+          20,
+          19,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b017",
+      "object": "B017",
+      "pick": {
+        "grid": [
+          42,
+          75,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          28,
+          26,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "17",
+        "brick_id": 3,
+        "brick_seq": 7,
+        "press_grid": [
+          29,
+          28,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b038",
+      "object": "B038",
+      "pick": {
+        "grid": [
+          18,
+          3,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 0
+      },
+      "place": {
+        "grid": [
+          15,
+          30,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "38",
+        "brick_id": 9,
+        "brick_seq": 7,
+        "press_grid": [
+          15,
+          30,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b062",
+      "object": "B062",
+      "pick": {
+        "grid": [
+          30,
+          6,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          33,
+          18,
+          1,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "62",
+        "brick_id": 5,
+        "brick_seq": 7,
+        "press_grid": [
+          33,
+          19,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b015",
+      "object": "B015",
+      "pick": {
+        "grid": [
+          35,
+          21,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          28,
+          22,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "15",
+        "brick_id": 2,
+        "brick_seq": 8,
+        "press_grid": [
+          29,
+          23,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b031",
+      "object": "B031",
+      "pick": {
+        "grid": [
+          0,
+          78,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          31,
+          26,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "31",
+        "brick_id": 3,
+        "brick_seq": 8,
+        "press_grid": [
+          32,
+          28,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b064",
+      "object": "B064",
+      "pick": {
+        "grid": [
+          35,
+          6,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          33,
+          22,
+          1,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "64",
+        "brick_id": 5,
+        "brick_seq": 8,
+        "press_grid": [
+          33,
+          23,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b068",
+      "object": "B068",
+      "pick": {
+        "grid": [
+          21,
+          3,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 0
+      },
+      "place": {
+        "grid": [
+          33,
+          30,
+          1,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "68",
+        "brick_id": 9,
+        "brick_seq": 8,
+        "press_grid": [
+          33,
+          30,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b018",
+      "object": "B018",
+      "pick": {
+        "grid": [
+          40,
+          21,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          18,
+          18,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "18",
+        "brick_id": 2,
+        "brick_seq": 9,
+        "press_grid": [
+          18,
+          19,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b034",
+      "object": "B034",
+      "pick": {
+        "grid": [
+          7,
+          78,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          16,
+          30,
+          0,
+          0
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "34",
+        "brick_id": 3,
+        "brick_seq": 9,
+        "press_grid": [
+          18,
+          31,
+          1,
+          0
+        ]
+      }
+    },
+    {
+      "name": "place_b066",
+      "object": "B066",
+      "pick": {
+        "grid": [
+          40,
+          6,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          33,
+          26,
+          1,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "66",
+        "brick_id": 5,
+        "brick_seq": 9,
+        "press_grid": [
+          33,
+          27,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b099",
+      "object": "B099",
+      "pick": {
+        "grid": [
+          24,
+          3,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 0
+      },
+      "place": {
+        "grid": [
+          33,
+          30,
+          2,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "99",
+        "brick_id": 9,
+        "brick_seq": 9,
+        "press_grid": [
+          33,
+          30,
+          3,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b019",
+      "object": "B019",
+      "pick": {
+        "grid": [
+          0,
+          24,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          30,
+          22,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "19",
+        "brick_id": 2,
+        "brick_seq": 10,
+        "press_grid": [
+          31,
+          23,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b042",
+      "object": "B042",
+      "pick": {
+        "grid": [
+          14,
+          78,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          25,
+          26,
+          1,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "42",
+        "brick_id": 3,
+        "brick_seq": 10,
+        "press_grid": [
+          25,
+          28,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b093",
+      "object": "B093",
+      "pick": {
+        "grid": [
+          0,
+          9,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          33,
+          18,
+          2,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "93",
+        "brick_id": 5,
+        "brick_seq": 10,
+        "press_grid": [
+          33,
+          19,
+          3,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b131",
+      "object": "B131",
+      "pick": {
+        "grid": [
+          27,
+          3,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 0
+      },
+      "place": {
+        "grid": [
+          33,
+          30,
+          3,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "131",
+        "brick_id": 9,
+        "brick_seq": 10,
+        "press_grid": [
+          33,
+          30,
+          4,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b027",
+      "object": "B027",
+      "pick": {
+        "grid": [
+          5,
+          24,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          31,
+          18,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "27",
+        "brick_id": 2,
+        "brick_seq": 11,
+        "press_grid": [
+          32,
+          19,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b045",
+      "object": "B045",
+      "pick": {
+        "grid": [
+          21,
+          78,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          23,
+          26,
+          1,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "45",
+        "brick_id": 3,
+        "brick_seq": 11,
+        "press_grid": [
+          23,
+          28,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b095",
+      "object": "B095",
+      "pick": {
+        "grid": [
+          5,
+          9,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          33,
+          22,
+          2,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "95",
+        "brick_id": 5,
+        "brick_seq": 11,
+        "press_grid": [
+          33,
+          23,
+          3,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b135",
+      "object": "B135",
+      "pick": {
+        "grid": [
+          30,
+          3,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 0
+      },
+      "place": {
+        "grid": [
+          24,
+          30,
+          4,
+          0
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "135",
+        "brick_id": 9,
+        "brick_seq": 11,
+        "press_grid": [
+          24,
+          30,
+          5,
+          0
+        ]
+      }
+    },
+    {
+      "name": "place_b028",
+      "object": "B028",
+      "pick": {
+        "grid": [
+          10,
+          24,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          15,
+          21,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "28",
+        "brick_id": 2,
+        "brick_seq": 12,
+        "press_grid": [
+          15,
+          22,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b048",
+      "object": "B048",
+      "pick": {
+        "grid": [
+          28,
+          78,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          27,
+          26,
+          1,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "48",
+        "brick_id": 3,
+        "brick_seq": 12,
+        "press_grid": [
+          28,
+          28,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b097",
+      "object": "B097",
+      "pick": {
+        "grid": [
+          10,
+          9,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          33,
+          26,
+          2,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "97",
+        "brick_id": 5,
+        "brick_seq": 12,
+        "press_grid": [
+          33,
+          27,
+          3,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b159",
+      "object": "B159",
+      "pick": {
+        "grid": [
+          33,
+          3,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 0
+      },
+      "place": {
+        "grid": [
+          31,
+          31,
+          4,
+          0
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "159",
+        "brick_id": 9,
+        "brick_seq": 12,
+        "press_grid": [
+          31,
+          31,
+          5,
+          0
+        ]
+      }
+    },
+    {
+      "name": "place_b029",
+      "object": "B029",
+      "pick": {
+        "grid": [
+          15,
+          24,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          32,
+          22,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "29",
+        "brick_id": 2,
+        "brick_seq": 13,
+        "press_grid": [
+          33,
+          23,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b051",
+      "object": "B051",
+      "pick": {
+        "grid": [
+          35,
+          78,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          21,
+          26,
+          1,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "51",
+        "brick_id": 3,
+        "brick_seq": 13,
+        "press_grid": [
+          21,
+          28,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b125",
+      "object": "B125",
+      "pick": {
+        "grid": [
+          15,
+          9,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          33,
+          18,
+          3,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "125",
+        "brick_id": 5,
+        "brick_seq": 13,
+        "press_grid": [
+          33,
+          19,
+          4,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b247",
+      "object": "B247",
+      "pick": {
+        "grid": [
+          36,
+          3,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 0
+      },
+      "place": {
+        "grid": [
+          30,
+          29,
+          9,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "247",
+        "brick_id": 9,
+        "brick_seq": 13,
+        "press_grid": [
+          30,
+          29,
+          10,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b030",
+      "object": "B030",
+      "pick": {
+        "grid": [
+          20,
+          24,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          15,
+          25,
+          0,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "30",
+        "brick_id": 2,
+        "brick_seq": 14,
+        "press_grid": [
+          15,
+          26,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b054",
+      "object": "B054",
+      "pick": {
+        "grid": [
+          42,
+          78,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          29,
+          26,
+          1,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "54",
+        "brick_id": 3,
+        "brick_seq": 14,
+        "press_grid": [
+          30,
+          28,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b127",
+      "object": "B127",
+      "pick": {
+        "grid": [
+          20,
+          9,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          33,
+          22,
+          3,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "127",
+        "brick_id": 5,
+        "brick_seq": 14,
+        "press_grid": [
+          33,
+          23,
+          4,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b254",
+      "object": "B254",
+      "pick": {
+        "grid": [
+          39,
+          3,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 0
+      },
+      "place": {
+        "grid": [
+          30,
+          29,
+          10,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "254",
+        "brick_id": 9,
+        "brick_seq": 14,
+        "press_grid": [
+          30,
+          29,
+          11,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b039",
+      "object": "B039",
+      "pick": {
+        "grid": [
+          25,
+          24,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          25,
+          18,
+          1,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "39",
+        "brick_id": 2,
+        "brick_seq": 15,
+        "press_grid": [
+          25,
+          19,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b057",
+      "object": "B057",
+      "pick": {
+        "grid": [
+          0,
+          81,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          19,
+          26,
+          1,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "57",
+        "brick_id": 3,
+        "brick_seq": 15,
+        "press_grid": [
+          19,
+          28,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b129",
+      "object": "B129",
+      "pick": {
+        "grid": [
+          25,
+          9,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          33,
+          26,
+          3,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "129",
+        "brick_id": 5,
+        "brick_seq": 15,
+        "press_grid": [
+          33,
+          27,
+          4,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b256",
+      "object": "B256",
+      "pick": {
+        "grid": [
+          42,
+          3,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 0
+      },
+      "place": {
+        "grid": [
+          27,
+          30,
+          11,
+          0
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "256",
+        "brick_id": 9,
+        "brick_seq": 15,
+        "press_grid": [
+          27,
+          30,
+          12,
+          0
+        ]
+      }
+    },
+    {
+      "name": "place_b040",
+      "object": "B040",
+      "pick": {
+        "grid": [
+          30,
+          24,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          25,
+          22,
+          1,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "40",
+        "brick_id": 2,
+        "brick_seq": 16,
+        "press_grid": [
+          25,
+          23,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b060",
+      "object": "B060",
+      "pick": {
+        "grid": [
+          7,
+          81,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          31,
+          26,
+          1,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "60",
+        "brick_id": 3,
+        "brick_seq": 16,
+        "press_grid": [
+          32,
+          28,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b136",
+      "object": "B136",
+      "pick": {
+        "grid": [
+          30,
+          9,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          23,
+          19,
+          4,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "136",
+        "brick_id": 5,
+        "brick_seq": 16,
+        "press_grid": [
+          23,
+          20,
+          5,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b258",
+      "object": "B258",
+      "pick": {
+        "grid": [
+          45,
+          3,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 0
+      },
+      "place": {
+        "grid": [
+          29,
+          30,
+          11,
+          0
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "258",
+        "brick_id": 9,
+        "brick_seq": 16,
+        "press_grid": [
+          29,
+          30,
+          12,
+          0
+        ]
+      }
+    },
+    {
+      "name": "place_b041",
+      "object": "B041",
+      "pick": {
+        "grid": [
+          35,
+          24,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          23,
+          18,
+          1,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "41",
+        "brick_id": 2,
+        "brick_seq": 17,
+        "press_grid": [
+          23,
+          19,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b063",
+      "object": "B063",
+      "pick": {
+        "grid": [
+          14,
+          81,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          17,
+          26,
+          1,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "63",
+        "brick_id": 3,
+        "brick_seq": 17,
+        "press_grid": [
+          17,
+          28,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b138",
+      "object": "B138",
+      "pick": {
+        "grid": [
+          35,
+          9,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          23,
+          23,
+          4,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "138",
+        "brick_id": 5,
+        "brick_seq": 17,
+        "press_grid": [
+          23,
+          24,
+          5,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b043",
+      "object": "B043",
+      "pick": {
+        "grid": [
+          40,
+          24,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          23,
+          22,
+          1,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "43",
+        "brick_id": 2,
+        "brick_seq": 18,
+        "press_grid": [
+          23,
+          23,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b069",
+      "object": "B069",
+      "pick": {
+        "grid": [
+          21,
+          81,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          15,
+          26,
+          1,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "69",
+        "brick_id": 3,
+        "brick_seq": 18,
+        "press_grid": [
+          15,
+          28,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b140",
+      "object": "B140",
+      "pick": {
+        "grid": [
+          40,
+          9,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          23,
+          27,
+          4,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "140",
+        "brick_id": 5,
+        "brick_seq": 18,
+        "press_grid": [
+          23,
+          28,
+          5,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b044",
+      "object": "B044",
+      "pick": {
+        "grid": [
+          0,
+          27,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          27,
+          18,
+          1,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "44",
+        "brick_id": 2,
+        "brick_seq": 19,
+        "press_grid": [
+          28,
+          19,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b073",
+      "object": "B073",
+      "pick": {
+        "grid": [
+          28,
+          81,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          25,
+          26,
+          2,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "73",
+        "brick_id": 3,
+        "brick_seq": 19,
+        "press_grid": [
+          25,
+          28,
+          3,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b142",
+      "object": "B142",
+      "pick": {
+        "grid": [
+          0,
+          12,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          23,
+          31,
+          4,
+          0
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "142",
+        "brick_id": 5,
+        "brick_seq": 19,
+        "press_grid": [
+          24,
+          31,
+          5,
+          0
+        ]
+      }
+    },
+    {
+      "name": "place_b046",
+      "object": "B046",
+      "pick": {
+        "grid": [
+          5,
+          27,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          27,
+          22,
+          1,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "46",
+        "brick_id": 2,
+        "brick_seq": 20,
+        "press_grid": [
+          28,
+          23,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b076",
+      "object": "B076",
+      "pick": {
+        "grid": [
+          35,
+          81,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          23,
+          26,
+          2,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "76",
+        "brick_id": 3,
+        "brick_seq": 20,
+        "press_grid": [
+          23,
+          28,
+          3,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b143",
+      "object": "B143",
+      "pick": {
+        "grid": [
+          5,
+          12,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          27,
+          31,
+          4,
+          0
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "143",
+        "brick_id": 5,
+        "brick_seq": 20,
+        "press_grid": [
+          28,
+          31,
+          5,
+          0
+        ]
+      }
+    },
+    {
+      "name": "place_b047",
+      "object": "B047",
+      "pick": {
+        "grid": [
+          10,
+          27,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          21,
+          18,
+          1,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "47",
+        "brick_id": 2,
+        "brick_seq": 21,
+        "press_grid": [
+          21,
+          19,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b079",
+      "object": "B079",
+      "pick": {
+        "grid": [
+          42,
+          81,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          27,
+          26,
+          2,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "79",
+        "brick_id": 3,
+        "brick_seq": 21,
+        "press_grid": [
+          28,
+          28,
+          3,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b151",
+      "object": "B151",
+      "pick": {
+        "grid": [
+          10,
+          12,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          30,
+          30,
+          4,
+          0
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "151",
+        "brick_id": 5,
+        "brick_seq": 21,
+        "press_grid": [
+          31,
+          30,
+          5,
+          0
+        ]
+      }
+    },
+    {
+      "name": "place_b049",
+      "object": "B049",
+      "pick": {
+        "grid": [
+          15,
+          27,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          21,
+          22,
+          1,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "49",
+        "brick_id": 2,
+        "brick_seq": 22,
+        "press_grid": [
+          21,
+          23,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b082",
+      "object": "B082",
+      "pick": {
+        "grid": [
+          0,
+          84,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          21,
+          26,
+          2,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "82",
+        "brick_id": 3,
+        "brick_seq": 22,
+        "press_grid": [
+          21,
+          28,
+          3,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b156",
+      "object": "B156",
+      "pick": {
+        "grid": [
+          15,
+          12,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          19,
+          31,
+          4,
+          0
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "156",
+        "brick_id": 5,
+        "brick_seq": 22,
+        "press_grid": [
+          20,
+          31,
+          5,
+          0
+        ]
+      }
+    },
+    {
+      "name": "place_b050",
+      "object": "B050",
+      "pick": {
+        "grid": [
+          20,
+          27,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          29,
+          18,
+          1,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "50",
+        "brick_id": 2,
+        "brick_seq": 23,
+        "press_grid": [
+          30,
+          19,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b085",
+      "object": "B085",
+      "pick": {
+        "grid": [
+          7,
+          84,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          29,
+          26,
+          2,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "85",
+        "brick_id": 3,
+        "brick_seq": 23,
+        "press_grid": [
+          30,
+          28,
+          3,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b173",
+      "object": "B173",
+      "pick": {
+        "grid": [
+          20,
+          12,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          29,
+          28,
+          5,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "173",
+        "brick_id": 5,
+        "brick_seq": 23,
+        "press_grid": [
+          29,
+          29,
+          6,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b052",
+      "object": "B052",
+      "pick": {
+        "grid": [
+          25,
+          27,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          29,
+          22,
+          1,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "52",
+        "brick_id": 2,
+        "brick_seq": 24,
+        "press_grid": [
+          30,
+          23,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b088",
+      "object": "B088",
+      "pick": {
+        "grid": [
+          14,
+          84,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          19,
+          26,
+          2,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "88",
+        "brick_id": 3,
+        "brick_seq": 24,
+        "press_grid": [
+          19,
+          28,
+          3,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b191",
+      "object": "B191",
+      "pick": {
+        "grid": [
+          25,
+          12,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          29,
+          28,
+          6,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "191",
+        "brick_id": 5,
+        "brick_seq": 24,
+        "press_grid": [
+          29,
+          29,
+          7,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b053",
+      "object": "B053",
+      "pick": {
+        "grid": [
+          30,
+          27,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          19,
+          18,
+          1,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "53",
+        "brick_id": 2,
+        "brick_seq": 25,
+        "press_grid": [
+          19,
+          19,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b091",
+      "object": "B091",
+      "pick": {
+        "grid": [
+          21,
+          84,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          31,
+          26,
+          2,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "91",
+        "brick_id": 3,
+        "brick_seq": 25,
+        "press_grid": [
+          32,
+          28,
+          3,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b209",
+      "object": "B209",
+      "pick": {
+        "grid": [
+          30,
+          12,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          29,
+          28,
+          7,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "209",
+        "brick_id": 5,
+        "brick_seq": 25,
+        "press_grid": [
+          29,
+          29,
+          8,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b055",
+      "object": "B055",
+      "pick": {
+        "grid": [
+          35,
+          27,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          19,
+          22,
+          1,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "55",
+        "brick_id": 2,
+        "brick_seq": 26,
+        "press_grid": [
+          19,
+          23,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b094",
+      "object": "B094",
+      "pick": {
+        "grid": [
+          28,
+          84,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          17,
+          26,
+          2,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "94",
+        "brick_id": 3,
+        "brick_seq": 26,
+        "press_grid": [
+          17,
+          28,
+          3,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b227",
+      "object": "B227",
+      "pick": {
+        "grid": [
+          35,
+          12,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          29,
+          28,
+          8,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "227",
+        "brick_id": 5,
+        "brick_seq": 26,
+        "press_grid": [
+          29,
+          29,
+          9,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b056",
+      "object": "B056",
+      "pick": {
+        "grid": [
+          40,
+          27,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          31,
+          18,
+          1,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "56",
+        "brick_id": 2,
+        "brick_seq": 27,
+        "press_grid": [
+          32,
+          19,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b100",
+      "object": "B100",
+      "pick": {
+        "grid": [
+          35,
+          84,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          15,
+          26,
+          2,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "100",
+        "brick_id": 3,
+        "brick_seq": 27,
+        "press_grid": [
+          15,
+          28,
+          3,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b255",
+      "object": "B255",
+      "pick": {
+        "grid": [
+          40,
+          12,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          23,
+          30,
+          11,
+          0
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "255",
+        "brick_id": 5,
+        "brick_seq": 27,
+        "press_grid": [
+          24,
+          30,
+          12,
+          0
+        ]
+      }
+    },
+    {
+      "name": "place_b058",
+      "object": "B058",
+      "pick": {
+        "grid": [
+          0,
+          30,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          31,
+          22,
+          1,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "58",
+        "brick_id": 2,
+        "brick_seq": 28,
+        "press_grid": [
+          32,
+          23,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b105",
+      "object": "B105",
+      "pick": {
+        "grid": [
+          42,
+          84,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          25,
+          26,
+          3,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "105",
+        "brick_id": 3,
+        "brick_seq": 28,
+        "press_grid": [
+          25,
+          28,
+          4,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b257",
+      "object": "B257",
+      "pick": {
+        "grid": [
+          0,
+          15,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          19,
+          30,
+          11,
+          0
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "257",
+        "brick_id": 5,
+        "brick_seq": 28,
+        "press_grid": [
+          20,
+          30,
+          12,
+          0
+        ]
+      }
+    },
+    {
+      "name": "place_b059",
+      "object": "B059",
+      "pick": {
+        "grid": [
+          5,
+          30,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          17,
+          18,
+          1,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "59",
+        "brick_id": 2,
+        "brick_seq": 29,
+        "press_grid": [
+          17,
+          19,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b106",
+      "object": "B106",
+      "pick": {
+        "grid": [
+          0,
+          87,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          23,
+          26,
+          3,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "106",
+        "brick_id": 3,
+        "brick_seq": 29,
+        "press_grid": [
+          23,
+          28,
+          4,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b061",
+      "object": "B061",
+      "pick": {
+        "grid": [
+          10,
+          30,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          17,
+          22,
+          1,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "61",
+        "brick_id": 2,
+        "brick_seq": 30,
+        "press_grid": [
+          17,
+          23,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b111",
+      "object": "B111",
+      "pick": {
+        "grid": [
+          7,
+          87,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          27,
+          26,
+          3,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "111",
+        "brick_id": 3,
+        "brick_seq": 30,
+        "press_grid": [
+          28,
+          28,
+          4,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b065",
+      "object": "B065",
+      "pick": {
+        "grid": [
+          15,
+          30,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          15,
+          18,
+          1,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "65",
+        "brick_id": 2,
+        "brick_seq": 31,
+        "press_grid": [
+          15,
+          19,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b112",
+      "object": "B112",
+      "pick": {
+        "grid": [
+          14,
+          87,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          21,
+          26,
+          3,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "112",
+        "brick_id": 3,
+        "brick_seq": 31,
+        "press_grid": [
+          21,
+          28,
+          4,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b067",
+      "object": "B067",
+      "pick": {
+        "grid": [
+          20,
+          30,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          15,
+          22,
+          1,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "67",
+        "brick_id": 2,
+        "brick_seq": 32,
+        "press_grid": [
+          15,
+          23,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b117",
+      "object": "B117",
+      "pick": {
+        "grid": [
+          21,
+          87,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          29,
+          26,
+          3,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "117",
+        "brick_id": 3,
+        "brick_seq": 32,
+        "press_grid": [
+          30,
+          28,
+          4,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b070",
+      "object": "B070",
+      "pick": {
+        "grid": [
+          25,
+          30,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          25,
+          18,
+          2,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "70",
+        "brick_id": 2,
+        "brick_seq": 33,
+        "press_grid": [
+          25,
+          19,
+          3,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b118",
+      "object": "B118",
+      "pick": {
+        "grid": [
+          28,
+          87,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          19,
+          26,
+          3,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "118",
+        "brick_id": 3,
+        "brick_seq": 33,
+        "press_grid": [
+          19,
+          28,
+          4,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b071",
+      "object": "B071",
+      "pick": {
+        "grid": [
+          30,
+          30,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          25,
+          22,
+          2,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "71",
+        "brick_id": 2,
+        "brick_seq": 34,
+        "press_grid": [
+          25,
+          23,
+          3,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b123",
+      "object": "B123",
+      "pick": {
+        "grid": [
+          35,
+          87,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          31,
+          26,
+          3,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "123",
+        "brick_id": 3,
+        "brick_seq": 34,
+        "press_grid": [
+          32,
+          28,
+          4,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b072",
+      "object": "B072",
+      "pick": {
+        "grid": [
+          35,
+          30,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          23,
+          18,
+          2,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "72",
+        "brick_id": 2,
+        "brick_seq": 35,
+        "press_grid": [
+          23,
+          19,
+          3,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b124",
+      "object": "B124",
+      "pick": {
+        "grid": [
+          42,
+          87,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          17,
+          26,
+          3,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "124",
+        "brick_id": 3,
+        "brick_seq": 35,
+        "press_grid": [
+          17,
+          28,
+          4,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b074",
+      "object": "B074",
+      "pick": {
+        "grid": [
+          40,
+          30,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          23,
+          22,
+          2,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "74",
+        "brick_id": 2,
+        "brick_seq": 36,
+        "press_grid": [
+          23,
+          23,
+          3,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b130",
+      "object": "B130",
+      "pick": {
+        "grid": [
+          0,
+          90,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          15,
+          26,
+          3,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "130",
+        "brick_id": 3,
+        "brick_seq": 36,
+        "press_grid": [
+          15,
+          28,
+          4,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b075",
+      "object": "B075",
+      "pick": {
+        "grid": [
+          0,
+          33,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          27,
+          18,
+          2,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "75",
+        "brick_id": 2,
+        "brick_seq": 37,
+        "press_grid": [
+          28,
+          19,
+          3,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b162",
+      "object": "B162",
+      "pick": {
+        "grid": [
+          7,
+          90,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          17,
+          26,
+          4,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "162",
+        "brick_id": 3,
+        "brick_seq": 37,
+        "press_grid": [
+          17,
+          28,
+          5,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b077",
+      "object": "B077",
+      "pick": {
+        "grid": [
+          5,
+          33,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          27,
+          22,
+          2,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "77",
+        "brick_id": 2,
+        "brick_seq": 38,
+        "press_grid": [
+          28,
+          23,
+          3,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b168",
+      "object": "B168",
+      "pick": {
+        "grid": [
+          14,
+          90,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          15,
+          26,
+          4,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "168",
+        "brick_id": 3,
+        "brick_seq": 38,
+        "press_grid": [
+          15,
+          28,
+          5,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b078",
+      "object": "B078",
+      "pick": {
+        "grid": [
+          10,
+          33,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          21,
+          18,
+          2,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "78",
+        "brick_id": 2,
+        "brick_seq": 39,
+        "press_grid": [
+          21,
+          19,
+          3,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b179",
+      "object": "B179",
+      "pick": {
+        "grid": [
+          21,
+          90,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          30,
+          26,
+          5,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "179",
+        "brick_id": 3,
+        "brick_seq": 39,
+        "press_grid": [
+          31,
+          28,
+          6,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b080",
+      "object": "B080",
+      "pick": {
+        "grid": [
+          15,
+          33,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          21,
+          22,
+          2,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "80",
+        "brick_id": 2,
+        "brick_seq": 40,
+        "press_grid": [
+          21,
+          23,
+          3,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b180",
+      "object": "B180",
+      "pick": {
+        "grid": [
+          28,
+          90,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          17,
+          26,
+          5,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "180",
+        "brick_id": 3,
+        "brick_seq": 40,
+        "press_grid": [
+          17,
+          28,
+          6,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b081",
+      "object": "B081",
+      "pick": {
+        "grid": [
+          20,
+          33,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          29,
+          18,
+          2,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "81",
+        "brick_id": 2,
+        "brick_seq": 41,
+        "press_grid": [
+          30,
+          19,
+          3,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b185",
+      "object": "B185",
+      "pick": {
+        "grid": [
+          35,
+          90,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          32,
+          26,
+          5,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "185",
+        "brick_id": 3,
+        "brick_seq": 41,
+        "press_grid": [
+          33,
+          28,
+          6,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b083",
+      "object": "B083",
+      "pick": {
+        "grid": [
+          25,
+          33,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          29,
+          22,
+          2,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "83",
+        "brick_id": 2,
+        "brick_seq": 42,
+        "press_grid": [
+          30,
+          23,
+          3,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b186",
+      "object": "B186",
+      "pick": {
+        "grid": [
+          42,
+          90,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          15,
+          26,
+          5,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "186",
+        "brick_id": 3,
+        "brick_seq": 42,
+        "press_grid": [
+          15,
+          28,
+          6,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b084",
+      "object": "B084",
+      "pick": {
+        "grid": [
+          30,
+          33,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          19,
+          18,
+          2,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "84",
+        "brick_id": 2,
+        "brick_seq": 43,
+        "press_grid": [
+          19,
+          19,
+          3,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b197",
+      "object": "B197",
+      "pick": {
+        "grid": [
+          0,
+          93,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          30,
+          26,
+          6,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "197",
+        "brick_id": 3,
+        "brick_seq": 43,
+        "press_grid": [
+          31,
+          28,
+          7,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b086",
+      "object": "B086",
+      "pick": {
+        "grid": [
+          35,
+          33,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          19,
+          22,
+          2,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "86",
+        "brick_id": 2,
+        "brick_seq": 44,
+        "press_grid": [
+          19,
+          23,
+          3,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b198",
+      "object": "B198",
+      "pick": {
+        "grid": [
+          7,
+          93,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          17,
+          26,
+          6,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "198",
+        "brick_id": 3,
+        "brick_seq": 44,
+        "press_grid": [
+          17,
+          28,
+          7,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b087",
+      "object": "B087",
+      "pick": {
+        "grid": [
+          40,
+          33,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          31,
+          18,
+          2,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "87",
+        "brick_id": 2,
+        "brick_seq": 45,
+        "press_grid": [
+          32,
+          19,
+          3,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b203",
+      "object": "B203",
+      "pick": {
+        "grid": [
+          14,
+          93,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          32,
+          26,
+          6,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "203",
+        "brick_id": 3,
+        "brick_seq": 45,
+        "press_grid": [
+          33,
+          28,
+          7,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b089",
+      "object": "B089",
+      "pick": {
+        "grid": [
+          0,
+          36,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          31,
+          22,
+          2,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "89",
+        "brick_id": 2,
+        "brick_seq": 46,
+        "press_grid": [
+          32,
+          23,
+          3,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b204",
+      "object": "B204",
+      "pick": {
+        "grid": [
+          21,
+          93,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          15,
+          26,
+          6,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "204",
+        "brick_id": 3,
+        "brick_seq": 46,
+        "press_grid": [
+          15,
+          28,
+          7,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b090",
+      "object": "B090",
+      "pick": {
+        "grid": [
+          5,
+          36,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          17,
+          18,
+          2,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "90",
+        "brick_id": 2,
+        "brick_seq": 47,
+        "press_grid": [
+          17,
+          19,
+          3,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b215",
+      "object": "B215",
+      "pick": {
+        "grid": [
+          28,
+          93,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          30,
+          26,
+          7,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "215",
+        "brick_id": 3,
+        "brick_seq": 47,
+        "press_grid": [
+          31,
+          28,
+          8,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b092",
+      "object": "B092",
+      "pick": {
+        "grid": [
+          10,
+          36,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          17,
+          22,
+          2,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "92",
+        "brick_id": 2,
+        "brick_seq": 48,
+        "press_grid": [
+          17,
+          23,
+          3,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b216",
+      "object": "B216",
+      "pick": {
+        "grid": [
+          35,
+          93,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          17,
+          26,
+          7,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "216",
+        "brick_id": 3,
+        "brick_seq": 48,
+        "press_grid": [
+          17,
+          28,
+          8,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b096",
+      "object": "B096",
+      "pick": {
+        "grid": [
+          15,
+          36,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          15,
+          18,
+          2,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "96",
+        "brick_id": 2,
+        "brick_seq": 49,
+        "press_grid": [
+          15,
+          19,
+          3,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b221",
+      "object": "B221",
+      "pick": {
+        "grid": [
+          42,
+          93,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          32,
+          26,
+          7,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "221",
+        "brick_id": 3,
+        "brick_seq": 49,
+        "press_grid": [
+          33,
+          28,
+          8,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b098",
+      "object": "B098",
+      "pick": {
+        "grid": [
+          20,
+          36,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          15,
+          22,
+          2,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "98",
+        "brick_id": 2,
+        "brick_seq": 50,
+        "press_grid": [
+          15,
+          23,
+          3,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b222",
+      "object": "B222",
+      "pick": {
+        "grid": [
+          0,
+          96,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          15,
+          26,
+          7,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "222",
+        "brick_id": 3,
+        "brick_seq": 50,
+        "press_grid": [
+          15,
+          28,
+          8,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b101",
+      "object": "B101",
+      "pick": {
+        "grid": [
+          25,
+          36,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          25,
+          18,
+          3,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "101",
+        "brick_id": 2,
+        "brick_seq": 51,
+        "press_grid": [
+          25,
+          19,
+          4,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b233",
+      "object": "B233",
+      "pick": {
+        "grid": [
+          7,
+          96,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          30,
+          26,
+          8,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "233",
+        "brick_id": 3,
+        "brick_seq": 51,
+        "press_grid": [
+          31,
+          28,
+          9,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b102",
+      "object": "B102",
+      "pick": {
+        "grid": [
+          30,
+          36,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          23,
+          18,
+          3,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "102",
+        "brick_id": 2,
+        "brick_seq": 52,
+        "press_grid": [
+          23,
+          19,
+          4,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b234",
+      "object": "B234",
+      "pick": {
+        "grid": [
+          14,
+          96,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          17,
+          26,
+          8,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "234",
+        "brick_id": 3,
+        "brick_seq": 52,
+        "press_grid": [
+          17,
+          28,
+          9,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b103",
+      "object": "B103",
+      "pick": {
+        "grid": [
+          35,
+          36,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          25,
+          22,
+          3,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "103",
+        "brick_id": 2,
+        "brick_seq": 53,
+        "press_grid": [
+          25,
+          23,
+          4,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b239",
+      "object": "B239",
+      "pick": {
+        "grid": [
+          21,
+          96,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          32,
+          26,
+          8,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "239",
+        "brick_id": 3,
+        "brick_seq": 53,
+        "press_grid": [
+          33,
+          28,
+          9,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b104",
+      "object": "B104",
+      "pick": {
+        "grid": [
+          40,
+          36,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          23,
+          22,
+          3,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "104",
+        "brick_id": 2,
+        "brick_seq": 54,
+        "press_grid": [
+          23,
+          23,
+          4,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b240",
+      "object": "B240",
+      "pick": {
+        "grid": [
+          28,
+          96,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 2
+      },
+      "place": {
+        "grid": [
+          15,
+          26,
+          8,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "240",
+        "brick_id": 3,
+        "brick_seq": 54,
+        "press_grid": [
+          15,
+          28,
+          9,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b107",
+      "object": "B107",
+      "pick": {
+        "grid": [
+          0,
+          39,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          27,
+          18,
+          3,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "107",
+        "brick_id": 2,
+        "brick_seq": 55,
+        "press_grid": [
+          28,
+          19,
+          4,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b108",
+      "object": "B108",
+      "pick": {
+        "grid": [
+          5,
+          39,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          21,
+          18,
+          3,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "108",
+        "brick_id": 2,
+        "brick_seq": 56,
+        "press_grid": [
+          21,
+          19,
+          4,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b109",
+      "object": "B109",
+      "pick": {
+        "grid": [
+          10,
+          39,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          27,
+          22,
+          3,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "109",
+        "brick_id": 2,
+        "brick_seq": 57,
+        "press_grid": [
+          28,
+          23,
+          4,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b110",
+      "object": "B110",
+      "pick": {
+        "grid": [
+          15,
+          39,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          21,
+          22,
+          3,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "110",
+        "brick_id": 2,
+        "brick_seq": 58,
+        "press_grid": [
+          21,
+          23,
+          4,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b113",
+      "object": "B113",
+      "pick": {
+        "grid": [
+          20,
+          39,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          29,
+          18,
+          3,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "113",
+        "brick_id": 2,
+        "brick_seq": 59,
+        "press_grid": [
+          30,
+          19,
+          4,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b114",
+      "object": "B114",
+      "pick": {
+        "grid": [
+          25,
+          39,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          19,
+          18,
+          3,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "114",
+        "brick_id": 2,
+        "brick_seq": 60,
+        "press_grid": [
+          19,
+          19,
+          4,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b115",
+      "object": "B115",
+      "pick": {
+        "grid": [
+          30,
+          39,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          29,
+          22,
+          3,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "115",
+        "brick_id": 2,
+        "brick_seq": 61,
+        "press_grid": [
+          30,
+          23,
+          4,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b116",
+      "object": "B116",
+      "pick": {
+        "grid": [
+          35,
+          39,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          19,
+          22,
+          3,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "116",
+        "brick_id": 2,
+        "brick_seq": 62,
+        "press_grid": [
+          19,
+          23,
+          4,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b119",
+      "object": "B119",
+      "pick": {
+        "grid": [
+          40,
+          39,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          31,
+          18,
+          3,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "119",
+        "brick_id": 2,
+        "brick_seq": 63,
+        "press_grid": [
+          32,
+          19,
+          4,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b120",
+      "object": "B120",
+      "pick": {
+        "grid": [
+          0,
+          42,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          17,
+          18,
+          3,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "120",
+        "brick_id": 2,
+        "brick_seq": 64,
+        "press_grid": [
+          17,
+          19,
+          4,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b121",
+      "object": "B121",
+      "pick": {
+        "grid": [
+          5,
+          42,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          31,
+          22,
+          3,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "121",
+        "brick_id": 2,
+        "brick_seq": 65,
+        "press_grid": [
+          32,
+          23,
+          4,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b122",
+      "object": "B122",
+      "pick": {
+        "grid": [
+          10,
+          42,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          17,
+          22,
+          3,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "122",
+        "brick_id": 2,
+        "brick_seq": 66,
+        "press_grid": [
+          17,
+          23,
+          4,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b126",
+      "object": "B126",
+      "pick": {
+        "grid": [
+          15,
+          42,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          15,
+          18,
+          3,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "126",
+        "brick_id": 2,
+        "brick_seq": 67,
+        "press_grid": [
+          15,
+          19,
+          4,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b128",
+      "object": "B128",
+      "pick": {
+        "grid": [
+          20,
+          42,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          15,
+          22,
+          3,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "128",
+        "brick_id": 2,
+        "brick_seq": 68,
+        "press_grid": [
+          15,
+          23,
+          4,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b132",
+      "object": "B132",
+      "pick": {
+        "grid": [
+          25,
+          42,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          24,
+          18,
+          4,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "132",
+        "brick_id": 2,
+        "brick_seq": 69,
+        "press_grid": [
+          24,
+          19,
+          5,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b133",
+      "object": "B133",
+      "pick": {
+        "grid": [
+          30,
+          42,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          24,
+          22,
+          4,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "133",
+        "brick_id": 2,
+        "brick_seq": 70,
+        "press_grid": [
+          24,
+          23,
+          5,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b134",
+      "object": "B134",
+      "pick": {
+        "grid": [
+          35,
+          42,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          24,
+          26,
+          4,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "134",
+        "brick_id": 2,
+        "brick_seq": 71,
+        "press_grid": [
+          24,
+          27,
+          5,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b137",
+      "object": "B137",
+      "pick": {
+        "grid": [
+          40,
+          42,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          26,
+          19,
+          4,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "137",
+        "brick_id": 2,
+        "brick_seq": 72,
+        "press_grid": [
+          27,
+          20,
+          5,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b139",
+      "object": "B139",
+      "pick": {
+        "grid": [
+          0,
+          45,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          26,
+          23,
+          4,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "139",
+        "brick_id": 2,
+        "brick_seq": 73,
+        "press_grid": [
+          27,
+          24,
+          5,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b141",
+      "object": "B141",
+      "pick": {
+        "grid": [
+          5,
+          45,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          26,
+          27,
+          4,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "141",
+        "brick_id": 2,
+        "brick_seq": 74,
+        "press_grid": [
+          27,
+          28,
+          5,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b144",
+      "object": "B144",
+      "pick": {
+        "grid": [
+          10,
+          45,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          21,
+          19,
+          4,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "144",
+        "brick_id": 2,
+        "brick_seq": 75,
+        "press_grid": [
+          21,
+          20,
+          5,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b145",
+      "object": "B145",
+      "pick": {
+        "grid": [
+          15,
+          45,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          28,
+          27,
+          4,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "145",
+        "brick_id": 2,
+        "brick_seq": 76,
+        "press_grid": [
+          29,
+          28,
+          5,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b146",
+      "object": "B146",
+      "pick": {
+        "grid": [
+          20,
+          45,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          21,
+          23,
+          4,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "146",
+        "brick_id": 2,
+        "brick_seq": 77,
+        "press_grid": [
+          21,
+          24,
+          5,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b147",
+      "object": "B147",
+      "pick": {
+        "grid": [
+          25,
+          45,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          28,
+          23,
+          4,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "147",
+        "brick_id": 2,
+        "brick_seq": 78,
+        "press_grid": [
+          29,
+          24,
+          5,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b148",
+      "object": "B148",
+      "pick": {
+        "grid": [
+          30,
+          45,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          21,
+          27,
+          4,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "148",
+        "brick_id": 2,
+        "brick_seq": 79,
+        "press_grid": [
+          21,
+          28,
+          5,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b149",
+      "object": "B149",
+      "pick": {
+        "grid": [
+          35,
+          45,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          28,
+          19,
+          4,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "149",
+        "brick_id": 2,
+        "brick_seq": 80,
+        "press_grid": [
+          29,
+          20,
+          5,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b150",
+      "object": "B150",
+      "pick": {
+        "grid": [
+          40,
+          45,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          19,
+          19,
+          4,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "150",
+        "brick_id": 2,
+        "brick_seq": 81,
+        "press_grid": [
+          19,
+          20,
+          5,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b152",
+      "object": "B152",
+      "pick": {
+        "grid": [
+          0,
+          48,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          19,
+          23,
+          4,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "152",
+        "brick_id": 2,
+        "brick_seq": 82,
+        "press_grid": [
+          19,
+          24,
+          5,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b153",
+      "object": "B153",
+      "pick": {
+        "grid": [
+          5,
+          48,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          30,
+          26,
+          4,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "153",
+        "brick_id": 2,
+        "brick_seq": 83,
+        "press_grid": [
+          31,
+          27,
+          5,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b154",
+      "object": "B154",
+      "pick": {
+        "grid": [
+          10,
+          48,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          19,
+          27,
+          4,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "154",
+        "brick_id": 2,
+        "brick_seq": 84,
+        "press_grid": [
+          19,
+          28,
+          5,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b155",
+      "object": "B155",
+      "pick": {
+        "grid": [
+          15,
+          48,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          30,
+          22,
+          4,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "155",
+        "brick_id": 2,
+        "brick_seq": 85,
+        "press_grid": [
+          31,
+          23,
+          5,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b157",
+      "object": "B157",
+      "pick": {
+        "grid": [
+          20,
+          48,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          30,
+          18,
+          4,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "157",
+        "brick_id": 2,
+        "brick_seq": 86,
+        "press_grid": [
+          31,
+          19,
+          5,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b158",
+      "object": "B158",
+      "pick": {
+        "grid": [
+          25,
+          48,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          17,
+          18,
+          4,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "158",
+        "brick_id": 2,
+        "brick_seq": 87,
+        "press_grid": [
+          17,
+          19,
+          5,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b160",
+      "object": "B160",
+      "pick": {
+        "grid": [
+          30,
+          48,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          17,
+          22,
+          4,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "160",
+        "brick_id": 2,
+        "brick_seq": 88,
+        "press_grid": [
+          17,
+          23,
+          5,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b161",
+      "object": "B161",
+      "pick": {
+        "grid": [
+          35,
+          48,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          32,
+          26,
+          4,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "161",
+        "brick_id": 2,
+        "brick_seq": 89,
+        "press_grid": [
+          33,
+          27,
+          5,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b163",
+      "object": "B163",
+      "pick": {
+        "grid": [
+          40,
+          48,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          32,
+          22,
+          4,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "163",
+        "brick_id": 2,
+        "brick_seq": 90,
+        "press_grid": [
+          33,
+          23,
+          5,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b164",
+      "object": "B164",
+      "pick": {
+        "grid": [
+          0,
+          51,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          15,
+          18,
+          4,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "164",
+        "brick_id": 2,
+        "brick_seq": 91,
+        "press_grid": [
+          15,
+          19,
+          5,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b165",
+      "object": "B165",
+      "pick": {
+        "grid": [
+          5,
+          51,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          32,
+          18,
+          4,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "165",
+        "brick_id": 2,
+        "brick_seq": 92,
+        "press_grid": [
+          33,
+          19,
+          5,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b166",
+      "object": "B166",
+      "pick": {
+        "grid": [
+          10,
+          51,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          15,
+          22,
+          4,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "166",
+        "brick_id": 2,
+        "brick_seq": 93,
+        "press_grid": [
+          15,
+          23,
+          5,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b169",
+      "object": "B169",
+      "pick": {
+        "grid": [
+          15,
+          51,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          25,
+          28,
+          5,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "169",
+        "brick_id": 2,
+        "brick_seq": 94,
+        "press_grid": [
+          25,
+          29,
+          6,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b170",
+      "object": "B170",
+      "pick": {
+        "grid": [
+          20,
+          51,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          23,
+          28,
+          5,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "170",
+        "brick_id": 2,
+        "brick_seq": 95,
+        "press_grid": [
+          23,
+          29,
+          6,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b171",
+      "object": "B171",
+      "pick": {
+        "grid": [
+          25,
+          51,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          27,
+          28,
+          5,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "171",
+        "brick_id": 2,
+        "brick_seq": 96,
+        "press_grid": [
+          28,
+          29,
+          6,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b172",
+      "object": "B172",
+      "pick": {
+        "grid": [
+          30,
+          51,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          21,
+          28,
+          5,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "172",
+        "brick_id": 2,
+        "brick_seq": 97,
+        "press_grid": [
+          21,
+          29,
+          6,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b174",
+      "object": "B174",
+      "pick": {
+        "grid": [
+          35,
+          51,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          19,
+          28,
+          5,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "174",
+        "brick_id": 2,
+        "brick_seq": 98,
+        "press_grid": [
+          19,
+          29,
+          6,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b175",
+      "object": "B175",
+      "pick": {
+        "grid": [
+          40,
+          51,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          30,
+          18,
+          5,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "175",
+        "brick_id": 2,
+        "brick_seq": 99,
+        "press_grid": [
+          30,
+          19,
+          6,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b176",
+      "object": "B176",
+      "pick": {
+        "grid": [
+          0,
+          54,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          17,
+          18,
+          5,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "176",
+        "brick_id": 2,
+        "brick_seq": 100,
+        "press_grid": [
+          17,
+          19,
+          6,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b177",
+      "object": "B177",
+      "pick": {
+        "grid": [
+          5,
+          54,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          30,
+          22,
+          5,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "177",
+        "brick_id": 2,
+        "brick_seq": 101,
+        "press_grid": [
+          30,
+          23,
+          6,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b178",
+      "object": "B178",
+      "pick": {
+        "grid": [
+          10,
+          54,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          17,
+          22,
+          5,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "178",
+        "brick_id": 2,
+        "brick_seq": 102,
+        "press_grid": [
+          17,
+          23,
+          6,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b181",
+      "object": "B181",
+      "pick": {
+        "grid": [
+          15,
+          54,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          32,
+          18,
+          5,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "181",
+        "brick_id": 2,
+        "brick_seq": 103,
+        "press_grid": [
+          33,
+          19,
+          6,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b182",
+      "object": "B182",
+      "pick": {
+        "grid": [
+          20,
+          54,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          15,
+          18,
+          5,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "182",
+        "brick_id": 2,
+        "brick_seq": 104,
+        "press_grid": [
+          15,
+          19,
+          6,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b183",
+      "object": "B183",
+      "pick": {
+        "grid": [
+          25,
+          54,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          32,
+          22,
+          5,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "183",
+        "brick_id": 2,
+        "brick_seq": 105,
+        "press_grid": [
+          33,
+          23,
+          6,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b184",
+      "object": "B184",
+      "pick": {
+        "grid": [
+          30,
+          54,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          15,
+          22,
+          5,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "184",
+        "brick_id": 2,
+        "brick_seq": 106,
+        "press_grid": [
+          15,
+          23,
+          6,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b187",
+      "object": "B187",
+      "pick": {
+        "grid": [
+          35,
+          54,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          25,
+          28,
+          6,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "187",
+        "brick_id": 2,
+        "brick_seq": 107,
+        "press_grid": [
+          25,
+          29,
+          7,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b188",
+      "object": "B188",
+      "pick": {
+        "grid": [
+          40,
+          54,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          23,
+          28,
+          6,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "188",
+        "brick_id": 2,
+        "brick_seq": 108,
+        "press_grid": [
+          23,
+          29,
+          7,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b189",
+      "object": "B189",
+      "pick": {
+        "grid": [
+          0,
+          57,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          27,
+          28,
+          6,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "189",
+        "brick_id": 2,
+        "brick_seq": 109,
+        "press_grid": [
+          28,
+          29,
+          7,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b190",
+      "object": "B190",
+      "pick": {
+        "grid": [
+          5,
+          57,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          21,
+          28,
+          6,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "190",
+        "brick_id": 2,
+        "brick_seq": 110,
+        "press_grid": [
+          21,
+          29,
+          7,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b192",
+      "object": "B192",
+      "pick": {
+        "grid": [
+          10,
+          57,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          19,
+          28,
+          6,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "192",
+        "brick_id": 2,
+        "brick_seq": 111,
+        "press_grid": [
+          19,
+          29,
+          7,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b193",
+      "object": "B193",
+      "pick": {
+        "grid": [
+          15,
+          57,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          30,
+          18,
+          6,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "193",
+        "brick_id": 2,
+        "brick_seq": 112,
+        "press_grid": [
+          30,
+          19,
+          7,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b194",
+      "object": "B194",
+      "pick": {
+        "grid": [
+          20,
+          57,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          17,
+          18,
+          6,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "194",
+        "brick_id": 2,
+        "brick_seq": 113,
+        "press_grid": [
+          17,
+          19,
+          7,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b195",
+      "object": "B195",
+      "pick": {
+        "grid": [
+          25,
+          57,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          30,
+          22,
+          6,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "195",
+        "brick_id": 2,
+        "brick_seq": 114,
+        "press_grid": [
+          30,
+          23,
+          7,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b196",
+      "object": "B196",
+      "pick": {
+        "grid": [
+          30,
+          57,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          17,
+          22,
+          6,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "196",
+        "brick_id": 2,
+        "brick_seq": 115,
+        "press_grid": [
+          17,
+          23,
+          7,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b199",
+      "object": "B199",
+      "pick": {
+        "grid": [
+          35,
+          57,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          32,
+          18,
+          6,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "199",
+        "brick_id": 2,
+        "brick_seq": 116,
+        "press_grid": [
+          33,
+          19,
+          7,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b200",
+      "object": "B200",
+      "pick": {
+        "grid": [
+          40,
+          57,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          15,
+          18,
+          6,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "200",
+        "brick_id": 2,
+        "brick_seq": 117,
+        "press_grid": [
+          15,
+          19,
+          7,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b201",
+      "object": "B201",
+      "pick": {
+        "grid": [
+          0,
+          60,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          32,
+          22,
+          6,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "201",
+        "brick_id": 2,
+        "brick_seq": 118,
+        "press_grid": [
+          33,
+          23,
+          7,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b202",
+      "object": "B202",
+      "pick": {
+        "grid": [
+          5,
+          60,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          15,
+          22,
+          6,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "202",
+        "brick_id": 2,
+        "brick_seq": 119,
+        "press_grid": [
+          15,
+          23,
+          7,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b205",
+      "object": "B205",
+      "pick": {
+        "grid": [
+          10,
+          60,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          25,
+          28,
+          7,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "205",
+        "brick_id": 2,
+        "brick_seq": 120,
+        "press_grid": [
+          25,
+          29,
+          8,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b206",
+      "object": "B206",
+      "pick": {
+        "grid": [
+          15,
+          60,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          23,
+          28,
+          7,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "206",
+        "brick_id": 2,
+        "brick_seq": 121,
+        "press_grid": [
+          23,
+          29,
+          8,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b207",
+      "object": "B207",
+      "pick": {
+        "grid": [
+          20,
+          60,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          27,
+          28,
+          7,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "207",
+        "brick_id": 2,
+        "brick_seq": 122,
+        "press_grid": [
+          28,
+          29,
+          8,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b208",
+      "object": "B208",
+      "pick": {
+        "grid": [
+          25,
+          60,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          21,
+          28,
+          7,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "208",
+        "brick_id": 2,
+        "brick_seq": 123,
+        "press_grid": [
+          21,
+          29,
+          8,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b210",
+      "object": "B210",
+      "pick": {
+        "grid": [
+          30,
+          60,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          19,
+          28,
+          7,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "210",
+        "brick_id": 2,
+        "brick_seq": 124,
+        "press_grid": [
+          19,
+          29,
+          8,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b211",
+      "object": "B211",
+      "pick": {
+        "grid": [
+          35,
+          60,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          30,
+          18,
+          7,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "211",
+        "brick_id": 2,
+        "brick_seq": 125,
+        "press_grid": [
+          30,
+          19,
+          8,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b212",
+      "object": "B212",
+      "pick": {
+        "grid": [
+          40,
+          60,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          17,
+          18,
+          7,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "212",
+        "brick_id": 2,
+        "brick_seq": 126,
+        "press_grid": [
+          17,
+          19,
+          8,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b213",
+      "object": "B213",
+      "pick": {
+        "grid": [
+          0,
+          63,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          30,
+          22,
+          7,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "213",
+        "brick_id": 2,
+        "brick_seq": 127,
+        "press_grid": [
+          30,
+          23,
+          8,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b214",
+      "object": "B214",
+      "pick": {
+        "grid": [
+          5,
+          63,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          17,
+          22,
+          7,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "214",
+        "brick_id": 2,
+        "brick_seq": 128,
+        "press_grid": [
+          17,
+          23,
+          8,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b217",
+      "object": "B217",
+      "pick": {
+        "grid": [
+          10,
+          63,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          32,
+          18,
+          7,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "217",
+        "brick_id": 2,
+        "brick_seq": 129,
+        "press_grid": [
+          33,
+          19,
+          8,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b218",
+      "object": "B218",
+      "pick": {
+        "grid": [
+          15,
+          63,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          15,
+          18,
+          7,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "218",
+        "brick_id": 2,
+        "brick_seq": 130,
+        "press_grid": [
+          15,
+          19,
+          8,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b219",
+      "object": "B219",
+      "pick": {
+        "grid": [
+          20,
+          63,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          32,
+          22,
+          7,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "219",
+        "brick_id": 2,
+        "brick_seq": 131,
+        "press_grid": [
+          33,
+          23,
+          8,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b220",
+      "object": "B220",
+      "pick": {
+        "grid": [
+          25,
+          63,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          15,
+          22,
+          7,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "220",
+        "brick_id": 2,
+        "brick_seq": 132,
+        "press_grid": [
+          15,
+          23,
+          8,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b223",
+      "object": "B223",
+      "pick": {
+        "grid": [
+          30,
+          63,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          25,
+          28,
+          8,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "223",
+        "brick_id": 2,
+        "brick_seq": 133,
+        "press_grid": [
+          25,
+          29,
+          9,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b224",
+      "object": "B224",
+      "pick": {
+        "grid": [
+          35,
+          63,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          23,
+          28,
+          8,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "224",
+        "brick_id": 2,
+        "brick_seq": 134,
+        "press_grid": [
+          23,
+          29,
+          9,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b225",
+      "object": "B225",
+      "pick": {
+        "grid": [
+          40,
+          63,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          27,
+          28,
+          8,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "225",
+        "brick_id": 2,
+        "brick_seq": 135,
+        "press_grid": [
+          28,
+          29,
+          9,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b226",
+      "object": "B226",
+      "pick": {
+        "grid": [
+          0,
+          66,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          21,
+          28,
+          8,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "226",
+        "brick_id": 2,
+        "brick_seq": 136,
+        "press_grid": [
+          21,
+          29,
+          9,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b228",
+      "object": "B228",
+      "pick": {
+        "grid": [
+          5,
+          66,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          19,
+          28,
+          8,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "228",
+        "brick_id": 2,
+        "brick_seq": 137,
+        "press_grid": [
+          19,
+          29,
+          9,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b229",
+      "object": "B229",
+      "pick": {
+        "grid": [
+          10,
+          66,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          30,
+          18,
+          8,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "229",
+        "brick_id": 2,
+        "brick_seq": 138,
+        "press_grid": [
+          30,
+          19,
+          9,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b230",
+      "object": "B230",
+      "pick": {
+        "grid": [
+          15,
+          66,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          17,
+          18,
+          8,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "230",
+        "brick_id": 2,
+        "brick_seq": 139,
+        "press_grid": [
+          17,
+          19,
+          9,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b231",
+      "object": "B231",
+      "pick": {
+        "grid": [
+          20,
+          66,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          30,
+          22,
+          8,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "231",
+        "brick_id": 2,
+        "brick_seq": 140,
+        "press_grid": [
+          30,
+          23,
+          9,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b232",
+      "object": "B232",
+      "pick": {
+        "grid": [
+          25,
+          66,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          17,
+          22,
+          8,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "232",
+        "brick_id": 2,
+        "brick_seq": 141,
+        "press_grid": [
+          17,
+          23,
+          9,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b235",
+      "object": "B235",
+      "pick": {
+        "grid": [
+          30,
+          66,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          32,
+          18,
+          8,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "235",
+        "brick_id": 2,
+        "brick_seq": 142,
+        "press_grid": [
+          33,
+          19,
+          9,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b236",
+      "object": "B236",
+      "pick": {
+        "grid": [
+          35,
+          66,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          15,
+          18,
+          8,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "236",
+        "brick_id": 2,
+        "brick_seq": 143,
+        "press_grid": [
+          15,
+          19,
+          9,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b237",
+      "object": "B237",
+      "pick": {
+        "grid": [
+          40,
+          66,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          32,
+          22,
+          8,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "237",
+        "brick_id": 2,
+        "brick_seq": 144,
+        "press_grid": [
+          33,
+          23,
+          9,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b238",
+      "object": "B238",
+      "pick": {
+        "grid": [
+          0,
+          69,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          15,
+          22,
+          8,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "238",
+        "brick_id": 2,
+        "brick_seq": 145,
+        "press_grid": [
+          15,
+          23,
+          9,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b241",
+      "object": "B241",
+      "pick": {
+        "grid": [
+          5,
+          69,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          24,
+          28,
+          9,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "241",
+        "brick_id": 2,
+        "brick_seq": 146,
+        "press_grid": [
+          24,
+          29,
+          10,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b242",
+      "object": "B242",
+      "pick": {
+        "grid": [
+          10,
+          69,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          22,
+          28,
+          9,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "242",
+        "brick_id": 2,
+        "brick_seq": 147,
+        "press_grid": [
+          22,
+          29,
+          10,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b243",
+      "object": "B243",
+      "pick": {
+        "grid": [
+          15,
+          69,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          26,
+          28,
+          9,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "243",
+        "brick_id": 2,
+        "brick_seq": 148,
+        "press_grid": [
+          27,
+          29,
+          10,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b244",
+      "object": "B244",
+      "pick": {
+        "grid": [
+          20,
+          69,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          20,
+          28,
+          9,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "244",
+        "brick_id": 2,
+        "brick_seq": 149,
+        "press_grid": [
+          20,
+          29,
+          10,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b245",
+      "object": "B245",
+      "pick": {
+        "grid": [
+          25,
+          69,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          28,
+          28,
+          9,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "245",
+        "brick_id": 2,
+        "brick_seq": 150,
+        "press_grid": [
+          29,
+          29,
+          10,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b246",
+      "object": "B246",
+      "pick": {
+        "grid": [
+          30,
+          69,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          18,
+          28,
+          9,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "246",
+        "brick_id": 2,
+        "brick_seq": 151,
+        "press_grid": [
+          18,
+          29,
+          10,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b248",
+      "object": "B248",
+      "pick": {
+        "grid": [
+          35,
+          69,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          24,
+          28,
+          10,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "248",
+        "brick_id": 2,
+        "brick_seq": 152,
+        "press_grid": [
+          24,
+          29,
+          11,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b249",
+      "object": "B249",
+      "pick": {
+        "grid": [
+          40,
+          69,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          22,
+          28,
+          10,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "249",
+        "brick_id": 2,
+        "brick_seq": 153,
+        "press_grid": [
+          22,
+          29,
+          11,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b250",
+      "object": "B250",
+      "pick": {
+        "grid": [
+          0,
+          72,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          26,
+          28,
+          10,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "250",
+        "brick_id": 2,
+        "brick_seq": 154,
+        "press_grid": [
+          27,
+          29,
+          11,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b251",
+      "object": "B251",
+      "pick": {
+        "grid": [
+          5,
+          72,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          20,
+          28,
+          10,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "251",
+        "brick_id": 2,
+        "brick_seq": 155,
+        "press_grid": [
+          20,
+          29,
+          11,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b252",
+      "object": "B252",
+      "pick": {
+        "grid": [
+          10,
+          72,
+          0,
+          0
+        ],
+        "press_side": 4,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          28,
+          28,
+          10,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "252",
+        "brick_id": 2,
+        "brick_seq": 156,
+        "press_grid": [
+          29,
+          29,
+          11,
+          1
+        ]
+      }
+    },
+    {
+      "name": "place_b253",
+      "object": "B253",
+      "pick": {
+        "grid": [
+          15,
+          72,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 1
+      },
+      "place": {
+        "grid": [
+          18,
+          28,
+          10,
+          1
+        ]
+      },
+      "apex_mr": {
+        "source_task": "big_chair",
+        "source_key": "253",
+        "brick_id": 2,
+        "brick_seq": 157,
+        "press_grid": [
+          18,
+          29,
+          11,
+          1
+        ]
+      }
+    }
+  ]
+}

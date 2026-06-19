@@ -1,0 +1,101 @@
+{
+  "name": "apex_mr_tower",
+  "source": {
+    "format": "APEX-MR",
+    "assembly_task": "third_party/APEX-MR/config/lego_tasks/assembly_tasks/tower.json"
+  },
+  "plate": {
+    "plate_z_offset": 0.0,
+    "plate_size_xy": [
+      48,
+      48
+    ]
+  },
+  "initial_bricks": [
+    {
+      "id": "B001",
+      "type": "lego_2x4",
+      "grid": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "role": "apex_mr_tower_brick_1",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B002",
+      "type": "lego_2x4",
+      "grid": [
+        5,
+        0,
+        0,
+        0
+      ],
+      "role": "apex_mr_tower_brick_2",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B003",
+      "type": "lego_2x4",
+      "grid": [
+        10,
+        0,
+        0,
+        0
+      ],
+      "role": "apex_mr_tower_brick_3",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B004",
+      "type": "lego_2x4",
+      "grid": [
+        15,
+        0,
+        0,
+        0
+      ],
+      "role": "apex_mr_tower_brick_4",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B005",
+      "type": "lego_2x4",
+      "grid": [
+        20,
+        0,
+        0,
+        0
+      ],
+      "role": "apex_mr_tower_brick_5",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    }
+  ]
+}
