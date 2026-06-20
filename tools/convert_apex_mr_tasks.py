@@ -16,7 +16,22 @@ INVENTORY_TARGET_STACK_HEIGHT = 6
 TASK_INVENTORY_STACK_HEIGHT = {
     "vessel": 4,
 }
+TASK_TYPE_STACK_HEIGHT = {
+    "vessel": {"lego_1x8": 2},
+}
+TASK_INVENTORY_GRID_OVERRIDES = {
+    "vessel": {
+        "B026": [21, 1, 0, 1],
+        "B032": [18, 28, 0, 1],
+    },
+}
+TASK_UNSTACKED_TYPES = {
+    "vessel": {"lego_1x1"},
+}
 TARGET_CENTER = (23, 24)
+TASK_TARGET_CENTER_SHIFT = {
+    "vessel": (0, -3),
+}
 INVENTORY_START_X = 7
 INVENTORY_SIDE = "left"
 FLIP_PICK_SIDE = False
@@ -27,6 +42,7 @@ TASK_INVENTORY_X_SHIFT = {
 TASK_INVENTORY_Y_SHIFT = {
     "vessel": -3,
 }
+TOOL_AUDIT_BOX_STUDS = (0.105 / 0.008, 0.030 / 0.008)
 COLOR_PALETTE = (
     [0.78, 0.48, 0.92, 1.0],
     [0.02, 0.18, 0.10, 1.0],
@@ -146,6 +162,136 @@ def footprint_xy(lego_type: str, ori: int) -> tuple[int, int]:
     raise ValueError(f"Unsupported LEGO orientation {ori}")
 
 
+def local_stud_dims(lego_type: str) -> tuple[int, int]:
+    studs_short, studs_long = type_key(lego_type)
+    return studs_long, studs_short
+
+
+def side_stud_count(lego_type: str, side: int) -> int:
+    studs_x, studs_y = local_stud_dims(lego_type)
+    if int(side) in (1, 4):
+        return studs_y
+    if int(side) in (2, 3):
+        return studs_x
+    raise ValueError(f"Unsupported press_side={side}")
+
+
+def centered_press_offset(lego_type: str, side: int) -> int | list[int]:
+    stud_count = side_stud_count(lego_type, side)
+    if stud_count == 1:
+        return 0
+    return local_press_offset(stud_count // 2, stud_count)
+
+
+def grid_footprint_aabb(lego_type: str, grid: list[int]) -> tuple[float, float, float, float]:
+    x, y, _z, ori = grid
+    width_x, height_y = footprint_xy(lego_type, ori)
+    return float(x), float(y), float(x + width_x), float(y + height_y)
+
+
+def contact_frame_top_view(
+    lego_type: str,
+    grid: list[int],
+    side: int,
+    press_offset: int | list[int],
+) -> tuple[tuple[float, float], tuple[float, float], tuple[float, float]]:
+    """Return contact center plus local tool x/y axes in plate-grid units."""
+    x, y, _z, ori = grid
+    studs_x, studs_y = local_stud_dims(lego_type)
+    if isinstance(press_offset, int):
+        offsets = (press_offset,)
+    else:
+        offsets = tuple(int(offset) for offset in press_offset)
+
+    if side in (1, 4):
+        y_values = [-studs_y / 2.0 + (offset + 0.5) for offset in offsets]
+        local_x = studs_x / 2.0 if side == 1 else -studs_x / 2.0
+        local_y = sum(y_values) / len(y_values)
+        outward_local = (1.0 if side == 1 else -1.0, 0.0)
+    elif side in (2, 3):
+        x_values = [studs_x / 2.0 - (offset + 0.5) for offset in offsets]
+        local_x = sum(x_values) / len(x_values)
+        local_y = studs_y / 2.0 if side == 2 else -studs_y / 2.0
+        outward_local = (0.0, 1.0 if side == 2 else -1.0)
+    else:
+        raise ValueError(f"Unsupported press_side={side}")
+
+    if int(ori) == 0:
+        center = (x + studs_x / 2.0 + local_x, y + studs_y / 2.0 + local_y)
+        x_axis = outward_local
+    elif int(ori) == 1:
+        center = (x + studs_y / 2.0 - local_y, y + studs_x / 2.0 + local_x)
+        x_axis = (-outward_local[1], outward_local[0])
+    else:
+        raise ValueError(f"Unsupported LEGO orientation {ori}")
+
+    y_axis = (-x_axis[1], x_axis[0])
+    return center, x_axis, y_axis
+
+
+def tool_top_view_aabb(
+    lego_type: str,
+    grid: list[int],
+    side: int,
+    press_offset: int | list[int],
+) -> tuple[float, float, float, float]:
+    center, x_axis, y_axis = contact_frame_top_view(lego_type, grid, side, press_offset)
+    half_x = TOOL_AUDIT_BOX_STUDS[0] / 2.0
+    half_y = TOOL_AUDIT_BOX_STUDS[1] / 2.0
+    extent_x = abs(x_axis[0]) * half_x + abs(y_axis[0]) * half_y
+    extent_y = abs(x_axis[1]) * half_x + abs(y_axis[1]) * half_y
+    return (
+        center[0] - extent_x,
+        center[1] - extent_y,
+        center[0] + extent_x,
+        center[1] + extent_y,
+    )
+
+
+def aabb_overlap_area(
+    a: tuple[float, float, float, float],
+    b: tuple[float, float, float, float],
+) -> float:
+    overlap_x = max(0.0, min(a[2], b[2]) - max(a[0], b[0]))
+    overlap_y = max(0.0, min(a[3], b[3]) - max(a[1], b[1]))
+    return overlap_x * overlap_y
+
+
+def choose_vessel_press_side(
+    brick: dict,
+    original_side: int,
+    original_offset: int | list[int],
+    placed_bricks: list[dict],
+) -> tuple[int, int | list[int]]:
+    """Pick the target-side approach with the most clearance from placed bricks."""
+    current_grid = brick["target_grid"]
+    current_aabb = grid_footprint_aabb(brick["type"], current_grid)
+    candidates = []
+    allowed_sides = (1, 2, 3, 4)
+    if brick["type"] == "lego_1x8" and original_side in (2, 3):
+        allowed_sides = (2, 3)
+    for side in allowed_sides:
+        offset = centered_press_offset(brick["type"], side)
+        tool_aabb = tool_top_view_aabb(brick["type"], current_grid, side, offset)
+        score = 0.0
+        same_layer_score = 0.0
+        for placed in placed_bricks:
+            placed_grid = placed["target_grid"]
+            if int(placed_grid[2]) > int(current_grid[2]):
+                continue
+            placed_aabb = grid_footprint_aabb(placed["type"], placed_grid)
+            if aabb_overlap_area(current_aabb, placed_aabb) > 0.0:
+                continue
+            area = aabb_overlap_area(tool_aabb, placed_aabb)
+            score += area
+            if int(placed_grid[2]) == int(current_grid[2]):
+                same_layer_score += area
+        original_penalty = 0 if side == original_side and offset == original_offset else 1
+        candidates.append((score, same_layer_score, original_penalty, side, offset))
+    _, _, _, side, offset = min(candidates, key=lambda item: item[:4])
+    return side, offset
+
+
 def inventory_ori(brick: dict) -> int:
     return int(brick["target_grid"][3])
 
@@ -155,6 +301,8 @@ def make_inventory_grids(
     inventory_x_shift: int = 0,
     inventory_y_shift: int = 0,
     target_stack_height: int = INVENTORY_TARGET_STACK_HEIGHT,
+    unstacked_types: set[str] | None = None,
+    type_stack_height: dict[str, int] | None = None,
 ) -> dict[str, list[int]]:
     """Lay out inventory near the plate edge, filling +Y first then +X.
 
@@ -184,12 +332,17 @@ def make_inventory_grids(
     inventory: dict[str, list[int]] = {}
     stacks: list[dict] = []
     next_slot_index = 0
+    unstacked_types = set(unstacked_types or ())
+    type_stack_height = dict(type_stack_height or {})
     for brick in bricks:
         brick_ori = inventory_ori(brick)
         width_x, height_y = footprint_xy(brick["type"], brick_ori)
+        stack_height_limit = int(type_stack_height.get(brick["type"], target_stack_height))
         chosen_stack = None
         for stack in stacks:
-            if len(stack["bricks"]) >= target_stack_height:
+            if brick["type"] in unstacked_types:
+                continue
+            if len(stack["bricks"]) >= stack_height_limit:
                 continue
             if brick_ori != stack["ori"]:
                 continue
@@ -203,6 +356,7 @@ def make_inventory_grids(
                 if brick_ori == stack["ori"]
                 and width_x == stack["max_width_x"]
                 and height_y == stack["max_height_y"]
+                and len(stack["bricks"]) < stack_height_limit
             ]
             if compatible_stacks:
                 chosen_stack = min(compatible_stacks, key=lambda stack: len(stack["bricks"]))
@@ -245,7 +399,10 @@ def opposite_press_side(side: int) -> int:
     return {1: 4, 2: 3, 3: 2, 4: 1}[int(side)]
 
 
-def normalize_target_grids(bricks: list[dict]) -> int:
+def normalize_target_grids(
+    bricks: list[dict],
+    target_center: tuple[int, int] = TARGET_CENTER,
+) -> int:
     min_z = min(brick["target_grid"][2] for brick in bricks)
     for brick in bricks:
         brick["target_grid"][2] -= min_z
@@ -260,8 +417,8 @@ def normalize_target_grids(bricks: list[dict]) -> int:
         max_x = max(max_x, x + width_x)
         max_y = max(max_y, y + height_y)
 
-    shift_x = int(round(TARGET_CENTER[0] - (min_x + max_x) / 2.0))
-    shift_y = int(round(TARGET_CENTER[1] - (min_y + max_y) / 2.0))
+    shift_x = int(round(target_center[0] - (min_x + max_x) / 2.0))
+    shift_y = int(round(target_center[1] - (min_y + max_y) / 2.0))
     shift_x = max(-min_x, min(PLATE_SIZE - max_x, shift_x))
     shift_y = max(-min_y, min(PLATE_SIZE - max_y, shift_y))
     for brick in bricks:
@@ -276,6 +433,45 @@ def placement_order_key(brick: dict) -> tuple[int, int, int]:
         int(brick["apex"].get("brick_seq", 0)),
         int(brick["apex_key"]),
     )
+
+
+def min_tool_overlap_against(a: dict, b: dict) -> float:
+    a_aabb = grid_footprint_aabb(a["type"], a["target_grid"])
+    b_aabb = grid_footprint_aabb(b["type"], b["target_grid"])
+    if aabb_overlap_area(a_aabb, b_aabb) > 0.0:
+        return 0.0
+    best = None
+    for side in (1, 2, 3, 4):
+        offset = centered_press_offset(a["type"], side)
+        tool_aabb = tool_top_view_aabb(a["type"], a["target_grid"], side, offset)
+        area = aabb_overlap_area(tool_aabb, b_aabb)
+        best = area if best is None else min(best, area)
+    return float(best or 0.0)
+
+
+def vessel_ordered_bricks(bricks: list[dict]) -> list[dict]:
+    """Keep z-order, but place same-layer tool-obstructing bricks earlier."""
+    ordered: list[dict] = []
+    for z in sorted({int(brick["target_grid"][2]) for brick in bricks}):
+        layer = [brick for brick in bricks if int(brick["target_grid"][2]) == z]
+        net_priority: dict[str, float] = {brick["id"]: 0.0 for brick in layer}
+        for a in layer:
+            for b in layer:
+                if a is b:
+                    continue
+                net_priority[a["id"]] += min_tool_overlap_against(a, b)
+                net_priority[a["id"]] -= min_tool_overlap_against(b, a)
+        ordered.extend(
+            sorted(
+                layer,
+                key=lambda brick: (
+                    -net_priority[brick["id"]],
+                    int(brick["apex"].get("brick_seq", 0)),
+                    int(brick["apex_key"]),
+                ),
+            )
+        )
+    return ordered
 
 
 def convert_task(apex_root: Path, task: str, out_root: Path) -> None:
@@ -297,16 +493,25 @@ def convert_task(apex_root: Path, task: str, out_root: Path) -> None:
             }
         )
 
-    target_z_offset = normalize_target_grids(bricks)
-    ordered_bricks = sorted(bricks, key=placement_order_key)
+    target_shift = TASK_TARGET_CENTER_SHIFT.get(task, (0, 0))
+    target_center = (
+        TARGET_CENTER[0] + int(target_shift[0]),
+        TARGET_CENTER[1] + int(target_shift[1]),
+    )
+    target_z_offset = normalize_target_grids(bricks, target_center)
+    ordered_bricks = vessel_ordered_bricks(bricks) if task == "vessel" else sorted(bricks, key=placement_order_key)
     inventory = make_inventory_grids(
         ordered_bricks,
         TASK_INVENTORY_X_SHIFT.get(task, 0),
         TASK_INVENTORY_Y_SHIFT.get(task, 0),
         TASK_INVENTORY_STACK_HEIGHT.get(task, INVENTORY_TARGET_STACK_HEIGHT),
+        TASK_UNSTACKED_TYPES.get(task),
+        TASK_TYPE_STACK_HEIGHT.get(task),
     )
+    inventory.update(TASK_INVENTORY_GRID_OVERRIDES.get(task, {}))
     initial_bricks = []
     steps = []
+    placed_bricks: list[dict] = []
     for index, brick in enumerate(ordered_bricks):
         color = COLOR_PALETTE[index % len(COLOR_PALETTE)]
         node = brick["apex"]
@@ -327,6 +532,13 @@ def convert_task(apex_root: Path, task: str, out_root: Path) -> None:
         if task == "vessel" and brick["id"] == "B010":
             press_side = 1
             press_offset = 0
+        if task == "vessel":
+            press_side, press_offset = choose_vessel_press_side(
+                brick,
+                press_side,
+                press_offset,
+                placed_bricks,
+            )
         if FLIP_PICK_SIDE:
             press_side = opposite_press_side(press_side)
         initial_bricks.append(
@@ -368,6 +580,7 @@ def convert_task(apex_root: Path, task: str, out_root: Path) -> None:
                 },
             }
         )
+        placed_bricks.append(brick)
 
     settings = {
         "name": f"apex_mr_{task}",

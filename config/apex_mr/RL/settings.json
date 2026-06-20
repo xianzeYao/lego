@@ -1,0 +1,578 @@
+{
+  "name": "apex_mr_RL",
+  "source": {
+    "format": "local_design",
+    "base_task": "config/apex_mr/R",
+    "description": "R plus a lower-y 180-degree L with a 2x8 base from two same-oriented 2x4 bricks and seven 2x2 vertical bricks"
+  },
+  "plate": {
+    "plate_z_offset": 0.0,
+    "plate_size_xy": [
+      48,
+      48
+    ]
+  },
+  "initial_bricks": [
+    {
+      "id": "B001",
+      "type": "lego_2x2",
+      "grid": [
+        7,
+        4,
+        5,
+        0
+      ],
+      "role": "apex_mr_R_brick_1",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B002",
+      "type": "lego_2x2",
+      "grid": [
+        7,
+        4,
+        4,
+        0
+      ],
+      "role": "apex_mr_R_brick_2",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B003",
+      "type": "lego_2x2",
+      "grid": [
+        7,
+        4,
+        3,
+        0
+      ],
+      "role": "apex_mr_R_brick_3",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B004",
+      "type": "lego_2x2",
+      "grid": [
+        7,
+        4,
+        2,
+        0
+      ],
+      "role": "apex_mr_R_brick_4",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B005",
+      "type": "lego_2x2",
+      "grid": [
+        7,
+        4,
+        1,
+        0
+      ],
+      "role": "apex_mr_R_brick_5",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B006",
+      "type": "lego_2x2",
+      "grid": [
+        7,
+        4,
+        0,
+        0
+      ],
+      "role": "apex_mr_R_brick_6",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B007",
+      "type": "lego_2x2",
+      "grid": [
+        7,
+        11,
+        5,
+        0
+      ],
+      "role": "apex_mr_R_brick_7",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B008",
+      "type": "lego_2x2",
+      "grid": [
+        7,
+        11,
+        4,
+        0
+      ],
+      "role": "apex_mr_R_brick_8",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B009",
+      "type": "lego_2x2",
+      "grid": [
+        7,
+        11,
+        3,
+        0
+      ],
+      "role": "apex_mr_R_brick_9",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B010",
+      "type": "lego_2x2",
+      "grid": [
+        7,
+        11,
+        2,
+        0
+      ],
+      "role": "apex_mr_R_brick_10",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B011",
+      "type": "lego_2x6",
+      "grid": [
+        7,
+        11,
+        1,
+        1
+      ],
+      "role": "apex_mr_R_brick_11",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B012",
+      "type": "lego_1x2",
+      "grid": [
+        14,
+        18,
+        0,
+        0
+      ],
+      "role": "apex_mr_R_brick_12",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B013",
+      "type": "lego_2x2",
+      "grid": [
+        7,
+        18,
+        4,
+        0
+      ],
+      "role": "apex_mr_R_brick_13",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B014",
+      "type": "lego_2x2",
+      "grid": [
+        7,
+        18,
+        3,
+        0
+      ],
+      "role": "apex_mr_R_brick_14",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B015",
+      "type": "lego_2x2",
+      "grid": [
+        7,
+        18,
+        2,
+        0
+      ],
+      "role": "apex_mr_R_brick_15",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B016",
+      "type": "lego_2x2",
+      "grid": [
+        7,
+        18,
+        1,
+        0
+      ],
+      "role": "apex_mr_R_brick_16",
+      "color": [
+        0.82,
+        0.05,
+        0.04,
+        1.0
+      ]
+    },
+    {
+      "id": "B017",
+      "type": "lego_2x2",
+      "grid": [
+        7,
+        18,
+        0,
+        0
+      ],
+      "role": "apex_mr_R_brick_17",
+      "color": [
+        0.52,
+        0.86,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B018",
+      "type": "lego_2x2",
+      "grid": [
+        7,
+        25,
+        2,
+        0
+      ],
+      "role": "apex_mr_R_brick_18",
+      "color": [
+        0.7,
+        0.92,
+        0.08,
+        1.0
+      ]
+    },
+    {
+      "id": "B019",
+      "type": "lego_2x2",
+      "grid": [
+        7,
+        25,
+        1,
+        0
+      ],
+      "role": "apex_mr_R_brick_19",
+      "color": [
+        0.78,
+        0.48,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B020",
+      "type": "lego_2x2",
+      "grid": [
+        7,
+        25,
+        0,
+        0
+      ],
+      "role": "apex_mr_R_brick_20",
+      "color": [
+        0.02,
+        0.18,
+        0.1,
+        1.0
+      ]
+    },
+    {
+      "id": "B021",
+      "type": "lego_2x6",
+      "grid": [
+        7,
+        11,
+        0,
+        1
+      ],
+      "role": "apex_mr_R_brick_21",
+      "color": [
+        1.0,
+        0.68,
+        0.02,
+        1.0
+      ]
+    },
+    {
+      "id": "B022",
+      "type": "lego_2x4",
+      "grid": [
+        3,
+        2,
+        0,
+        0
+      ],
+      "role": "local_RL_L_brick_1",
+      "color": [
+        0.18,
+        0.42,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B023",
+      "type": "lego_2x4",
+      "grid": [
+        3,
+        6,
+        0,
+        0
+      ],
+      "role": "local_RL_L_brick_2",
+      "color": [
+        0.95,
+        0.72,
+        0.12,
+        1.0
+      ]
+    },
+    {
+      "id": "B024",
+      "type": "lego_2x2",
+      "grid": [
+        3,
+        11,
+        0,
+        0
+      ],
+      "role": "local_RL_L_brick_3",
+      "color": [
+        0.16,
+        0.62,
+        0.42,
+        1.0
+      ]
+    },
+    {
+      "id": "B025",
+      "type": "lego_2x2",
+      "grid": [
+        3,
+        14,
+        0,
+        0
+      ],
+      "role": "local_RL_L_brick_4",
+      "color": [
+        0.86,
+        0.18,
+        0.22,
+        1.0
+      ]
+    },
+    {
+      "id": "B026",
+      "type": "lego_2x2",
+      "grid": [
+        3,
+        17,
+        0,
+        0
+      ],
+      "role": "local_RL_L_brick_5",
+      "color": [
+        0.18,
+        0.42,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B027",
+      "type": "lego_2x2",
+      "grid": [
+        3,
+        20,
+        0,
+        0
+      ],
+      "role": "local_RL_L_brick_6",
+      "color": [
+        0.95,
+        0.72,
+        0.12,
+        1.0
+      ]
+    },
+    {
+      "id": "B028",
+      "type": "lego_2x2",
+      "grid": [
+        3,
+        23,
+        0,
+        0
+      ],
+      "role": "local_RL_L_brick_7",
+      "color": [
+        0.16,
+        0.62,
+        0.42,
+        1.0
+      ]
+    },
+    {
+      "id": "B029",
+      "type": "lego_2x2",
+      "grid": [
+        3,
+        26,
+        0,
+        0
+      ],
+      "role": "local_RL_L_brick_8",
+      "color": [
+        0.86,
+        0.18,
+        0.22,
+        1.0
+      ]
+    },
+    {
+      "id": "B030",
+      "type": "lego_2x2",
+      "grid": [
+        3,
+        0,
+        0,
+        0
+      ],
+      "role": "local_RL_L_brick_9",
+      "color": [
+        0.18,
+        0.42,
+        0.92,
+        1.0
+      ]
+    },
+    {
+      "id": "B031",
+      "type": "lego_2x2",
+      "grid": [
+        14,
+        0,
+        0,
+        0
+      ],
+      "role": "local_RL_L_brick_10",
+      "color": [
+        0.95,
+        0.72,
+        0.12,
+        1.0
+      ]
+    },
+    {
+      "id": "B032",
+      "type": "lego_2x2",
+      "grid": [
+        14,
+        3,
+        0,
+        0
+      ],
+      "role": "local_RL_L_brick_11",
+      "color": [
+        0.16,
+        0.62,
+        0.42,
+        1.0
+      ]
+    },
+    {
+      "id": "B033",
+      "type": "lego_2x2",
+      "grid": [
+        14,
+        6,
+        0,
+        0
+      ],
+      "role": "local_RL_L_brick_12",
+      "color": [
+        0.86,
+        0.18,
+        0.22,
+        1.0
+      ]
+    }
+  ]
+}

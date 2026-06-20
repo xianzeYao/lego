@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import select
 import sys
@@ -39,8 +40,11 @@ from maniskill_rm75_lego.envs.rm75_lego_pick_place import (
 )
 from maniskill_rm75_lego.envs.rm75_lego_smoke import CONTACT_OFFSET_TCP
 from maniskill_rm75_lego.lego_grid import (
+    BRICK_BODY_HEIGHT,
     LEGO_BRICK_SPECS,
     LegoGridPose,
+    STUD_HEIGHT,
+    STUD_PITCH,
     apex_brick_actor_pose,
     matrix_to_sapien_pose,
     pick_target_from_press_side,
@@ -70,6 +74,10 @@ DEFAULT_REALMAN_FOUNDATIONPOSE_SCRIPT = (
 DEFAULT_LEROBOT_ROOT = DEFAULT_REALMAN_BASE
 DEFAULT_LEROBOT_SIM2REAL_ROOT = DEFAULT_REALMAN_BASE / "lerobot-sim2real"
 PERIODIC_JOINT_INDICES = (6,)
+IK_JOINT_LOWER = JOINT_LOWER.copy()
+IK_JOINT_UPPER = JOINT_UPPER.copy()
+IK_JOINT_LOWER[6] = -np.pi
+IK_JOINT_UPPER[6] = np.pi
 
 
 def _nearest_periodic_angle(angle: float, reference: float, lower: float, upper: float) -> float:
@@ -89,8 +97,8 @@ def _normalize_periodic_joints(q: np.ndarray, reference: np.ndarray) -> np.ndarr
         q[joint_idx] = _nearest_periodic_angle(
             q[joint_idx],
             reference[joint_idx],
-            JOINT_LOWER[joint_idx],
-            JOINT_UPPER[joint_idx],
+            IK_JOINT_LOWER[joint_idx],
+            IK_JOINT_UPPER[joint_idx],
         )
     return q
 
@@ -112,6 +120,29 @@ def parse_args():
     parser.add_argument("--cartesian-rot-step-deg", type=float, default=2.0)
     parser.add_argument("--hold-steps", type=int, default=30)
     parser.add_argument("--audit-dense-path", action="store_true")
+    parser.add_argument("--audit-collisions", action="store_true")
+    parser.add_argument("--collision-log", default=None)
+    parser.add_argument("--collision-overlap-tol", type=float, default=5.0e-4)
+    parser.add_argument("--collision-z-overlap-tol", type=float, default=STUD_HEIGHT * 1.35)
+    parser.add_argument(
+        "--audit-tool-collisions",
+        action="store_true",
+        help="Audit a conservative tool clearance box against non-attached LEGO bricks.",
+    )
+    parser.add_argument(
+        "--tool-collision-scope",
+        choices=["placed", "all"],
+        default="placed",
+        help="Which bricks the tool clearance box is checked against.",
+    )
+    parser.add_argument(
+        "--tool-audit-box",
+        type=float,
+        nargs=6,
+        default=[0.0, 0.0, 0.0, 0.105, 0.030, 0.018],
+        metavar=("CX", "CY", "CZ", "SX", "SY", "SZ"),
+        help="Tool audit box in contact-frame meters: center xyz then full size xyz.",
+    )
     parser.add_argument("--render", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--render-sleep", type=float, default=0.03)
     parser.add_argument("--wait-at-end", action=argparse.BooleanOptionalAction, default=True)
@@ -173,7 +204,6 @@ def _pose_to_matrix_any(pose) -> np.ndarray:
 def _solve_ik(pin_model, tcp_link_index: int, target_pose: sapien.Pose, q_seed: np.ndarray):
     target_mat = pose_to_matrix(target_pose)
     q_seed = np.asarray(q_seed, dtype=np.float64).reshape(-1)
-    q_seed = _normalize_periodic_joints(q_seed, RM75LegoTool.keyframes["neutral"].qpos)
 
     def residual(q):
         pin_model.compute_forward_kinematics(q)
@@ -185,8 +215,8 @@ def _solve_ik(pin_model, tcp_link_index: int, target_pose: sapien.Pose, q_seed: 
 
     result = least_squares(
         residual,
-        np.clip(q_seed, JOINT_LOWER, JOINT_UPPER),
-        bounds=(JOINT_LOWER, JOINT_UPPER),
+        np.clip(q_seed, IK_JOINT_LOWER, IK_JOINT_UPPER),
+        bounds=(IK_JOINT_LOWER, IK_JOINT_UPPER),
         max_nfev=260,
         xtol=1e-10,
         ftol=1e-10,
@@ -258,6 +288,159 @@ def _pose_path_stats(mats: list[np.ndarray] | np.ndarray) -> tuple[float, float,
     return xy_span_m, z_span_m, rot_span_rad
 
 
+def _brick_aabb_from_mat(brick, mat: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    mat = np.asarray(mat, dtype=np.float64).reshape(4, 4)
+    hx = brick.studs_x * STUD_PITCH / 2.0
+    hy = brick.studs_y * STUD_PITCH / 2.0
+    corners = np.array(
+        [
+            [sx * hx, sy * hy, z, 1.0]
+            for sx in (-1.0, 1.0)
+            for sy in (-1.0, 1.0)
+            for z in (-BRICK_BODY_HEIGHT, STUD_HEIGHT)
+        ],
+        dtype=np.float64,
+    )
+    world = (mat @ corners.T).T[:, :3]
+    return world.min(axis=0), world.max(axis=0)
+
+
+def _box_aabb_from_mat(box_mat: np.ndarray, size_xyz: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    box_mat = np.asarray(box_mat, dtype=np.float64).reshape(4, 4)
+    half = np.asarray(size_xyz, dtype=np.float64).reshape(3) / 2.0
+    corners = np.array(
+        [
+            [sx * half[0], sy * half[1], sz * half[2], 1.0]
+            for sx in (-1.0, 1.0)
+            for sy in (-1.0, 1.0)
+            for sz in (-1.0, 1.0)
+        ],
+        dtype=np.float64,
+    )
+    world = (box_mat @ corners.T).T[:, :3]
+    return world.min(axis=0), world.max(axis=0)
+
+
+class BrickCollisionAuditor:
+    def __init__(
+        self,
+        brick_cfgs_by_id: dict,
+        current_mats: dict,
+        overlap_tol: float,
+        z_overlap_tol: float,
+    ):
+        self.brick_cfgs_by_id = brick_cfgs_by_id
+        self.current_mats = current_mats
+        self.overlap_tol = float(overlap_tol)
+        self.z_overlap_tol = float(z_overlap_tol)
+        self.records: list[dict] = []
+        self.summary: dict[tuple[str, str], dict] = {}
+
+    def _record(self, stage: str, row: dict) -> None:
+        record = {"stage": stage, **row}
+        self.records.append(record)
+        key = tuple(sorted((row["a"], row["b"])))
+        entry = self.summary.setdefault(
+            key,
+            {
+                "a": key[0],
+                "b": key[1],
+                "count": 0,
+                "max_volume_m3": 0.0,
+                "max_overlap_m": [0.0, 0.0, 0.0],
+                "stages": {},
+            },
+        )
+        entry["count"] += 1
+        entry["max_volume_m3"] = max(entry["max_volume_m3"], row["volume_m3"])
+        entry["max_overlap_m"] = np.maximum(entry["max_overlap_m"], row["overlap_m"]).tolist()
+        entry["stages"][stage] = entry["stages"].get(stage, 0) + 1
+
+    def _brick_overlaps(self) -> list[dict]:
+        ids = sorted(self.brick_cfgs_by_id)
+        aabbs = {}
+        for brick_id in ids:
+            cfg = self.brick_cfgs_by_id[brick_id]
+            aabbs[brick_id] = _brick_aabb_from_mat(BRICK_BY_NAME[cfg.type], self.current_mats[brick_id])
+        rows = []
+        for i, a_id in enumerate(ids):
+            a_min, a_max = aabbs[a_id]
+            for b_id in ids[i + 1:]:
+                b_min, b_max = aabbs[b_id]
+                overlap = np.minimum(a_max, b_max) - np.maximum(a_min, b_min)
+                if np.all(overlap > self.overlap_tol) and overlap[2] > self.z_overlap_tol:
+                    rows.append(
+                        {
+                            "a": a_id,
+                            "b": b_id,
+                            "overlap_m": np.round(overlap, 7).tolist(),
+                            "volume_m3": float(np.prod(overlap)),
+                        }
+                    )
+        return rows
+
+    def sample(self, stage: str) -> None:
+        for row in self._brick_overlaps():
+            self._record(stage, row)
+
+    def sample_tool(
+        self,
+        stage: str,
+        tool_box_mat: np.ndarray,
+        tool_box_size: np.ndarray,
+        ignore_ids: set[str] | None = None,
+        include_ids: set[str] | None = None,
+    ) -> None:
+        ignore_ids = set(ignore_ids or ())
+        include_ids = set(include_ids) if include_ids is not None else None
+        tool_min, tool_max = _box_aabb_from_mat(tool_box_mat, tool_box_size)
+        for brick_id, cfg in self.brick_cfgs_by_id.items():
+            if include_ids is not None and brick_id not in include_ids:
+                continue
+            if brick_id in ignore_ids:
+                continue
+            brick_min, brick_max = _brick_aabb_from_mat(BRICK_BY_NAME[cfg.type], self.current_mats[brick_id])
+            overlap = np.minimum(tool_max, brick_max) - np.maximum(tool_min, brick_min)
+            if np.all(overlap > self.overlap_tol):
+                self._record(
+                    stage,
+                    {
+                        "a": "tool",
+                        "b": brick_id,
+                        "overlap_m": np.round(overlap, 7).tolist(),
+                        "volume_m3": float(np.prod(overlap)),
+                    },
+                )
+
+    def print_summary(self, limit: int = 20) -> None:
+        rows = sorted(
+            self.summary.values(),
+            key=lambda row: (row["count"], row["max_volume_m3"]),
+            reverse=True,
+        )
+        print(f"[collision audit] overlap_records={len(self.records)} unique_pairs={len(rows)}")
+        for row in rows[:limit]:
+            top_stages = sorted(row["stages"].items(), key=lambda item: item[1], reverse=True)[:4]
+            print(
+                "[collision audit] "
+                f"{row['a']} <-> {row['b']} count={row['count']} "
+                f"max_overlap_m={np.round(row['max_overlap_m'], 6).tolist()} "
+                f"top_stages={top_stages}"
+            )
+
+    def write_json(self, path: str | Path) -> None:
+        path = Path(path)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        rows = sorted(
+            self.summary.values(),
+            key=lambda row: (row["count"], row["max_volume_m3"]),
+            reverse=True,
+        )
+        with path.open("w") as f:
+            json.dump({"summary": rows, "records": self.records}, f, indent=2)
+            f.write("\n")
+
+
 def main() -> int:
     args = parse_args()
     if args.render and args.execute_real and args.real_shadow_render_hz is None:
@@ -320,6 +503,23 @@ def main() -> int:
     attached_ids: list[str] = []
     contact_t_object: dict[str, np.ndarray] = {}
     released = True
+    active_stage = "init"
+    placed_ids: set[str] = set()
+    tool_audit_box = np.asarray(args.tool_audit_box, dtype=np.float64)
+    tool_audit_box_center = tool_audit_box[:3]
+    tool_audit_box_size = tool_audit_box[3:]
+    collision_auditor = (
+        BrickCollisionAuditor(
+            brick_cfgs_by_id,
+            current_mats,
+            args.collision_overlap_tol,
+            args.collision_z_overlap_tol,
+        )
+        if args.audit_collisions
+        else None
+    )
+    if collision_auditor is not None:
+        collision_auditor.sample("initial")
 
     def current_contact_mat() -> np.ndarray:
         return _pose_to_matrix_any(base_env.agent.tcp.pose) @ translation_matrix(contact_offset)
@@ -335,6 +535,18 @@ def main() -> int:
 
     def render_step() -> None:
         update_attached()
+        if collision_auditor is not None:
+            collision_auditor.sample(active_stage)
+            if args.audit_tool_collisions:
+                tool_box_mat = current_contact_mat() @ translation_matrix(tool_audit_box_center)
+                include_ids = placed_ids if args.tool_collision_scope == "placed" else None
+                collision_auditor.sample_tool(
+                    active_stage,
+                    tool_box_mat,
+                    tool_audit_box_size,
+                    ignore_ids=set(attached_ids),
+                    include_ids=include_ids,
+                )
         base_env.update_markers()
         if args.render:
             env.render()
@@ -355,6 +567,16 @@ def main() -> int:
         "get_qpos": lambda: as_numpy(base_env.agent.robot.get_qpos()).reshape(-1),
         "real_exec": real_exec,
     }
+
+    def run_stage(label: str, q_path: np.ndarray, steps: int | None = None) -> bool:
+        nonlocal active_stage
+        active_stage = label
+        return run_q_path_stage(
+            label=label,
+            q_path=q_path,
+            steps=steps,
+            **runner_kwargs,
+        )
 
     last_contact_pose: np.ndarray | None = None
 
@@ -426,11 +648,10 @@ def main() -> int:
         audit_contact_path(tag, contact_path, q_path_arr)
         return q_path_arr
 
-    if not run_q_path_stage(
-        label="home",
-        q_path=q_seed.astype(np.float32),
+    if not run_stage(
+        "home",
+        q_seed.astype(np.float32),
         steps=max(1, int(args.hold_steps)),
-        **runner_kwargs,
     ):
         return 1
 
@@ -483,16 +704,14 @@ def main() -> int:
             ]
         )
 
-        if not run_q_path_stage(
-            label=f"{op.name}/pre_pick",
-            q_path=solve_contact_path(pre_pick_contact, f"{op.name}/pre_pick"),
-            **runner_kwargs,
+        if not run_stage(
+            f"{op.name}/pre_pick",
+            solve_contact_path(pre_pick_contact, f"{op.name}/pre_pick"),
         ):
             return 1
-        if not run_q_path_stage(
-            label=f"{op.name}/pick_down",
-            q_path=solve_contact_path(pick_down_contact, f"{op.name}/pick_down"),
-            **runner_kwargs,
+        if not run_stage(
+            f"{op.name}/pick_down",
+            solve_contact_path(pick_down_contact, f"{op.name}/pick_down"),
         ):
             return 1
 
@@ -509,22 +728,19 @@ def main() -> int:
         for twist_idx, deg in enumerate(np.linspace(0.0, args.pick_twist_deg, twist_steps + 1)[1:], start=1):
             twist_pose = twist_about_local_pivot(pick_down_contact, RM75_TOOL_DISASSEMBLE_OFFSET_BLACK, float(deg))
             twist_label = f"{op.name}/pick_twist_{twist_idx:02d}"
-            if not run_q_path_stage(
-                label=twist_label,
-                q_path=solve_contact_path(twist_pose, twist_label),
-                **runner_kwargs,
+            if not run_stage(
+                twist_label,
+                solve_contact_path(twist_pose, twist_label),
             ):
                 return 1
-        if not run_q_path_stage(
-            label=f"{op.name}/pick_attach",
-            q_path=solve_contact_path(pick_attach_contact, f"{op.name}/pick_attach"),
-            **runner_kwargs,
+        if not run_stage(
+            f"{op.name}/pick_attach",
+            solve_contact_path(pick_attach_contact, f"{op.name}/pick_attach"),
         ):
             return 1
-        if not run_q_path_stage(
-            label=f"{op.name}/pick_upright",
-            q_path=solve_contact_path(pick_upright_contact, f"{op.name}/pick_upright"),
-            **runner_kwargs,
+        if not run_stage(
+            f"{op.name}/pick_upright",
+            solve_contact_path(pick_upright_contact, f"{op.name}/pick_upright"),
         ):
             return 1
         hold(f"{op.name}/attached_hold")
@@ -536,11 +752,10 @@ def main() -> int:
             ("place_press", place_press_contact, max(2, args.steps_per_segment // 2)),
         ]:
             stage_label = f"{op.name}/{stage}"
-            if not run_q_path_stage(
-                label=stage_label,
-                q_path=solve_contact_path(contact_pose, stage_label),
+            if not run_stage(
+                stage_label,
+                solve_contact_path(contact_pose, stage_label),
                 steps=steps,
-                **runner_kwargs,
             ):
                 return 1
 
@@ -550,18 +765,17 @@ def main() -> int:
             target_mat = pose_to_matrix(_brick_pose_from_grid(plate_top, cfg.type, op.place.target_grids[brick_id]))
             current_mats[brick_id] = target_mat
             actors_by_id[brick_id].set_pose(matrix_to_sapien_pose(target_mat))
+        placed_ids.update(object_ids)
         print(f"[release] snap {object_ids} to target grids")
-        if not run_q_path_stage(
-            label=f"{op.name}/place_twist",
-            q_path=solve_contact_path(place_twist_contact, f"{op.name}/place_twist"),
-            **runner_kwargs,
+        if not run_stage(
+            f"{op.name}/place_twist",
+            solve_contact_path(place_twist_contact, f"{op.name}/place_twist"),
         ):
             return 1
         hold(f"{op.name}/released_hold")
-        if not run_q_path_stage(
-            label=f"{op.name}/place_up",
-            q_path=solve_contact_path(place_up_contact, f"{op.name}/place_up"),
-            **runner_kwargs,
+        if not run_stage(
+            f"{op.name}/place_up",
+            solve_contact_path(place_up_contact, f"{op.name}/place_up"),
         ):
             return 1
 
@@ -572,12 +786,17 @@ def main() -> int:
             else:
                 input("Press Enter to continue...")
 
-    if not run_q_path_stage(
-        label="home_end",
-        q_path=RM75LegoTool.keyframes["neutral"].qpos.astype(np.float32),
-        **runner_kwargs,
+    if not run_stage(
+        "home_end",
+        RM75LegoTool.keyframes["neutral"].qpos.astype(np.float32),
     ):
         return 1
+    if collision_auditor is not None:
+        collision_auditor.sample("final")
+        collision_auditor.print_summary()
+        if args.collision_log:
+            collision_auditor.write_json(args.collision_log)
+            print(f"[collision audit] wrote {args.collision_log}")
     print("PASS: LEGO robot motion preview")
     if args.render and args.wait_at_end:
         print("Preview is running. Press Enter or type 'q' then Enter to close.")
