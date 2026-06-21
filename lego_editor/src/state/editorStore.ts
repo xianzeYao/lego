@@ -12,6 +12,7 @@ import {
   validateCandidate,
   type ValidationResult
 } from "../domain/validators";
+import { applySyncedScene } from "./editorSync";
 
 export type EditorState = {
   scene: SceneState;
@@ -27,6 +28,7 @@ export type EditorAction =
   | { type: "selectColor"; color: RgbaColor }
   | { type: "rotate" }
   | { type: "selectBrick"; brickId: string | null }
+  | { type: "replaceScene"; scene: SceneState; revision: number }
   | { type: "placeAtCenter" }
   | { type: "placeCandidate"; grid: GridPose }
   | { type: "removeBrick"; brickId: string }
@@ -101,6 +103,11 @@ export function editorReducer(state: EditorState, action: EditorAction): EditorS
       };
     case "selectBrick":
       return { ...state, selectedBrickId: action.brickId };
+    case "replaceScene":
+      return applySyncedScene(state, {
+        scene: action.scene,
+        revision: action.revision
+      });
     case "placeAtCenter":
       return editorReducer(state, {
         type: "placeCandidate",

@@ -16,6 +16,7 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  overflow-x: auto;
 }
 
 button,
@@ -26,7 +27,8 @@ select {
 
 .app-shell {
   display: grid;
-  grid-template-columns: 280px minmax(0, 1fr) 340px;
+  grid-template-columns: 280px minmax(760px, 1fr) 340px;
+  min-width: 1380px;
   min-height: 100vh;
   background: #eef1f4;
 }
@@ -299,20 +301,4 @@ select {
 .export-actions button:disabled {
   cursor: not-allowed;
   opacity: 0.5;
-}
-
-@media (max-width: 980px) {
-  .app-shell {
-    grid-template-columns: 1fr;
-  }
-
-  .panel-left,
-  .panel-right {
-    border: 0;
-    border-bottom: 1px solid #d6dde6;
-  }
-
-  .scene-shell {
-    min-height: 56vh;
-  }
 }
