@@ -8,7 +8,9 @@ describe("camera view presets", () => {
       "iso",
       "top",
       "front",
-      "right"
+      "right",
+      "left",
+      "back"
     ]);
   });
 

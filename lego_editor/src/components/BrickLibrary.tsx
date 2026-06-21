@@ -88,8 +88,9 @@ export function BrickLibrary({ state, dispatch }: Props) {
           </button>
         </div>
         <p className="hint">
-          Click the baseplate or an existing brick top. The editor snaps every
-          placement to LEGO grid coordinates.
+          Click the baseplate or an existing brick top to place. Left drag rotates,
+          middle/right drag pans, wheel zooms, and the view cube switches camera
+          direction.
         </p>
       </section>
     </div>

@@ -59,6 +59,18 @@ describe("placement validation", () => {
     expect(result.errors).toEqual([]);
   });
 
+  it("blocks upper placements unless every projected stud is supported", () => {
+    const result = validateCandidate(scene([brick("B001", [8, 8, 0, 0], 1)]), {
+      type: "lego_2x8",
+      grid: [8, 8, 1, 0]
+    });
+
+    expect(result.valid).toBe(false);
+    expect(result.errors).toContain(
+      "Layer 1 placement is missing lower support for 8 studs."
+    );
+  });
+
   it("blocks inserting a lower brick under an existing upper brick", () => {
     const result = validateCandidate(scene([brick("B002", [8, 8, 1, 0], 2)]), {
       type: "lego_2x4",

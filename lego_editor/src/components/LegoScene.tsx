@@ -1,4 +1,4 @@
-import { OrbitControls } from "@react-three/drei";
+import { Html, OrbitControls } from "@react-three/drei";
 import { Canvas, ThreeEvent, useFrame, useLoader, useThree } from "@react-three/fiber";
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader.js";
 import { Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
@@ -27,6 +27,7 @@ type Props = {
 type HoverCandidate = {
   grid: GridPose;
   valid: boolean;
+  messages: string[];
 };
 type ScenePointerEvent = ThreeEvent<MouseEvent | PointerEvent>;
 type DiagnosticState = {
@@ -166,8 +167,8 @@ function BrickMesh({
   brick: BrickInstance;
   baseplate: { width: number; depth: number };
   selected?: boolean;
-  onTopHover?: (event: ScenePointerEvent, layer: number) => void;
-  onTopClick?: (event: ScenePointerEvent, layer: number) => void;
+  onTopHover?: (event: ScenePointerEvent, layer: number, surfaceBrick: BrickInstance) => void;
+  onTopClick?: (event: ScenePointerEvent, layer: number, surfaceBrick: BrickInstance) => void;
   ghost?: boolean;
   valid?: boolean;
 }) {
@@ -196,14 +197,14 @@ function BrickMesh({
         raycast={ghost ? () => null : undefined}
         onPointerMove={(event) => {
           event.stopPropagation();
-          onTopHover?.(event, brick.grid[2] + 1);
+          onTopHover?.(event, brick.grid[2] + 1, brick);
         }}
         onClick={(event) => {
           event.stopPropagation();
-          onTopClick?.(event, brick.grid[2] + 1);
+          onTopClick?.(event, brick.grid[2] + 1, brick);
         }}
       >
-        <planeGeometry args={[size.width, size.depth]} />
+        <planeGeometry args={[size.width + STUD_PITCH * 1.25, size.depth + STUD_PITCH * 1.25]} />
         <meshBasicMaterial transparent opacity={0} depthWrite={false} />
       </mesh>
       {selected ? (
@@ -213,6 +214,34 @@ function BrickMesh({
         </mesh>
       ) : null}
     </group>
+  );
+}
+
+function PlacementLabel({
+  candidate,
+  selectedType,
+  baseplate
+}: {
+  candidate: HoverCandidate;
+  selectedType: BrickInstance["type"];
+  baseplate: { width: number; depth: number };
+}) {
+  const [x, y, z] = candidate.grid;
+  const position = brickCenterWorld(candidate.grid, selectedType, baseplate);
+  const firstMessage = candidate.messages[0];
+
+  return (
+    <Html
+      center
+      position={[position[0], position[1] + BRICK_BODY_HEIGHT * 0.85, position[2]]}
+      style={{ pointerEvents: "none" }}
+    >
+      <div className={candidate.valid ? "placement-label ok" : "placement-label error"}>
+        <strong>{candidate.valid ? "Place" : "Blocked"}</strong>
+        <span>[{x}, {y}, {z}]</span>
+        {firstMessage ? <em>{firstMessage}</em> : null}
+      </div>
+    </Html>
   );
 }
 
@@ -233,9 +262,72 @@ function SceneContent({
       }
     : null;
 
-  function candidateFromEvent(event: ScenePointerEvent, layer: number): HoverCandidate {
+  function candidateFromEvent(
+    event: ScenePointerEvent,
+    layer: number,
+    autoElevate = false,
+    surfaceBrick?: BrickInstance
+  ): HoverCandidate {
+    const worldPoint: [number, number] = [event.point.x, event.point.z];
+
+    const candidateFromGrid = (grid: GridPose): HoverCandidate => {
+      const validation = validateCandidate(state.scene, {
+        type: state.selectedType,
+        grid
+      });
+      return {
+        grid,
+        valid: validation.valid,
+        messages: [...validation.errors, ...validation.warnings]
+      };
+    };
+    const makeCandidate = (candidateLayer: number): HoverCandidate =>
+      candidateFromGrid(
+        worldPointToGrid(
+          worldPoint,
+          candidateLayer,
+          state.selectedOrientation,
+          state.scene.baseplate
+        )
+      );
+
+    if (surfaceBrick) {
+      const directCandidate = makeCandidate(layer);
+      if (directCandidate.valid) {
+        return directCandidate;
+      }
+
+      return candidateFromGrid([
+        surfaceBrick.grid[0],
+        surfaceBrick.grid[1],
+        layer,
+        state.selectedOrientation
+      ]);
+    }
+
+    if (autoElevate) {
+      const maxLayer = Math.max(0, ...state.scene.bricks.map((brick) => brick.grid[2]));
+      let lastCandidate = makeCandidate(layer);
+
+      for (let candidateLayer = layer; candidateLayer <= maxLayer + 1; candidateLayer += 1) {
+        const candidate = makeCandidate(candidateLayer);
+        if (candidate.valid) {
+          return candidate;
+        }
+        lastCandidate = candidate;
+        const onlyBlockedBySameLayerOverlap =
+          candidate.messages.length > 0 &&
+          candidate.messages.every((message) => message.startsWith("Footprint overlaps"));
+        if (!onlyBlockedBySameLayerOverlap) {
+          return candidate;
+        }
+      }
+
+      return lastCandidate;
+    }
+
     const grid = worldPointToGrid(
-      [event.point.x, event.point.z],
+      worldPoint,
       layer,
       state.selectedOrientation,
       state.scene.baseplate
@@ -244,11 +336,20 @@ function SceneContent({
       type: state.selectedType,
       grid
     });
-    return { grid, valid: validation.valid };
+    return {
+      grid,
+      valid: validation.valid,
+      messages: [...validation.errors, ...validation.warnings]
+    };
   }
 
-  function updateHover(event: ScenePointerEvent, layer: number) {
-    setHover(candidateFromEvent(event, layer));
+  function updateHover(
+    event: ScenePointerEvent,
+    layer: number,
+    autoElevate = false,
+    surfaceBrick?: BrickInstance
+  ) {
+    setHover(candidateFromEvent(event, layer, autoElevate, surfaceBrick));
   }
 
   function placeCandidate(candidate: HoverCandidate | null) {
@@ -269,10 +370,11 @@ function SceneContent({
       <mesh
         position={[0, 0.002, 0]}
         rotation={[-Math.PI / 2, 0, 0]}
-        onPointerMove={(event) => updateHover(event, 0)}
+        onPointerMove={(event) => updateHover(event, 0, true)}
+        onPointerLeave={() => setHover(null)}
         onClick={(event) => {
           event.stopPropagation();
-          placeCandidate(candidateFromEvent(event, 0));
+          placeCandidate(candidateFromEvent(event, 0, true));
         }}
       >
         <planeGeometry
@@ -289,21 +391,32 @@ function SceneContent({
           baseplate={state.scene.baseplate}
           key={brick.id}
           selected={state.selectedBrickId === brick.id}
-          onTopHover={(event, layer) => updateHover(event, layer)}
-          onTopClick={(event, layer) => {
-            const candidate = candidateFromEvent(event, layer);
+          onTopHover={(event, layer, surfaceBrick) =>
+            updateHover(event, layer, false, surfaceBrick)
+          }
+          onTopClick={(event, layer, surfaceBrick) => {
+            const candidate = candidateFromEvent(event, layer, false, surfaceBrick);
             setHover(candidate);
             placeCandidate(candidate);
           }}
         />
       ))}
       {ghostBrick ? (
-        <BrickMesh
-          brick={ghostBrick}
-          baseplate={state.scene.baseplate}
-          ghost
-          valid={hover?.valid ?? false}
-        />
+        <>
+          <BrickMesh
+            brick={ghostBrick}
+            baseplate={state.scene.baseplate}
+            ghost
+            valid={hover?.valid ?? false}
+          />
+          {hover ? (
+            <PlacementLabel
+              candidate={hover}
+              selectedType={state.selectedType}
+              baseplate={state.scene.baseplate}
+            />
+          ) : null}
+        </>
       ) : null}
     </>
   );

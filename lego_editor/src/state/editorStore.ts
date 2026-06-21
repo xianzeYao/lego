@@ -42,6 +42,7 @@ export type ExportPayload =
   | {
       ok: true;
       reordered: boolean;
+      buildOrderBrickIds: string[];
       settings: SettingsJson;
       task: TaskJson;
       errors: [];
@@ -49,6 +50,7 @@ export type ExportPayload =
   | {
       ok: false;
       reordered: false;
+      buildOrderBrickIds: string[];
       settings: SettingsJson;
       task: null;
       errors: string[];
@@ -233,6 +235,7 @@ export function selectExportPayload(state: EditorState): ExportPayload {
     return {
       ok: false,
       reordered: false,
+      buildOrderBrickIds: order.brickIds,
       settings,
       task: null,
       errors: order.errors
@@ -242,6 +245,7 @@ export function selectExportPayload(state: EditorState): ExportPayload {
   return {
     ok: true,
     reordered: order.reordered,
+    buildOrderBrickIds: order.brickIds,
     settings,
     task: exportTask(state.scene, order.brickIds),
     errors: []

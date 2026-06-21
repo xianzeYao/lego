@@ -72,11 +72,14 @@ export function validateCandidate(
       (count, brick) => count + overlapCount(candidateStuds, brickFootprint(brick)),
       0
     );
+    const unsupportedStuds = candidateStuds.length - supportedStuds;
 
     if (supportedStuds === 0) {
       errors.push(`Stacked brick has no support from layer ${z - 1}.`);
-    } else if (supportedStuds / candidateStuds.length < 0.25) {
-      warnings.push("Less than 25% of this brick is supported by the lower layer.");
+    } else if (unsupportedStuds > 0) {
+      errors.push(
+        `Layer ${z} placement is missing lower support for ${unsupportedStuds} stud${unsupportedStuds === 1 ? "" : "s"}.`
+      );
     }
   }
 

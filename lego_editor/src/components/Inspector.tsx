@@ -9,6 +9,7 @@ type Props = {
 export function Inspector({ state, dispatch }: Props) {
   const selected = state.scene.bricks.find((brick) => brick.id === state.selectedBrickId);
   const exportPayload = selectExportPayload(state);
+  const brickById = new Map(state.scene.bricks.map((brick) => [brick.id, brick]));
 
   return (
     <div className="inspector">
@@ -68,7 +69,7 @@ export function Inspector({ state, dispatch }: Props) {
               >
                 {step.brickId}
               </button>
-              <span>{step.type}</span>
+              <span>{step.type} [{step.grid.join(", ")}]</span>
             </li>
           ))}
         </ol>
@@ -88,6 +89,24 @@ export function Inspector({ state, dispatch }: Props) {
               </p>
             ))
           : null}
+        {exportPayload.buildOrderBrickIds.length > 0 ? (
+          <ol className="order-list build-order-list">
+            {exportPayload.buildOrderBrickIds.map((brickId) => {
+              const brick = brickById.get(brickId);
+              return (
+                <li key={brickId}>
+                  <button
+                    type="button"
+                    onClick={() => dispatch({ type: "selectBrick", brickId })}
+                  >
+                    {brickId}
+                  </button>
+                  <span>{brick ? `z${brick.grid[2]} ${brick.type}` : "missing brick"}</span>
+                </li>
+              );
+            })}
+          </ol>
+        ) : null}
         <div className="export-actions">
           <button
             type="button"
