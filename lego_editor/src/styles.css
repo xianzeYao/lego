@@ -78,6 +78,28 @@ select {
   background: #ffffff;
 }
 
+.scene-diagnostics {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  max-width: calc(100% - 20px);
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background: rgba(248, 250, 252, 0.92);
+  padding: 6px 8px;
+  color: #334155;
+  font-size: 11px;
+  pointer-events: none;
+}
+
+.scene-diagnostics strong {
+  color: #0f172a;
+}
+
 .scene-canvas canvas {
   position: relative;
   z-index: 1;

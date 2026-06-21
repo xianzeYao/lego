@@ -12,6 +12,7 @@ function editorStateApi(): Plugin {
     name: "lego-editor-state-api",
     configureServer(server) {
       server.middlewares.use("/api/editor-state", (req, res) => {
+        res.setHeader("Cache-Control", "no-store");
         const request = req as {
           method?: string;
           on(event: "data", callback: (chunk: unknown) => void): void;
@@ -55,6 +56,11 @@ function editorStateApi(): Plugin {
 
 export default defineConfig({
   plugins: [react(), editorStateApi()],
+  server: {
+    headers: {
+      "Cache-Control": "no-store"
+    }
+  },
   test: {
     environment: "node",
     globals: true

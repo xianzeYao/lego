@@ -1,4 +1,5 @@
 import { BRICK_TYPES, LEGO_BRICK_SPECS } from "../domain/brickSpecs";
+import { EDITOR_BUILD_ID } from "../buildInfo";
 import type { EditorAction, EditorState } from "../state/editorStore";
 import { DEFAULT_COLORS } from "../state/editorStore";
 
@@ -19,7 +20,7 @@ export function BrickLibrary({ state, dispatch }: Props) {
     <div className="library">
       <div className="panel-title">
         <h1>LEGO Editor</h1>
-        <span>Manual task builder</span>
+        <span>{EDITOR_BUILD_ID}</span>
       </div>
 
       <section className="panel-section">
@@ -58,6 +59,10 @@ export function BrickLibrary({ state, dispatch }: Props) {
 
       <section className="panel-section">
         <h2>Placement</h2>
+        <div className="selected-summary">
+          <span>Scene</span>
+          <strong>{state.scene.bricks.length} bricks synced</strong>
+        </div>
         <div className="selected-summary">
           <span>Selected</span>
           <strong>{LEGO_BRICK_SPECS[state.selectedType].label}</strong>

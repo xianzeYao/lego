@@ -1,11 +1,13 @@
 import { OrbitControls } from "@react-three/drei";
 import { Canvas, ThreeEvent, useFrame, useLoader } from "@react-three/fiber";
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader.js";
-import { useLayoutEffect, useMemo, useRef, useState } from "react";
+import { Suspense, useLayoutEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 
+import { EDITOR_BUILD_ID } from "../buildInfo";
 import { BASEPLATE_ASSET_PATHS, LEGO_ASSET_PATHS } from "../domain/assetPaths";
 import { LEGO_BRICK_SPECS } from "../domain/brickSpecs";
+import { formatBooleanStatus, summarizeAssetStatus } from "../domain/clientDiagnostics";
 import { BRICK_BODY_HEIGHT, STUD_PITCH, footprintStuds } from "../domain/grid";
 import { brickAssetOriginWorld, brickCenterWorld, worldPointToGrid } from "../domain/sceneGeometry";
 import type { BrickInstance, GridPose, RgbaColor } from "../domain/types";
@@ -22,8 +24,19 @@ type HoverCandidate = {
   valid: boolean;
 };
 type ScenePointerEvent = ThreeEvent<MouseEvent | PointerEvent>;
+type DiagnosticState = {
+  webgl: boolean;
+  rendererFrame: boolean;
+  assetChecked: number;
+  assetFailed: number;
+  viewport: string;
+};
 
 const STL_SCALE = 0.001;
+const PRELOAD_ASSET_PATHS = [
+  BASEPLATE_ASSET_PATHS[48],
+  ...Object.values(LEGO_ASSET_PATHS)
+];
 
 function colorToThree(color: RgbaColor): string {
   const [r, g, b] = color;
@@ -99,6 +112,12 @@ function BaseplateAsset({ baseplate }: { baseplate: { width: number; depth: numb
   );
 }
 
+function preloadEditorAssets() {
+  PRELOAD_ASSET_PATHS.forEach((path) => {
+    useLoader.preload(STLLoader, path);
+  });
+}
+
 function BrickMesh({
   brick,
   baseplate,
@@ -127,11 +146,13 @@ function BrickMesh({
         position={assetOrigin}
         rotation={[0, brick.grid[3] === 0 ? 0 : Math.PI / 2, 0]}
       >
-        <AssetModel
-          path={LEGO_ASSET_PATHS[brick.type]}
-          color={color}
-          opacity={ghost ? 0.46 : 1}
-        />
+        <Suspense fallback={null}>
+          <AssetModel
+            path={LEGO_ASSET_PATHS[brick.type]}
+            color={color}
+            opacity={ghost ? 0.46 : 1}
+          />
+        </Suspense>
       </group>
       <mesh
         position={[topCenter[0], brick.grid[2] * BRICK_BODY_HEIGHT + BRICK_BODY_HEIGHT + 0.001, topCenter[2]]}
@@ -249,9 +270,86 @@ function SceneContent({
 
 export function LegoScene({ state, dispatch }: Props) {
   const [sceneRendered, setSceneRendered] = useState(false);
+  const [diagnostics, setDiagnostics] = useState<DiagnosticState>(() => ({
+    webgl: false,
+    rendererFrame: false,
+    assetChecked: 0,
+    assetFailed: 0,
+    viewport:
+      typeof window === "undefined" ? "server" : `${window.innerWidth}x${window.innerHeight}`
+  }));
+
+  useLayoutEffect(() => {
+    preloadEditorAssets();
+  }, []);
+
+  useLayoutEffect(() => {
+    const canvas = document.createElement("canvas");
+    const webgl = Boolean(
+      canvas.getContext("webgl2") || canvas.getContext("webgl")
+    );
+    const updateViewport = () => {
+      setDiagnostics((current) => ({
+        ...current,
+        webgl,
+        viewport: `${window.innerWidth}x${window.innerHeight}`
+      }));
+    };
+
+    updateViewport();
+    window.addEventListener("resize", updateViewport);
+    return () => window.removeEventListener("resize", updateViewport);
+  }, []);
+
+  useLayoutEffect(() => {
+    let cancelled = false;
+    const paths = [
+      BASEPLATE_ASSET_PATHS[48],
+      ...state.scene.bricks.map((brick) => LEGO_ASSET_PATHS[brick.type]),
+      LEGO_ASSET_PATHS[state.selectedType]
+    ];
+    const uniquePaths = [...new Set(paths)];
+
+    Promise.all(
+      uniquePaths.map(async (path) => {
+        try {
+          const response = await fetch(path, { method: "HEAD" });
+          return response.ok;
+        } catch {
+          return false;
+        }
+      })
+    ).then((results) => {
+      if (cancelled) {
+        return;
+      }
+      setDiagnostics((current) => ({
+        ...current,
+        assetChecked: results.length,
+        assetFailed: results.filter((ok) => !ok).length
+      }));
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [state.scene.bricks, state.selectedType]);
 
   return (
     <div className="scene-canvas">
+      <div className="scene-diagnostics">
+        <strong>{EDITOR_BUILD_ID}</strong>
+        <span>viewport {diagnostics.viewport}</span>
+        <span>webgl {formatBooleanStatus(diagnostics.webgl)}</span>
+        <span>frame {formatBooleanStatus(diagnostics.rendererFrame)}</span>
+        <span>
+          assets{" "}
+          {summarizeAssetStatus({
+            checked: diagnostics.assetChecked,
+            failed: diagnostics.assetFailed
+          })}
+        </span>
+      </div>
       <div
         className={
           sceneRendered
@@ -270,7 +368,10 @@ export function LegoScene({ state, dispatch }: Props) {
         <SceneContent
           state={state}
           dispatch={dispatch}
-          onRendered={() => setSceneRendered(true)}
+          onRendered={() => {
+            setSceneRendered(true);
+            setDiagnostics((current) => ({ ...current, rendererFrame: true }));
+          }}
         />
       </Canvas>
     </div>
