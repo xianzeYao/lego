@@ -1,6 +1,6 @@
 import { OrbitControls } from "@react-three/drei";
 import { Canvas, ThreeEvent } from "@react-three/fiber";
-import { useMemo, useState } from "react";
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 
 import { LEGO_BRICK_SPECS } from "../domain/brickSpecs";
@@ -22,6 +22,8 @@ type ScenePointerEvent = ThreeEvent<MouseEvent | PointerEvent>;
 
 const STUD_HEIGHT = 0.0016;
 const STUD_RADIUS = 0.0024;
+const BASEPLATE_STUD_HEIGHT = 0.0009;
+const BASEPLATE_STUD_RADIUS = 0.0018;
 
 function colorToThree(color: RgbaColor): string {
   const [r, g, b] = color;
@@ -57,6 +59,44 @@ function pointToGrid(point: THREE.Vector3, layer: number, orientation: 0 | 1): G
     layer,
     orientation
   ];
+}
+
+function BaseplateStuds() {
+  const meshRef = useRef<THREE.InstancedMesh>(null);
+  const dummy = useMemo(() => new THREE.Object3D(), []);
+
+  useLayoutEffect(() => {
+    if (!meshRef.current) {
+      return;
+    }
+    let index = 0;
+    for (let x = 0; x < 32; x += 1) {
+      for (let y = 0; y < 32; y += 1) {
+        dummy.position.set(
+          (x + 0.5 - 16) * STUD_PITCH,
+          BASEPLATE_STUD_HEIGHT / 2,
+          (y + 0.5 - 16) * STUD_PITCH
+        );
+        dummy.updateMatrix();
+        meshRef.current.setMatrixAt(index, dummy.matrix);
+        index += 1;
+      }
+    }
+    meshRef.current.instanceMatrix.needsUpdate = true;
+  }, [dummy]);
+
+  return (
+    <instancedMesh
+      args={[undefined, undefined, 32 * 32]}
+      ref={meshRef}
+      raycast={() => null}
+    >
+      <cylinderGeometry
+        args={[BASEPLATE_STUD_RADIUS, BASEPLATE_STUD_RADIUS, BASEPLATE_STUD_HEIGHT, 12]}
+      />
+      <meshStandardMaterial color="#7f8b9b" roughness={0.58} />
+    </instancedMesh>
+  );
 }
 
 function Studs({ brick }: { brick: BrickInstance }) {
@@ -163,16 +203,17 @@ function SceneContent({ state, dispatch }: Props) {
       <ambientLight intensity={0.7} />
       <directionalLight position={[0.15, 0.25, 0.18]} intensity={1.2} />
       <mesh
-        position={[0, -0.001, 0]}
+        position={[0, -0.0022, 0]}
         onPointerMove={(event) => updateHover(event, 0)}
         onClick={(event) => {
           event.stopPropagation();
           placeCandidate(candidateFromEvent(event, 0));
         }}
       >
-        <boxGeometry args={[32 * STUD_PITCH, 0.002, 32 * STUD_PITCH]} />
-        <meshStandardMaterial color="#d9dee7" roughness={0.62} />
+        <boxGeometry args={[32 * STUD_PITCH, 0.0044, 32 * STUD_PITCH]} />
+        <meshStandardMaterial color="#a7b0bd" roughness={0.64} />
       </mesh>
+      <BaseplateStuds />
       {state.scene.bricks.map((brick) => (
         <BrickMesh
           brick={brick}
@@ -187,7 +228,7 @@ function SceneContent({ state, dispatch }: Props) {
         />
       ))}
       {ghostBrick ? <BrickMesh brick={ghostBrick} ghost valid={hover?.valid ?? false} /> : null}
-      <gridHelper args={[0.256, 32, "#7b8797", "#c2c9d3"]} position={[0, 0.0002, 0]} />
+      <gridHelper args={[0.256, 32, "#4b5563", "#d9dde4"]} position={[0, 0.001, 0]} />
       <OrbitControls makeDefault maxPolarAngle={Math.PI / 2.05} minDistance={0.18} />
     </>
   );
@@ -196,7 +237,13 @@ function SceneContent({ state, dispatch }: Props) {
 export function LegoScene({ state, dispatch }: Props) {
   return (
     <div className="scene-canvas">
-      <Canvas camera={{ position: [0.18, 0.22, 0.28], fov: 42 }}>
+      <Canvas
+        camera={{ position: [0.2, 0.24, 0.24], fov: 42 }}
+        gl={{ alpha: false, antialias: true }}
+        onCreated={({ scene }) => {
+          scene.background = new THREE.Color("#ffffff");
+        }}
+      >
         <SceneContent state={state} dispatch={dispatch} />
       </Canvas>
     </div>
