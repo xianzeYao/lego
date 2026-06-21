@@ -47,12 +47,22 @@ function detectWebglSupport(): boolean {
     return false;
   }
 
+  const previousConsoleError = console.error;
   try {
     const canvas = document.createElement("canvas");
-    const context = canvas.getContext("webgl2") || canvas.getContext("webgl");
-    return Boolean(context);
+    console.error = () => undefined;
+    const renderer = new THREE.WebGLRenderer({
+      alpha: true,
+      antialias: true,
+      canvas
+    });
+    renderer.forceContextLoss();
+    renderer.dispose();
+    return true;
   } catch {
     return false;
+  } finally {
+    console.error = previousConsoleError;
   }
 }
 
