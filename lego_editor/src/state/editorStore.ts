@@ -29,7 +29,6 @@ export type EditorAction =
   | { type: "rotate" }
   | { type: "selectBrick"; brickId: string | null }
   | { type: "replaceScene"; scene: SceneState; revision: number }
-  | { type: "placeAtCenter" }
   | { type: "placeCandidate"; grid: GridPose }
   | { type: "removeBrick"; brickId: string }
   | {
@@ -107,16 +106,6 @@ export function editorReducer(state: EditorState, action: EditorAction): EditorS
       return applySyncedScene(state, {
         scene: action.scene,
         revision: action.revision
-      });
-    case "placeAtCenter":
-      return editorReducer(state, {
-        type: "placeCandidate",
-        grid: [
-          Math.floor(state.scene.baseplate.width / 2),
-          Math.floor(state.scene.baseplate.depth / 2),
-          0,
-          state.selectedOrientation
-        ]
       });
     case "placeCandidate": {
       const grid: GridPose = [

@@ -1,12 +1,13 @@
 import { OrbitControls } from "@react-three/drei";
-import { Canvas, ThreeEvent, useFrame, useLoader } from "@react-three/fiber";
+import { Canvas, ThreeEvent, useFrame, useLoader, useThree } from "@react-three/fiber";
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader.js";
-import { Suspense, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 
 import { EDITOR_BUILD_ID } from "../buildInfo";
 import { BASEPLATE_ASSET_PATHS, LEGO_ASSET_PATHS } from "../domain/assetPaths";
 import { LEGO_BRICK_SPECS } from "../domain/brickSpecs";
+import { CAMERA_VIEWS, cameraViewPosition, type CameraViewId } from "../domain/cameraViews";
 import {
   formatBooleanStatus,
   summarizeAssetStatus,
@@ -157,7 +158,7 @@ function BrickMesh({
   brick,
   baseplate,
   selected,
-  onSelect,
+  onTopHover,
   onTopClick,
   ghost = false,
   valid = true
@@ -165,7 +166,7 @@ function BrickMesh({
   brick: BrickInstance;
   baseplate: { width: number; depth: number };
   selected?: boolean;
-  onSelect?: () => void;
+  onTopHover?: (event: ScenePointerEvent, layer: number) => void;
   onTopClick?: (event: ScenePointerEvent, layer: number) => void;
   ghost?: boolean;
   valid?: boolean;
@@ -193,9 +194,12 @@ function BrickMesh({
         position={[topCenter[0], brick.grid[2] * BRICK_BODY_HEIGHT + BRICK_BODY_HEIGHT + 0.001, topCenter[2]]}
         rotation={[-Math.PI / 2, 0, 0]}
         raycast={ghost ? () => null : undefined}
+        onPointerMove={(event) => {
+          event.stopPropagation();
+          onTopHover?.(event, brick.grid[2] + 1);
+        }}
         onClick={(event) => {
           event.stopPropagation();
-          onSelect?.();
           onTopClick?.(event, brick.grid[2] + 1);
         }}
       >
@@ -215,8 +219,9 @@ function BrickMesh({
 function SceneContent({
   state,
   dispatch,
-  onRendered
-}: Props & { onRendered: () => void }) {
+  onRendered,
+  activeCameraView
+}: Props & { onRendered: () => void; activeCameraView: CameraViewId }) {
   const [hover, setHover] = useState<HoverCandidate | null>(null);
   const ghostBrick: BrickInstance | null = hover
     ? {
@@ -251,12 +256,14 @@ function SceneContent({
       return;
     }
     dispatch({ type: "placeCandidate", grid: candidate.grid });
+    setHover(null);
   }
 
   return (
     <>
       <ambientLight intensity={0.7} />
       <RenderReady onReady={onRendered} />
+      <CameraController activeView={activeCameraView} />
       <directionalLight position={[0.15, 0.25, 0.18]} intensity={1.2} />
       <BaseplateAsset baseplate={state.scene.baseplate} />
       <mesh
@@ -282,7 +289,7 @@ function SceneContent({
           baseplate={state.scene.baseplate}
           key={brick.id}
           selected={state.selectedBrickId === brick.id}
-          onSelect={() => dispatch({ type: "selectBrick", brickId: brick.id })}
+          onTopHover={(event, layer) => updateHover(event, layer)}
           onTopClick={(event, layer) => {
             const candidate = candidateFromEvent(event, layer);
             setHover(candidate);
@@ -298,13 +305,60 @@ function SceneContent({
           valid={hover?.valid ?? false}
         />
       ) : null}
-      <OrbitControls makeDefault maxPolarAngle={Math.PI / 2.05} minDistance={0.22} />
     </>
+  );
+}
+
+function CameraController({ activeView }: { activeView: CameraViewId }) {
+  const { camera, controls } = useThree();
+  const lastViewRef = useRef<CameraViewId | null>(null);
+
+  useEffect(() => {
+    if (lastViewRef.current === activeView) {
+      return;
+    }
+    lastViewRef.current = activeView;
+    const [x, y, z] = cameraViewPosition(activeView);
+    camera.position.set(x, y, z);
+    camera.lookAt(0, 0, 0);
+    camera.updateProjectionMatrix();
+
+    if (controls && "target" in controls) {
+      const orbitControls = controls as unknown as {
+        target: THREE.Vector3;
+        update: () => void;
+      };
+      orbitControls.target.set(0, 0, 0);
+      orbitControls.update();
+    }
+  }, [activeView, camera, controls]);
+
+  return (
+    <OrbitControls
+      makeDefault
+      enableDamping
+      enablePan
+      enableRotate
+      enableZoom
+      maxPolarAngle={Math.PI / 2.02}
+      minDistance={0.12}
+      maxDistance={0.9}
+      mouseButtons={{
+        LEFT: THREE.MOUSE.ROTATE,
+        MIDDLE: THREE.MOUSE.PAN,
+        RIGHT: THREE.MOUSE.PAN
+      }}
+      touches={{
+        ONE: THREE.TOUCH.ROTATE,
+        TWO: THREE.TOUCH.DOLLY_PAN
+      }}
+    />
   );
 }
 
 export function LegoScene({ state, dispatch }: Props) {
   const [sceneRendered, setSceneRendered] = useState(false);
+  const [activeCameraView, setActiveCameraView] = useState<CameraViewId>("iso");
   const [diagnostics, setDiagnostics] = useState<DiagnosticState>(() => ({
     webgl: detectWebglSupport(),
     rendererFrame: false,
@@ -386,6 +440,19 @@ export function LegoScene({ state, dispatch }: Props) {
           })}
         </span>
       </div>
+      <div className="view-cube" aria-label="Camera views">
+        {CAMERA_VIEWS.map((view) => (
+          <button
+            aria-pressed={activeCameraView === view.id}
+            className={activeCameraView === view.id ? "active" : ""}
+            key={view.id}
+            type="button"
+            onClick={() => setActiveCameraView(view.id)}
+          >
+            {view.label}
+          </button>
+        ))}
+      </div>
       <div
         className={
           sceneRendered
@@ -410,6 +477,7 @@ export function LegoScene({ state, dispatch }: Props) {
           <SceneContent
             state={state}
             dispatch={dispatch}
+            activeCameraView={activeCameraView}
             onRendered={() => {
               setSceneRendered(true);
               setDiagnostics((current) => ({ ...current, rendererFrame: true }));

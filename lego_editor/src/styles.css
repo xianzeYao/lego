@@ -100,6 +100,38 @@ select {
   color: #0f172a;
 }
 
+.view-cube {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: repeat(2, 44px);
+  gap: 4px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background: rgba(248, 250, 252, 0.94);
+  padding: 6px;
+}
+
+.view-cube button {
+  width: 44px;
+  height: 30px;
+  border: 1px solid #c7d0dd;
+  border-radius: 4px;
+  background: #ffffff;
+  color: #334155;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.view-cube button.active {
+  border-color: #1f6feb;
+  background: #e8f1ff;
+  color: #164fba;
+}
+
 .scene-canvas canvas {
   position: relative;
   z-index: 1;

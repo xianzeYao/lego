@@ -88,16 +88,9 @@ export function BrickLibrary({ state, dispatch }: Props) {
           </button>
         </div>
         <p className="hint">
-          Click the baseplate or a brick top. The editor snaps every placement to
-          LEGO grid coordinates.
+          Click the baseplate or an existing brick top. The editor snaps every
+          placement to LEGO grid coordinates.
         </p>
-        <button
-          className="primary-action"
-          type="button"
-          onClick={() => dispatch({ type: "placeAtCenter" })}
-        >
-          Add selected at center
-        </button>
       </section>
     </div>
   );

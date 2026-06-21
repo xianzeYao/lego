@@ -9,7 +9,10 @@ import {
 
 describe("editor sync payloads", () => {
   it("serializes scene state with a revision", () => {
-    const state = editorReducer(createInitialEditorState(), { type: "placeAtCenter" });
+    const state = editorReducer(createInitialEditorState(), {
+      type: "placeCandidate",
+      grid: [24, 24, 0, 0]
+    });
     const payload = makeSyncedScenePayload(state, 7);
 
     expect(payload.revision).toBe(7);
@@ -22,7 +25,10 @@ describe("editor sync payloads", () => {
       type: "selectType",
       brickType: "lego_1x1"
     });
-    const remote = editorReducer(createInitialEditorState(), { type: "placeAtCenter" });
+    const remote = editorReducer(createInitialEditorState(), {
+      type: "placeCandidate",
+      grid: [24, 24, 0, 0]
+    });
 
     const updated = applySyncedScene(local, makeSyncedScenePayload(remote, 3));
 

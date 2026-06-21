@@ -50,19 +50,26 @@ describe("editor reducer", () => {
     expect(payload.task?.steps.map((step) => step.object)).toEqual(["B001", "B002"]);
   });
 
-  it("places the currently selected type at the 48x48 center", () => {
+  it("places the currently selected type on a supported upper layer", () => {
     const selected = editorReducer(createInitialEditorState(), {
       type: "selectType",
       brickType: "lego_1x1"
     });
-
-    const placed = editorReducer(selected, { type: "placeAtCenter" });
-
-    expect(placed.scene.bricks).toHaveLength(1);
-    expect(placed.scene.bricks[0]).toMatchObject({
-      id: "B001",
-      type: "lego_1x1",
+    const lower = editorReducer(selected, {
+      type: "placeCandidate",
       grid: [24, 24, 0, 0]
+    });
+
+    const placed = editorReducer(lower, {
+      type: "placeCandidate",
+      grid: [24, 24, 1, 0]
+    });
+
+    expect(placed.scene.bricks).toHaveLength(2);
+    expect(placed.scene.bricks[1]).toMatchObject({
+      id: "B002",
+      type: "lego_1x1",
+      grid: [24, 24, 1, 0]
     });
   });
 });
