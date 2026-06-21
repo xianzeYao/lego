@@ -15,3 +15,8 @@ log/
 # Local validation artifacts.
 outputs/
 .superpowers/
+
+# JavaScript frontend artifacts.
+node_modules/
+dist/
+*.tsbuildinfo
