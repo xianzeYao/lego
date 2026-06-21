@@ -97,9 +97,9 @@ select {
     linear-gradient(#dce1e8 1px, transparent 1px),
     linear-gradient(90deg, #dce1e8 1px, transparent 1px);
   background-size:
-    calc(100% / 32) calc(100% / 32),
-    calc(100% / 32) calc(100% / 32),
-    calc(100% / 32) calc(100% / 32);
+    calc(100% / 48) calc(100% / 48),
+    calc(100% / 48) calc(100% / 48),
+    calc(100% / 48) calc(100% / 48);
   box-shadow: 0 24px 36px rgba(31, 41, 55, 0.18);
   pointer-events: none;
   transition: opacity 120ms ease;

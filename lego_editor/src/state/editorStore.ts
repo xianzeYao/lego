@@ -71,7 +71,7 @@ export function createInitialEditorState(): EditorState {
   return {
     scene: {
       name: "custom_lego_task",
-      baseplate: { width: 32, depth: 32 },
+      baseplate: { width: 48, depth: 48 },
       bricks: [],
       placementHistory: []
     },

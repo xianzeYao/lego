@@ -1,10 +1,13 @@
 import { OrbitControls } from "@react-three/drei";
-import { Canvas, ThreeEvent, useFrame } from "@react-three/fiber";
+import { Canvas, ThreeEvent, useFrame, useLoader } from "@react-three/fiber";
+import { STLLoader } from "three/examples/jsm/loaders/STLLoader.js";
 import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 
+import { BASEPLATE_ASSET_PATHS, LEGO_ASSET_PATHS } from "../domain/assetPaths";
 import { LEGO_BRICK_SPECS } from "../domain/brickSpecs";
 import { BRICK_BODY_HEIGHT, STUD_PITCH, footprintStuds } from "../domain/grid";
+import { brickAssetOriginWorld, brickCenterWorld, worldPointToGrid } from "../domain/sceneGeometry";
 import type { BrickInstance, GridPose, RgbaColor } from "../domain/types";
 import { validateCandidate } from "../domain/validators";
 import type { EditorAction, EditorState } from "../state/editorStore";
@@ -20,10 +23,7 @@ type HoverCandidate = {
 };
 type ScenePointerEvent = ThreeEvent<MouseEvent | PointerEvent>;
 
-const STUD_HEIGHT = 0.0016;
-const STUD_RADIUS = 0.0024;
-const BASEPLATE_STUD_HEIGHT = 0.0009;
-const BASEPLATE_STUD_RADIUS = 0.0018;
+const STL_SCALE = 0.001;
 
 function colorToThree(color: RgbaColor): string {
   const [r, g, b] = color;
@@ -43,81 +43,6 @@ function dimensions(brick: Pick<BrickInstance, "type" | "grid">) {
   };
 }
 
-function brickCenter(grid: GridPose, type: BrickInstance["type"]): [number, number, number] {
-  const size = dimensions({ type, grid });
-  return [
-    (grid[0] + size.widthStuds / 2 - 16) * STUD_PITCH,
-    grid[2] * BRICK_BODY_HEIGHT + BRICK_BODY_HEIGHT / 2,
-    (grid[1] + size.depthStuds / 2 - 16) * STUD_PITCH
-  ];
-}
-
-function pointToGrid(point: THREE.Vector3, layer: number, orientation: 0 | 1): GridPose {
-  return [
-    Math.max(0, Math.min(31, Math.floor(point.x / STUD_PITCH + 16))),
-    Math.max(0, Math.min(31, Math.floor(point.z / STUD_PITCH + 16))),
-    layer,
-    orientation
-  ];
-}
-
-function BaseplateStuds() {
-  const meshRef = useRef<THREE.InstancedMesh>(null);
-  const dummy = useMemo(() => new THREE.Object3D(), []);
-
-  useLayoutEffect(() => {
-    if (!meshRef.current) {
-      return;
-    }
-    let index = 0;
-    for (let x = 0; x < 32; x += 1) {
-      for (let y = 0; y < 32; y += 1) {
-        dummy.position.set(
-          (x + 0.5 - 16) * STUD_PITCH,
-          BASEPLATE_STUD_HEIGHT / 2,
-          (y + 0.5 - 16) * STUD_PITCH
-        );
-        dummy.updateMatrix();
-        meshRef.current.setMatrixAt(index, dummy.matrix);
-        index += 1;
-      }
-    }
-    meshRef.current.instanceMatrix.needsUpdate = true;
-  }, [dummy]);
-
-  return (
-    <instancedMesh
-      args={[undefined, undefined, 32 * 32]}
-      ref={meshRef}
-      raycast={() => null}
-    >
-      <cylinderGeometry
-        args={[BASEPLATE_STUD_RADIUS, BASEPLATE_STUD_RADIUS, BASEPLATE_STUD_HEIGHT, 12]}
-      />
-      <meshStandardMaterial color="#7f8b9b" roughness={0.58} />
-    </instancedMesh>
-  );
-}
-
-function Studs({ brick }: { brick: BrickInstance }) {
-  const studs = useMemo(() => footprintStuds(LEGO_BRICK_SPECS[brick.type], brick.grid), [brick]);
-  const topY = brick.grid[2] * BRICK_BODY_HEIGHT + BRICK_BODY_HEIGHT + STUD_HEIGHT / 2;
-
-  return (
-    <>
-      {studs.map(([x, y, z]) => (
-        <mesh
-          key={`${x}:${y}:${z}`}
-          position={[(x + 0.5 - 16) * STUD_PITCH, topY, (y + 0.5 - 16) * STUD_PITCH]}
-        >
-          <cylinderGeometry args={[STUD_RADIUS, STUD_RADIUS, STUD_HEIGHT, 20]} />
-          <meshStandardMaterial color={colorToThree(brick.color)} roughness={0.52} />
-        </mesh>
-      ))}
-    </>
-  );
-}
-
 function RenderReady({ onReady }: { onReady: () => void }) {
   const readyRef = useRef(false);
 
@@ -132,8 +57,51 @@ function RenderReady({ onReady }: { onReady: () => void }) {
   return null;
 }
 
+function AssetModel({
+  path,
+  color,
+  opacity = 1
+}: {
+  path: string;
+  color: string;
+  opacity?: number;
+}) {
+  const geometry = useLoader(STLLoader, path);
+  const prepared = useMemo(() => {
+    const clone = geometry.clone();
+    clone.rotateX(-Math.PI / 2);
+    clone.computeVertexNormals();
+    clone.computeBoundingBox();
+    return clone;
+  }, [geometry]);
+
+  return (
+    <mesh geometry={prepared} scale={STL_SCALE} raycast={() => null}>
+      <meshStandardMaterial
+        color={color}
+        opacity={opacity}
+        transparent={opacity < 1}
+        roughness={0.48}
+      />
+    </mesh>
+  );
+}
+
+function BaseplateAsset({ baseplate }: { baseplate: { width: number; depth: number } }) {
+  return (
+    <group position={[0, -0.0016, 0]}>
+      <AssetModel path={BASEPLATE_ASSET_PATHS[48]} color="#8f9aa8" />
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.0018, 0]}>
+        <planeGeometry args={[baseplate.width * STUD_PITCH, baseplate.depth * STUD_PITCH]} />
+        <meshBasicMaterial transparent opacity={0} depthWrite={false} />
+      </mesh>
+    </group>
+  );
+}
+
 function BrickMesh({
   brick,
+  baseplate,
   selected,
   onSelect,
   onTopClick,
@@ -141,6 +109,7 @@ function BrickMesh({
   valid = true
 }: {
   brick: BrickInstance;
+  baseplate: { width: number; depth: number };
   selected?: boolean;
   onSelect?: () => void;
   onTopClick?: (event: ScenePointerEvent, layer: number) => void;
@@ -149,11 +118,24 @@ function BrickMesh({
 }) {
   const size = dimensions(brick);
   const color = ghost ? (valid ? "#2f80ed" : "#d64545") : colorToThree(brick.color);
+  const assetOrigin = brickAssetOriginWorld(brick.grid, brick.type, baseplate);
+  const topCenter = brickCenterWorld(brick.grid, brick.type, baseplate);
 
   return (
     <group>
+      <group
+        position={assetOrigin}
+        rotation={[0, brick.grid[3] === 0 ? 0 : Math.PI / 2, 0]}
+      >
+        <AssetModel
+          path={LEGO_ASSET_PATHS[brick.type]}
+          color={color}
+          opacity={ghost ? 0.46 : 1}
+        />
+      </group>
       <mesh
-        position={brickCenter(brick.grid, brick.type)}
+        position={[topCenter[0], brick.grid[2] * BRICK_BODY_HEIGHT + BRICK_BODY_HEIGHT + 0.001, topCenter[2]]}
+        rotation={[-Math.PI / 2, 0, 0]}
         raycast={ghost ? () => null : undefined}
         onClick={(event) => {
           event.stopPropagation();
@@ -161,17 +143,11 @@ function BrickMesh({
           onTopClick?.(event, brick.grid[2] + 1);
         }}
       >
-        <boxGeometry args={[size.width, size.height, size.depth]} />
-        <meshStandardMaterial
-          color={color}
-          opacity={ghost ? 0.38 : 1}
-          transparent={ghost}
-          roughness={0.48}
-        />
+        <planeGeometry args={[size.width, size.depth]} />
+        <meshBasicMaterial transparent opacity={0} depthWrite={false} />
       </mesh>
-      {!ghost ? <Studs brick={brick} /> : null}
       {selected ? (
-        <mesh position={brickCenter(brick.grid, brick.type)}>
+        <mesh position={brickCenterWorld(brick.grid, brick.type, baseplate)}>
           <boxGeometry args={[size.width + 0.001, size.height + 0.001, size.depth + 0.001]} />
           <meshBasicMaterial color="#111827" wireframe />
         </mesh>
@@ -197,7 +173,12 @@ function SceneContent({
     : null;
 
   function candidateFromEvent(event: ScenePointerEvent, layer: number): HoverCandidate {
-    const grid = pointToGrid(event.point, layer, state.selectedOrientation);
+    const grid = worldPointToGrid(
+      [event.point.x, event.point.z],
+      layer,
+      state.selectedOrientation,
+      state.scene.baseplate
+    );
     const validation = validateCandidate(state.scene, {
       type: state.selectedType,
       grid
@@ -221,21 +202,28 @@ function SceneContent({
       <ambientLight intensity={0.7} />
       <RenderReady onReady={onRendered} />
       <directionalLight position={[0.15, 0.25, 0.18]} intensity={1.2} />
+      <BaseplateAsset baseplate={state.scene.baseplate} />
       <mesh
-        position={[0, -0.0022, 0]}
+        position={[0, 0.002, 0]}
+        rotation={[-Math.PI / 2, 0, 0]}
         onPointerMove={(event) => updateHover(event, 0)}
         onClick={(event) => {
           event.stopPropagation();
           placeCandidate(candidateFromEvent(event, 0));
         }}
       >
-        <boxGeometry args={[32 * STUD_PITCH, 0.0044, 32 * STUD_PITCH]} />
-        <meshStandardMaterial color="#a7b0bd" roughness={0.64} />
+        <planeGeometry
+          args={[
+            state.scene.baseplate.width * STUD_PITCH,
+            state.scene.baseplate.depth * STUD_PITCH
+          ]}
+        />
+        <meshBasicMaterial transparent opacity={0} depthWrite={false} />
       </mesh>
-      <BaseplateStuds />
       {state.scene.bricks.map((brick) => (
         <BrickMesh
           brick={brick}
+          baseplate={state.scene.baseplate}
           key={brick.id}
           selected={state.selectedBrickId === brick.id}
           onSelect={() => dispatch({ type: "selectBrick", brickId: brick.id })}
@@ -246,9 +234,15 @@ function SceneContent({
           }}
         />
       ))}
-      {ghostBrick ? <BrickMesh brick={ghostBrick} ghost valid={hover?.valid ?? false} /> : null}
-      <gridHelper args={[0.256, 32, "#4b5563", "#d9dde4"]} position={[0, 0.001, 0]} />
-      <OrbitControls makeDefault maxPolarAngle={Math.PI / 2.05} minDistance={0.18} />
+      {ghostBrick ? (
+        <BrickMesh
+          brick={ghostBrick}
+          baseplate={state.scene.baseplate}
+          ghost
+          valid={hover?.valid ?? false}
+        />
+      ) : null}
+      <OrbitControls makeDefault maxPolarAngle={Math.PI / 2.05} minDistance={0.22} />
     </>
   );
 }
@@ -267,7 +261,7 @@ export function LegoScene({ state, dispatch }: Props) {
         aria-hidden="true"
       />
       <Canvas
-        camera={{ position: [0.18, 0.2, 0.2], fov: 38 }}
+        camera={{ position: [0.28, 0.28, 0.3], fov: 38 }}
         gl={{ alpha: true, antialias: true }}
         onCreated={({ scene }) => {
           scene.background = null;

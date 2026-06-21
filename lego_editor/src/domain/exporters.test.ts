@@ -24,7 +24,7 @@ const history: PlacementStep[] = [
 
 const scene: SceneState = {
   name: "custom_lego_task",
-  baseplate: { width: 32, depth: 32 },
+  baseplate: { width: 48, depth: 48 },
   bricks: [brick],
   placementHistory: history
 };
@@ -34,8 +34,8 @@ describe("exporters", () => {
     expect(exportSettings(scene)).toEqual({
       name: "custom_lego_task",
       plate: {
-        width: 32,
-        depth: 32
+        width: 48,
+        depth: 48
       },
       bricks: [
         {
