@@ -7,7 +7,11 @@ import * as THREE from "three";
 import { EDITOR_BUILD_ID } from "../buildInfo";
 import { BASEPLATE_ASSET_PATHS, LEGO_ASSET_PATHS } from "../domain/assetPaths";
 import { LEGO_BRICK_SPECS } from "../domain/brickSpecs";
-import { formatBooleanStatus, summarizeAssetStatus } from "../domain/clientDiagnostics";
+import {
+  formatBooleanStatus,
+  summarizeAssetStatus,
+  webglUnavailableMessage
+} from "../domain/clientDiagnostics";
 import { BRICK_BODY_HEIGHT, STUD_PITCH, footprintStuds } from "../domain/grid";
 import { brickAssetOriginWorld, brickCenterWorld, worldPointToGrid } from "../domain/sceneGeometry";
 import type { BrickInstance, GridPose, RgbaColor } from "../domain/types";
@@ -37,6 +41,20 @@ const PRELOAD_ASSET_PATHS = [
   BASEPLATE_ASSET_PATHS[48],
   ...Object.values(LEGO_ASSET_PATHS)
 ];
+
+function detectWebglSupport(): boolean {
+  if (typeof document === "undefined") {
+    return false;
+  }
+
+  try {
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("webgl2") || canvas.getContext("webgl");
+    return Boolean(context);
+  } catch {
+    return false;
+  }
+}
 
 function colorToThree(color: RgbaColor): string {
   const [r, g, b] = color;
@@ -271,24 +289,25 @@ function SceneContent({
 export function LegoScene({ state, dispatch }: Props) {
   const [sceneRendered, setSceneRendered] = useState(false);
   const [diagnostics, setDiagnostics] = useState<DiagnosticState>(() => ({
-    webgl: false,
+    webgl: detectWebglSupport(),
     rendererFrame: false,
     assetChecked: 0,
     assetFailed: 0,
     viewport:
       typeof window === "undefined" ? "server" : `${window.innerWidth}x${window.innerHeight}`
   }));
+  const webglWarning = webglUnavailableMessage(diagnostics.webgl);
 
   useLayoutEffect(() => {
+    if (!diagnostics.webgl) {
+      return;
+    }
     preloadEditorAssets();
-  }, []);
+  }, [diagnostics.webgl]);
 
   useLayoutEffect(() => {
-    const canvas = document.createElement("canvas");
-    const webgl = Boolean(
-      canvas.getContext("webgl2") || canvas.getContext("webgl")
-    );
     const updateViewport = () => {
+      const webgl = detectWebglSupport();
       setDiagnostics((current) => ({
         ...current,
         webgl,
@@ -358,22 +377,29 @@ export function LegoScene({ state, dispatch }: Props) {
         }
         aria-hidden="true"
       />
-      <Canvas
-        camera={{ position: [0.28, 0.28, 0.3], fov: 38 }}
-        gl={{ alpha: true, antialias: true }}
-        onCreated={({ scene }) => {
-          scene.background = null;
-        }}
-      >
-        <SceneContent
-          state={state}
-          dispatch={dispatch}
-          onRendered={() => {
-            setSceneRendered(true);
-            setDiagnostics((current) => ({ ...current, rendererFrame: true }));
+      {webglWarning ? (
+        <div className="scene-webgl-warning" role="status">
+          <strong>WebGL unavailable</strong>
+          <span>{webglWarning}</span>
+        </div>
+      ) : (
+        <Canvas
+          camera={{ position: [0.28, 0.28, 0.3], fov: 38 }}
+          gl={{ alpha: true, antialias: true }}
+          onCreated={({ scene }) => {
+            scene.background = null;
           }}
-        />
-      </Canvas>
+        >
+          <SceneContent
+            state={state}
+            dispatch={dispatch}
+            onRendered={() => {
+              setSceneRendered(true);
+              setDiagnostics((current) => ({ ...current, rendererFrame: true }));
+            }}
+          />
+        </Canvas>
+      )}
     </div>
   );
 }

@@ -16,3 +16,10 @@ export function summarizeAssetStatus({
   }
   return failed === 0 ? "ok" : "failed";
 }
+
+export function webglUnavailableMessage(webgl: boolean): string | null {
+  if (webgl) {
+    return null;
+  }
+  return "WebGL is disabled in this browser. Enable graphics acceleration or open the editor in a browser profile with WebGL available.";
+}

@@ -133,6 +133,29 @@ select {
   opacity: 0;
 }
 
+.scene-webgl-warning {
+  position: absolute;
+  left: 50%;
+  top: 34%;
+  z-index: 2;
+  display: grid;
+  width: min(520px, calc(100% - 48px));
+  transform: translateX(-50%);
+  gap: 6px;
+  border: 1px solid #f1b6b6;
+  border-radius: 6px;
+  background: rgba(255, 247, 247, 0.94);
+  padding: 12px 14px;
+  color: #8a2323;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.scene-webgl-warning strong {
+  color: #681919;
+  font-size: 14px;
+}
+
 .library,
 .inspector {
   display: flex;
