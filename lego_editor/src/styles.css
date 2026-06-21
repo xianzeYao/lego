@@ -68,10 +68,45 @@ select {
 }
 
 .scene-canvas {
+  position: relative;
+  overflow: hidden;
   height: 100%;
   min-height: 420px;
   border: 1px solid #c8d0db;
   background: #ffffff;
+}
+
+.scene-canvas canvas {
+  position: relative;
+  z-index: 1;
+}
+
+.scene-baseplate-fallback {
+  position: absolute;
+  left: 50%;
+  top: 48%;
+  z-index: 0;
+  width: min(82%, 780px);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%) rotateX(58deg) rotateZ(45deg);
+  transform-origin: center;
+  border: 2px solid #6e7a89;
+  background-color: #a6b0bd;
+  background-image:
+    radial-gradient(circle at center, #5f6b78 0 11%, transparent 12%),
+    linear-gradient(#dce1e8 1px, transparent 1px),
+    linear-gradient(90deg, #dce1e8 1px, transparent 1px);
+  background-size:
+    calc(100% / 32) calc(100% / 32),
+    calc(100% / 32) calc(100% / 32),
+    calc(100% / 32) calc(100% / 32);
+  box-shadow: 0 24px 36px rgba(31, 41, 55, 0.18);
+  pointer-events: none;
+  transition: opacity 120ms ease;
+}
+
+.scene-baseplate-fallback.hidden {
+  opacity: 0;
 }
 
 .library,

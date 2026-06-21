@@ -1,5 +1,5 @@
 import { OrbitControls } from "@react-three/drei";
-import { Canvas, ThreeEvent } from "@react-three/fiber";
+import { Canvas, ThreeEvent, useFrame } from "@react-three/fiber";
 import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 
@@ -118,6 +118,20 @@ function Studs({ brick }: { brick: BrickInstance }) {
   );
 }
 
+function RenderReady({ onReady }: { onReady: () => void }) {
+  const readyRef = useRef(false);
+
+  useFrame(() => {
+    if (readyRef.current) {
+      return;
+    }
+    readyRef.current = true;
+    onReady();
+  });
+
+  return null;
+}
+
 function BrickMesh({
   brick,
   selected,
@@ -166,7 +180,11 @@ function BrickMesh({
   );
 }
 
-function SceneContent({ state, dispatch }: Props) {
+function SceneContent({
+  state,
+  dispatch,
+  onRendered
+}: Props & { onRendered: () => void }) {
   const [hover, setHover] = useState<HoverCandidate | null>(null);
   const ghostBrick: BrickInstance | null = hover
     ? {
@@ -201,6 +219,7 @@ function SceneContent({ state, dispatch }: Props) {
   return (
     <>
       <ambientLight intensity={0.7} />
+      <RenderReady onReady={onRendered} />
       <directionalLight position={[0.15, 0.25, 0.18]} intensity={1.2} />
       <mesh
         position={[0, -0.0022, 0]}
@@ -235,16 +254,30 @@ function SceneContent({ state, dispatch }: Props) {
 }
 
 export function LegoScene({ state, dispatch }: Props) {
+  const [sceneRendered, setSceneRendered] = useState(false);
+
   return (
     <div className="scene-canvas">
+      <div
+        className={
+          sceneRendered
+            ? "scene-baseplate-fallback hidden"
+            : "scene-baseplate-fallback"
+        }
+        aria-hidden="true"
+      />
       <Canvas
-        camera={{ position: [0.2, 0.24, 0.24], fov: 42 }}
-        gl={{ alpha: false, antialias: true }}
+        camera={{ position: [0.18, 0.2, 0.2], fov: 38 }}
+        gl={{ alpha: true, antialias: true }}
         onCreated={({ scene }) => {
-          scene.background = new THREE.Color("#ffffff");
+          scene.background = null;
         }}
       >
-        <SceneContent state={state} dispatch={dispatch} />
+        <SceneContent
+          state={state}
+          dispatch={dispatch}
+          onRendered={() => setSceneRendered(true)}
+        />
       </Canvas>
     </div>
   );
