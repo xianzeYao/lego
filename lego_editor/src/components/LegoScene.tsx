@@ -41,8 +41,13 @@ const PRELOAD_ASSET_PATHS = [
   BASEPLATE_ASSET_PATHS[48],
   ...Object.values(LEGO_ASSET_PATHS)
 ];
+let cachedWebglSupport: boolean | null = null;
 
 function detectWebglSupport(): boolean {
+  if (cachedWebglSupport !== null) {
+    return cachedWebglSupport;
+  }
+
   if (typeof document === "undefined") {
     return false;
   }
@@ -54,13 +59,15 @@ function detectWebglSupport(): boolean {
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
       antialias: true,
-      canvas
+      canvas,
+      powerPreference: "high-performance"
     });
-    renderer.forceContextLoss();
     renderer.dispose();
-    return true;
+    cachedWebglSupport = true;
+    return cachedWebglSupport;
   } catch {
-    return false;
+    cachedWebglSupport = false;
+    return cachedWebglSupport;
   } finally {
     console.error = previousConsoleError;
   }
