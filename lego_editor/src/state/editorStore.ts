@@ -27,6 +27,7 @@ export type EditorAction =
   | { type: "selectColor"; color: RgbaColor }
   | { type: "rotate" }
   | { type: "selectBrick"; brickId: string | null }
+  | { type: "placeAtCenter" }
   | { type: "placeCandidate"; grid: GridPose }
   | { type: "removeBrick"; brickId: string }
   | {
@@ -100,6 +101,16 @@ export function editorReducer(state: EditorState, action: EditorAction): EditorS
       };
     case "selectBrick":
       return { ...state, selectedBrickId: action.brickId };
+    case "placeAtCenter":
+      return editorReducer(state, {
+        type: "placeCandidate",
+        grid: [
+          Math.floor(state.scene.baseplate.width / 2),
+          Math.floor(state.scene.baseplate.depth / 2),
+          0,
+          state.selectedOrientation
+        ]
+      });
     case "placeCandidate": {
       const grid: GridPose = [
         action.grid[0],

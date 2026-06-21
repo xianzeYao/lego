@@ -189,6 +189,30 @@ select {
   gap: 6px;
 }
 
+.selected-summary {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: 8px;
+  border-radius: 6px;
+  background: #eef4ff;
+  padding: 9px 10px;
+  font-size: 13px;
+}
+
+.selected-summary span {
+  color: #667085;
+}
+
+.primary-action {
+  min-height: 38px;
+  border: 1px solid #1f6feb;
+  border-radius: 6px;
+  background: #1f6feb;
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: 700;
+}
+
 .status {
   border-radius: 6px;
   padding: 8px 10px;

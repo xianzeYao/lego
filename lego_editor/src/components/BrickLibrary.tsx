@@ -58,6 +58,10 @@ export function BrickLibrary({ state, dispatch }: Props) {
 
       <section className="panel-section">
         <h2>Placement</h2>
+        <div className="selected-summary">
+          <span>Selected</span>
+          <strong>{LEGO_BRICK_SPECS[state.selectedType].label}</strong>
+        </div>
         <div className="segmented-control">
           <button
             className={state.selectedOrientation === 0 ? "active" : ""}
@@ -82,6 +86,13 @@ export function BrickLibrary({ state, dispatch }: Props) {
           Click the baseplate or a brick top. The editor snaps every placement to
           LEGO grid coordinates.
         </p>
+        <button
+          className="primary-action"
+          type="button"
+          onClick={() => dispatch({ type: "placeAtCenter" })}
+        >
+          Add selected at center
+        </button>
       </section>
     </div>
   );
