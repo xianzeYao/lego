@@ -14,3 +14,4 @@ log/
 
 # Local validation artifacts.
 outputs/
+.superpowers/
