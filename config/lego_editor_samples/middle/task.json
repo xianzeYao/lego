@@ -1,0 +1,509 @@
+{
+  "name": "lego_editor_middle_apex_mr_letters",
+  "steps": [
+    {
+      "name": "place_B001",
+      "object": "B001",
+      "pick": {
+        "grid": [
+          8,
+          2,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          4,
+          4,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B002",
+      "object": "B002",
+      "pick": {
+        "grid": [
+          0,
+          2,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          4,
+          12,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B003",
+      "object": "B003",
+      "pick": {
+        "grid": [
+          8,
+          5,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          4,
+          20,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B004",
+      "object": "B004",
+      "pick": {
+        "grid": [
+          0,
+          5,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          4,
+          28,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B009",
+      "object": "B009",
+      "pick": {
+        "grid": [
+          0,
+          11,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          8,
+          20,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B010",
+      "object": "B010",
+      "pick": {
+        "grid": [
+          8,
+          14,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          12,
+          12,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B011",
+      "object": "B011",
+      "pick": {
+        "grid": [
+          0,
+          14,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          16,
+          20,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B005",
+      "object": "B005",
+      "pick": {
+        "grid": [
+          8,
+          8,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          20,
+          4,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B006",
+      "object": "B006",
+      "pick": {
+        "grid": [
+          5,
+          8,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          20,
+          12,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B007",
+      "object": "B007",
+      "pick": {
+        "grid": [
+          2,
+          8,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          20,
+          20,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B008",
+      "object": "B008",
+      "pick": {
+        "grid": [
+          8,
+          11,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          20,
+          28,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B012",
+      "object": "B012",
+      "pick": {
+        "grid": [
+          0,
+          17,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          26,
+          4,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B013",
+      "object": "B013",
+      "pick": {
+        "grid": [
+          0,
+          20,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          26,
+          12,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B014",
+      "object": "B014",
+      "pick": {
+        "grid": [
+          0,
+          23,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          26,
+          20,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B015",
+      "object": "B015",
+      "pick": {
+        "grid": [
+          8,
+          26,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          26,
+          28,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B018",
+      "object": "B018",
+      "pick": {
+        "grid": [
+          0,
+          29,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          30,
+          4,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B017",
+      "object": "B017",
+      "pick": {
+        "grid": [
+          8,
+          29,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          30,
+          20,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B016",
+      "object": "B016",
+      "pick": {
+        "grid": [
+          0,
+          26,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          30,
+          28,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    }
+  ]
+}

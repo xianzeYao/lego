@@ -1,4 +1,5 @@
 import { BRICK_TYPES, LEGO_BRICK_SPECS } from "../domain/brickSpecs";
+import { createSampleScene, type SampleDifficulty } from "../domain/sampleScenes";
 import { EDITOR_BUILD_ID } from "../buildInfo";
 import type { EditorAction, EditorState } from "../state/editorStore";
 import { DEFAULT_COLORS } from "../state/editorStore";
@@ -16,6 +17,12 @@ function rgbaToCss(color: [number, number, number, number]): string {
 }
 
 export function BrickLibrary({ state, dispatch }: Props) {
+  const samples: Array<{ id: SampleDifficulty; label: string }> = [
+    { id: "easy", label: "Easy" },
+    { id: "middle", label: "Middle" },
+    { id: "hard", label: "Hard" }
+  ];
+
   return (
     <div className="library">
       <div className="panel-title">
@@ -92,6 +99,27 @@ export function BrickLibrary({ state, dispatch }: Props) {
           middle/right drag pans, wheel zooms, and the view cube switches camera
           direction.
         </p>
+      </section>
+
+      <section className="panel-section">
+        <h2>Samples</h2>
+        <div className="sample-actions">
+          {samples.map((sample) => (
+            <button
+              key={sample.id}
+              type="button"
+              onClick={() =>
+                dispatch({
+                  type: "replaceScene",
+                  scene: createSampleScene(sample.id),
+                  revision: 0
+                })
+              }
+            >
+              {sample.label}
+            </button>
+          ))}
+        </div>
       </section>
     </div>
   );

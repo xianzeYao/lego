@@ -226,6 +226,11 @@ select {
   color: #164fba;
 }
 
+.placement-label.warning {
+  border-color: #f2a900;
+  color: #8a5a00;
+}
+
 .placement-label.error {
   border-color: #d64545;
   color: #9b2c2c;
@@ -267,6 +272,7 @@ select {
 }
 
 .tool-button,
+.sample-actions button,
 .segmented-control button,
 .export-actions button,
 .order-list button,
@@ -289,6 +295,12 @@ select {
 .color-row {
   display: flex;
   flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sample-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
 }
 
@@ -384,6 +396,15 @@ select {
   border-color: #e4a1a1;
   background: #fff6f6;
   color: #9b2c2c;
+}
+
+.clear-button {
+  width: 100%;
+}
+
+.danger-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 .order-list {

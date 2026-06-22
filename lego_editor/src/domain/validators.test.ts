@@ -59,26 +59,40 @@ describe("placement validation", () => {
     expect(result.errors).toEqual([]);
   });
 
-  it("blocks upper placements unless every projected stud is supported", () => {
-    const result = validateCandidate(scene([brick("B001", [8, 8, 0, 0], 1)]), {
-      type: "lego_2x8",
-      grid: [8, 8, 1, 0]
-    });
+  it("allows upper placements with partial lower support and warns when support is low", () => {
+    const result = validateCandidate(
+      scene([brick("B001", [8, 8, 0, 0], 1, "lego_1x1")]),
+      {
+        type: "lego_2x8",
+        grid: [8, 8, 1, 0]
+      }
+    );
 
-    expect(result.valid).toBe(false);
-    expect(result.errors).toContain(
-      "Layer 1 placement is missing lower support for 8 studs."
+    expect(result.valid).toBe(true);
+    expect(result.errors).toEqual([]);
+    expect(result.warnings).toContain(
+      "Layer 1 placement has low support: 1 of 16 studs."
     );
   });
 
-  it("blocks inserting a lower brick under an existing upper brick", () => {
+  it("allows upper placements with at least one supported stud", () => {
+    const result = validateCandidate(scene([brick("B001", [8, 8, 0, 0], 1)]), {
+      type: "lego_2x4",
+      grid: [11, 9, 1, 0]
+    });
+
+    expect(result.valid).toBe(true);
+    expect(result.errors).toEqual([]);
+  });
+
+  it("allows editing a lower brick under an existing upper brick", () => {
     const result = validateCandidate(scene([brick("B002", [8, 8, 1, 0], 2)]), {
       type: "lego_2x4",
       grid: [8, 8, 0, 0]
     });
 
-    expect(result.valid).toBe(false);
-    expect(result.errors).toContain("Cannot insert below existing upper brick B002.");
+    expect(result.valid).toBe(true);
+    expect(result.errors).toEqual([]);
   });
 });
 
@@ -106,5 +120,17 @@ describe("construction order", () => {
     expect(result.ok).toBe(true);
     expect(result.reordered).toBe(true);
     expect(result.brickIds).toEqual(["B001", "B002"]);
+  });
+
+  it("orders same-layer bricks from smaller x to larger x", () => {
+    const right = brick("B001", [12, 8, 0, 0], 1);
+    const left = brick("B002", [4, 8, 0, 0], 2);
+    const result = sortBuildOrder(scene([right, left], [
+      { stepId: "s1", brickId: "B001", type: "lego_2x4", grid: right.grid, timestamp: 1 },
+      { stepId: "s2", brickId: "B002", type: "lego_2x4", grid: left.grid, timestamp: 2 }
+    ]));
+
+    expect(result.ok).toBe(true);
+    expect(result.brickIds).toEqual(["B002", "B001"]);
   });
 });

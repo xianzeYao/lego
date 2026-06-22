@@ -1,0 +1,783 @@
+{
+  "name": "lego_editor_hard_pixel_camera",
+  "steps": [
+    {
+      "name": "place_B001",
+      "object": "B001",
+      "pick": {
+        "grid": [
+          8,
+          2,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          10,
+          12,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B007",
+      "object": "B007",
+      "pick": {
+        "grid": [
+          8,
+          8,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          10,
+          16,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B013",
+      "object": "B013",
+      "pick": {
+        "grid": [
+          6,
+          14,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          10,
+          20,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B019",
+      "object": "B019",
+      "pick": {
+        "grid": [
+          6,
+          20,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          10,
+          24,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B025",
+      "object": "B025",
+      "pick": {
+        "grid": [
+          8,
+          30,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 0
+      },
+      "place": {
+        "grid": [
+          14,
+          8,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B002",
+      "object": "B002",
+      "pick": {
+        "grid": [
+          5,
+          2,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          14,
+          12,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B008",
+      "object": "B008",
+      "pick": {
+        "grid": [
+          5,
+          8,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          14,
+          16,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B014",
+      "object": "B014",
+      "pick": {
+        "grid": [
+          3,
+          14,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          14,
+          20,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B020",
+      "object": "B020",
+      "pick": {
+        "grid": [
+          3,
+          20,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          14,
+          24,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B003",
+      "object": "B003",
+      "pick": {
+        "grid": [
+          2,
+          2,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          18,
+          12,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B009",
+      "object": "B009",
+      "pick": {
+        "grid": [
+          2,
+          8,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          18,
+          16,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B015",
+      "object": "B015",
+      "pick": {
+        "grid": [
+          0,
+          14,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          18,
+          20,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B021",
+      "object": "B021",
+      "pick": {
+        "grid": [
+          0,
+          20,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          18,
+          24,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B026",
+      "object": "B026",
+      "pick": {
+        "grid": [
+          2,
+          30,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": 0
+      },
+      "place": {
+        "grid": [
+          22,
+          8,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B004",
+      "object": "B004",
+      "pick": {
+        "grid": [
+          8,
+          5,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          22,
+          12,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B010",
+      "object": "B010",
+      "pick": {
+        "grid": [
+          6,
+          11,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          22,
+          16,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B016",
+      "object": "B016",
+      "pick": {
+        "grid": [
+          6,
+          17,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          22,
+          20,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B022",
+      "object": "B022",
+      "pick": {
+        "grid": [
+          6,
+          23,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          22,
+          24,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B005",
+      "object": "B005",
+      "pick": {
+        "grid": [
+          5,
+          5,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          26,
+          12,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B011",
+      "object": "B011",
+      "pick": {
+        "grid": [
+          3,
+          11,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          26,
+          16,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B017",
+      "object": "B017",
+      "pick": {
+        "grid": [
+          3,
+          17,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          26,
+          20,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B023",
+      "object": "B023",
+      "pick": {
+        "grid": [
+          3,
+          23,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          26,
+          24,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B006",
+      "object": "B006",
+      "pick": {
+        "grid": [
+          2,
+          5,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          30,
+          12,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B012",
+      "object": "B012",
+      "pick": {
+        "grid": [
+          0,
+          11,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          30,
+          16,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B018",
+      "object": "B018",
+      "pick": {
+        "grid": [
+          0,
+          17,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          30,
+          20,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B024",
+      "object": "B024",
+      "pick": {
+        "grid": [
+          0,
+          23,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          30,
+          24,
+          0,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B027",
+      "object": "B027",
+      "pick": {
+        "grid": [
+          6,
+          26,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          18,
+          16,
+          1,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    },
+    {
+      "name": "place_B028",
+      "object": "B028",
+      "pick": {
+        "grid": [
+          3,
+          26,
+          0,
+          0
+        ],
+        "press_side": 1,
+        "press_offset": [
+          0,
+          1
+        ]
+      },
+      "place": {
+        "grid": [
+          22,
+          16,
+          1,
+          0
+        ]
+      },
+      "planning": {
+        "press_strategy": "auto_candidate"
+      }
+    }
+  ]
+}

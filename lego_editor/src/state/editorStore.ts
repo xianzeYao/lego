@@ -31,6 +31,7 @@ export type EditorAction =
   | { type: "replaceScene"; scene: SceneState; revision: number }
   | { type: "placeCandidate"; grid: GridPose }
   | { type: "removeBrick"; brickId: string }
+  | { type: "clearScene" }
   | {
       type: "updatePressStrategy";
       brickId: string;
@@ -202,6 +203,17 @@ export function editorReducer(state: EditorState, action: EditorAction): EditorS
         }
       };
     }
+    case "clearScene":
+      return {
+        ...state,
+        selectedBrickId: null,
+        lastValidation: emptyValidation,
+        scene: {
+          ...state.scene,
+          bricks: [],
+          placementHistory: []
+        }
+      };
     case "updatePressStrategy":
       return {
         ...state,

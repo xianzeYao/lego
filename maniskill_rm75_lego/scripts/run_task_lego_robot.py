@@ -190,6 +190,17 @@ def _brick_pose_from_grid(plate_top: np.ndarray, brick_type: str, grid_values: l
     )
 
 
+def _grid_footprint(brick_type: str, grid_values: list[int]) -> set[tuple[int, int, int]]:
+    spec = BRICK_BY_NAME[brick_type]
+    x, y, z, ori = [int(value) for value in grid_values]
+    width, depth = (spec.studs_x, spec.studs_y) if ori == 0 else (spec.studs_y, spec.studs_x)
+    return {
+        (x + dx, y + dy, z)
+        for dx in range(width)
+        for dy in range(depth)
+    }
+
+
 def _pose_to_matrix_any(pose) -> np.ndarray:
     raw = pose.to_transformation_matrix()
     raw = as_numpy(raw)
@@ -345,6 +356,7 @@ class BrickCollisionAuditor:
             {
                 "a": key[0],
                 "b": key[1],
+                "kinds": {},
                 "count": 0,
                 "max_volume_m3": 0.0,
                 "max_overlap_m": [0.0, 0.0, 0.0],
@@ -355,6 +367,8 @@ class BrickCollisionAuditor:
         entry["max_volume_m3"] = max(entry["max_volume_m3"], row["volume_m3"])
         entry["max_overlap_m"] = np.maximum(entry["max_overlap_m"], row["overlap_m"]).tolist()
         entry["stages"][stage] = entry["stages"].get(stage, 0) + 1
+        kind = row.get("kind", "brick_overlap")
+        entry["kinds"][kind] = entry["kinds"].get(kind, 0) + 1
 
     def _brick_overlaps(self) -> list[dict]:
         ids = sorted(self.brick_cfgs_by_id)
@@ -405,6 +419,7 @@ class BrickCollisionAuditor:
                 self._record(
                     stage,
                     {
+                        "kind": "tool_clearance",
                         "a": "tool",
                         "b": brick_id,
                         "overlap_m": np.round(overlap, 7).tolist(),
@@ -424,6 +439,7 @@ class BrickCollisionAuditor:
             print(
                 "[collision audit] "
                 f"{row['a']} <-> {row['b']} count={row['count']} "
+                f"kinds={row['kinds']} "
                 f"max_overlap_m={np.round(row['max_overlap_m'], 6).tolist()} "
                 f"top_stages={top_stages}"
             )
@@ -505,6 +521,8 @@ def main() -> int:
     released = True
     active_stage = "init"
     placed_ids: set[str] = set()
+    placed_grids_by_id: dict[str, list[int]] = {}
+    tool_ignore_ids: set[str] = set()
     tool_audit_box = np.asarray(args.tool_audit_box, dtype=np.float64)
     tool_audit_box_center = tool_audit_box[:3]
     tool_audit_box_size = tool_audit_box[3:]
@@ -515,10 +533,10 @@ def main() -> int:
             args.collision_overlap_tol,
             args.collision_z_overlap_tol,
         )
-        if args.audit_collisions
+        if args.audit_collisions or args.audit_tool_collisions
         else None
     )
-    if collision_auditor is not None:
+    if collision_auditor is not None and args.audit_collisions:
         collision_auditor.sample("initial")
 
     def current_contact_mat() -> np.ndarray:
@@ -533,10 +551,33 @@ def main() -> int:
             current_mats[brick_id] = mat
             actors_by_id[brick_id].set_pose(matrix_to_sapien_pose(mat))
 
+    def direct_support_ids(target_grids: dict[str, list[int]]) -> set[str]:
+        supports: set[str] = set()
+        target_support_keys: set[tuple[int, int, int]] = set()
+        for brick_id, grid in target_grids.items():
+            cfg = brick_cfgs_by_id[brick_id]
+            z = int(grid[2])
+            if z <= 0:
+                continue
+            target_support_keys.update(
+                (x, y, z - 1)
+                for x, y, _ in _grid_footprint(cfg.type, list(grid))
+            )
+
+        if not target_support_keys:
+            return supports
+
+        for brick_id, grid in placed_grids_by_id.items():
+            cfg = brick_cfgs_by_id[brick_id]
+            if _grid_footprint(cfg.type, list(grid)) & target_support_keys:
+                supports.add(brick_id)
+        return supports
+
     def render_step() -> None:
         update_attached()
         if collision_auditor is not None:
-            collision_auditor.sample(active_stage)
+            if args.audit_collisions:
+                collision_auditor.sample(active_stage)
             if args.audit_tool_collisions:
                 tool_box_mat = current_contact_mat() @ translation_matrix(tool_audit_box_center)
                 include_ids = placed_ids if args.tool_collision_scope == "placed" else None
@@ -544,7 +585,7 @@ def main() -> int:
                     active_stage,
                     tool_box_mat,
                     tool_audit_box_size,
-                    ignore_ids=set(attached_ids),
+                    ignore_ids=set(attached_ids) | tool_ignore_ids,
                     include_ids=include_ids,
                 )
         base_env.update_markers()
@@ -680,7 +721,8 @@ def main() -> int:
         )
         pick_upright_contact = shifted_pose(pick_down_contact, [0.0, 0.0, args.pick_up_height])
 
-        target_ref_grid = op.place.target_grids[reference_id]
+        target_place_grids = {brick_id: list(grid) for brick_id, grid in op.place.target_grids.items()}
+        target_ref_grid = target_place_grids[reference_id]
         target_ref_mat = pose_to_matrix(_brick_pose_from_grid(plate_top, ref_cfg.type, target_ref_grid))
         ref_contact_t_object = invert_transform(pick_contact) @ current_mats[reference_id]
         place_contact = target_ref_mat @ invert_transform(ref_contact_t_object)
@@ -744,6 +786,10 @@ def main() -> int:
         ):
             return 1
         hold(f"{op.name}/attached_hold")
+        tool_ignore_ids = direct_support_ids(target_place_grids)
+        if tool_ignore_ids:
+            print(f"[collision audit] ignoring direct supports during {op.name} place: {sorted(tool_ignore_ids)}")
+
         for stage, contact_pose, steps in [
             ("transfer", transfer_contact, None),
             ("pre_place", pre_place_contact, None),
@@ -762,9 +808,11 @@ def main() -> int:
         released = True
         for brick_id in object_ids:
             cfg = brick_cfgs_by_id[brick_id]
-            target_mat = pose_to_matrix(_brick_pose_from_grid(plate_top, cfg.type, op.place.target_grids[brick_id]))
+            target_grid = target_place_grids[brick_id]
+            target_mat = pose_to_matrix(_brick_pose_from_grid(plate_top, cfg.type, target_grid))
             current_mats[brick_id] = target_mat
             actors_by_id[brick_id].set_pose(matrix_to_sapien_pose(target_mat))
+            placed_grids_by_id[brick_id] = target_grid
         placed_ids.update(object_ids)
         print(f"[release] snap {object_ids} to target grids")
         if not run_stage(
@@ -778,6 +826,7 @@ def main() -> int:
             solve_contact_path(place_up_contact, f"{op.name}/place_up"),
         ):
             return 1
+        tool_ignore_ids = set()
 
         if op.place.pause_after:
             print(f"[pause] {op.place.pause_after}")
@@ -792,7 +841,8 @@ def main() -> int:
     ):
         return 1
     if collision_auditor is not None:
-        collision_auditor.sample("final")
+        if args.audit_collisions:
+            collision_auditor.sample("final")
         collision_auditor.print_summary()
         if args.collision_log:
             collision_auditor.write_json(args.collision_log)

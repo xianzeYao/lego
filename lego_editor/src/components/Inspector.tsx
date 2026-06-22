@@ -18,6 +18,15 @@ export function Inspector({ state, dispatch }: Props) {
         <span>{state.scene.bricks.length} bricks</span>
       </div>
 
+      <button
+        className="danger-button clear-button"
+        disabled={state.scene.bricks.length === 0}
+        type="button"
+        onClick={() => dispatch({ type: "clearScene" })}
+      >
+        Clear All
+      </button>
+
       <section className="panel-section">
         <h3>Legality</h3>
         <div className={state.lastValidation.valid ? "status ok" : "status error"}>

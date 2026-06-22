@@ -27,6 +27,7 @@ type Props = {
 type HoverCandidate = {
   grid: GridPose;
   valid: boolean;
+  warning: boolean;
   messages: string[];
 };
 type ScenePointerEvent = ThreeEvent<MouseEvent | PointerEvent>;
@@ -162,7 +163,8 @@ function BrickMesh({
   onTopHover,
   onTopClick,
   ghost = false,
-  valid = true
+  valid = true,
+  warning = false
 }: {
   brick: BrickInstance;
   baseplate: { width: number; depth: number };
@@ -171,9 +173,16 @@ function BrickMesh({
   onTopClick?: (event: ScenePointerEvent, layer: number, surfaceBrick: BrickInstance) => void;
   ghost?: boolean;
   valid?: boolean;
+  warning?: boolean;
 }) {
   const size = dimensions(brick);
-  const color = ghost ? (valid ? "#2f80ed" : "#d64545") : colorToThree(brick.color);
+  const color = ghost
+    ? valid
+      ? warning
+        ? "#f2a900"
+        : "#2f80ed"
+      : "#d64545"
+    : colorToThree(brick.color);
   const assetOrigin = brickAssetOriginWorld(brick.grid, brick.type, baseplate);
   const topCenter = brickCenterWorld(brick.grid, brick.type, baseplate);
 
@@ -226,7 +235,7 @@ function PlacementLabel({
   selectedType: BrickInstance["type"];
   baseplate: { width: number; depth: number };
 }) {
-  const [x, y, z] = candidate.grid;
+  const [x, y, z, ori] = candidate.grid;
   const position = brickCenterWorld(candidate.grid, selectedType, baseplate);
   const firstMessage = candidate.messages[0];
 
@@ -236,9 +245,19 @@ function PlacementLabel({
       position={[position[0], position[1] + BRICK_BODY_HEIGHT * 0.85, position[2]]}
       style={{ pointerEvents: "none" }}
     >
-      <div className={candidate.valid ? "placement-label ok" : "placement-label error"}>
-        <strong>{candidate.valid ? "Place" : "Blocked"}</strong>
-        <span>[{x}, {y}, {z}]</span>
+      <div
+        className={
+          candidate.valid
+            ? candidate.warning
+              ? "placement-label warning"
+              : "placement-label ok"
+            : "placement-label error"
+        }
+      >
+        <strong>
+          {candidate.valid ? (candidate.warning ? "Place?" : "Place") : "Blocked"}
+        </strong>
+        <span>[{x}, {y}, {z}, {ori}]</span>
         {firstMessage ? <em>{firstMessage}</em> : null}
       </div>
     </Html>
@@ -251,7 +270,10 @@ function SceneContent({
   onRendered,
   activeCameraView
 }: Props & { onRendered: () => void; activeCameraView: CameraViewId }) {
+  const { camera } = useThree();
   const [hover, setHover] = useState<HoverCandidate | null>(null);
+  const pressedKeysRef = useRef(new Set<string>());
+  const rotationComboRef = useRef<string | null>(null);
   const ghostBrick: BrickInstance | null = hover
     ? {
         id: "ghost",
@@ -262,6 +284,19 @@ function SceneContent({
       }
     : null;
 
+  function candidateFromGrid(grid: GridPose): HoverCandidate {
+    const validation = validateCandidate(state.scene, {
+      type: state.selectedType,
+      grid
+    });
+    return {
+      grid,
+      valid: validation.valid,
+      warning: validation.valid && validation.warnings.length > 0,
+      messages: [...validation.errors, ...validation.warnings]
+    };
+  }
+
   function candidateFromEvent(
     event: ScenePointerEvent,
     layer: number,
@@ -269,18 +304,6 @@ function SceneContent({
     surfaceBrick?: BrickInstance
   ): HoverCandidate {
     const worldPoint: [number, number] = [event.point.x, event.point.z];
-
-    const candidateFromGrid = (grid: GridPose): HoverCandidate => {
-      const validation = validateCandidate(state.scene, {
-        type: state.selectedType,
-        grid
-      });
-      return {
-        grid,
-        valid: validation.valid,
-        messages: [...validation.errors, ...validation.warnings]
-      };
-    };
     const makeCandidate = (candidateLayer: number): HoverCandidate =>
       candidateFromGrid(
         worldPointToGrid(
@@ -293,16 +316,7 @@ function SceneContent({
 
     if (surfaceBrick) {
       const directCandidate = makeCandidate(layer);
-      if (directCandidate.valid) {
-        return directCandidate;
-      }
-
-      return candidateFromGrid([
-        surfaceBrick.grid[0],
-        surfaceBrick.grid[1],
-        layer,
-        state.selectedOrientation
-      ]);
+      return directCandidate;
     }
 
     if (autoElevate) {
@@ -332,15 +346,7 @@ function SceneContent({
       state.selectedOrientation,
       state.scene.baseplate
     );
-    const validation = validateCandidate(state.scene, {
-      type: state.selectedType,
-      grid
-    });
-    return {
-      grid,
-      valid: validation.valid,
-      messages: [...validation.errors, ...validation.warnings]
-    };
+    return candidateFromGrid(grid);
   }
 
   function updateHover(
@@ -350,6 +356,177 @@ function SceneContent({
     surfaceBrick?: BrickInstance
   ) {
     setHover(candidateFromEvent(event, layer, autoElevate, surfaceBrick));
+  }
+
+  function nudgeHover(dx: number, dy: number) {
+    setHover((current) => {
+      if (!current) {
+        return current;
+      }
+      return candidateFromGrid([
+        current.grid[0] + dx,
+        current.grid[1] + dy,
+        current.grid[2],
+        current.grid[3]
+      ]);
+    });
+  }
+
+  function nudgeHoverLayer(dz: number) {
+    setHover((current) => {
+      if (!current) {
+        return current;
+      }
+      return candidateFromGrid([
+        current.grid[0],
+        current.grid[1],
+        Math.max(0, current.grid[2] + dz),
+        current.grid[3]
+      ]);
+    });
+  }
+
+  function cameraRelativeNudge(key: string): [number, number] {
+    const forward = new THREE.Vector3();
+    camera.getWorldDirection(forward);
+    forward.y = 0;
+    if (forward.lengthSq() === 0) {
+      forward.set(0, 0, -1);
+    }
+    forward.normalize();
+
+    const right = new THREE.Vector3().crossVectors(forward, camera.up).normalize();
+    const vector =
+      key === "w"
+        ? forward
+        : key === "s"
+          ? forward.clone().multiplyScalar(-1)
+          : key === "d"
+            ? right
+            : right.clone().multiplyScalar(-1);
+
+    if (Math.abs(vector.x) >= Math.abs(vector.z)) {
+      return [vector.x >= 0 ? 1 : -1, 0];
+    }
+    return [0, vector.z >= 0 ? 1 : -1];
+  }
+
+  function rotateHover() {
+    dispatch({ type: "rotate" });
+    setHover((current) => {
+      if (!current) {
+        return current;
+      }
+      return candidateFromGrid([
+        current.grid[0],
+        current.grid[1],
+        current.grid[2],
+        current.grid[3] === 0 ? 1 : 0
+      ]);
+    });
+  }
+
+  useEffect(() => {
+    function isEditableTarget(target: EventTarget | null): boolean {
+      if (!(target instanceof HTMLElement)) {
+        return false;
+      }
+      const tagName = target.tagName.toLowerCase();
+      return (
+        tagName === "input" ||
+        tagName === "textarea" ||
+        tagName === "select" ||
+        target.isContentEditable
+      );
+    }
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (isEditableTarget(event.target)) {
+        return;
+      }
+
+      const key = event.key.toLowerCase();
+      if (
+        !["w", "a", "s", "d", "q", "e", "enter", "delete", "backspace"].includes(
+          key
+        )
+      ) {
+        return;
+      }
+
+      event.preventDefault();
+
+      if (key === "enter") {
+        placeCandidate(hover);
+        return;
+      }
+
+      if (key === "delete" || key === "backspace") {
+        if (state.selectedBrickId) {
+          dispatch({ type: "removeBrick", brickId: state.selectedBrickId });
+        }
+        return;
+      }
+
+      if (key === "q") {
+        nudgeHoverLayer(-1);
+        return;
+      }
+
+      if (key === "e") {
+        nudgeHoverLayer(1);
+        return;
+      }
+
+      pressedKeysRef.current.add(key);
+
+      const pressed = pressedKeysRef.current;
+      const rotateLeft = pressed.has("w") && pressed.has("a");
+      const rotateRight = pressed.has("w") && pressed.has("d");
+      const nextCombo = rotateLeft ? "wa" : rotateRight ? "wd" : null;
+
+      if (nextCombo) {
+        if (rotationComboRef.current !== nextCombo) {
+          rotationComboRef.current = nextCombo;
+          rotateHover();
+        }
+        return;
+      }
+
+      rotationComboRef.current = null;
+      const [dx, dy] = cameraRelativeNudge(key);
+      if (key === "w") {
+        nudgeHover(dx, dy);
+      } else if (key === "s") {
+        nudgeHover(dx, dy);
+      } else if (key === "a") {
+        nudgeHover(dx, dy);
+      } else if (key === "d") {
+        nudgeHover(dx, dy);
+      }
+    }
+
+    function handleKeyUp(event: KeyboardEvent) {
+      const key = event.key.toLowerCase();
+      pressedKeysRef.current.delete(key);
+      if (!pressedKeysRef.current.has("w")) {
+        rotationComboRef.current = null;
+      }
+      if (!pressedKeysRef.current.has("a") && !pressedKeysRef.current.has("d")) {
+        rotationComboRef.current = null;
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("keyup", handleKeyUp);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("keyup", handleKeyUp);
+    };
+  }, [camera, hover, state.scene, state.selectedBrickId, state.selectedType]);
+
+  function isPlacementClick(event: ScenePointerEvent): boolean {
+    return event.delta <= 4;
   }
 
   function placeCandidate(candidate: HoverCandidate | null) {
@@ -374,6 +551,9 @@ function SceneContent({
         onPointerLeave={() => setHover(null)}
         onClick={(event) => {
           event.stopPropagation();
+          if (!isPlacementClick(event)) {
+            return;
+          }
           placeCandidate(candidateFromEvent(event, 0, true));
         }}
       >
@@ -395,6 +575,9 @@ function SceneContent({
             updateHover(event, layer, false, surfaceBrick)
           }
           onTopClick={(event, layer, surfaceBrick) => {
+            if (!isPlacementClick(event)) {
+              return;
+            }
             const candidate = candidateFromEvent(event, layer, false, surfaceBrick);
             setHover(candidate);
             placeCandidate(candidate);
@@ -408,6 +591,7 @@ function SceneContent({
             baseplate={state.scene.baseplate}
             ghost
             valid={hover?.valid ?? false}
+            warning={hover?.warning ?? false}
           />
           {hover ? (
             <PlacementLabel

@@ -72,24 +72,13 @@ export function validateCandidate(
       (count, brick) => count + overlapCount(candidateStuds, brickFootprint(brick)),
       0
     );
-    const unsupportedStuds = candidateStuds.length - supportedStuds;
 
     if (supportedStuds === 0) {
       errors.push(`Stacked brick has no support from layer ${z - 1}.`);
-    } else if (unsupportedStuds > 0) {
-      errors.push(
-        `Layer ${z} placement is missing lower support for ${unsupportedStuds} stud${unsupportedStuds === 1 ? "" : "s"}.`
+    } else if (supportedStuds / candidateStuds.length < 0.25) {
+      warnings.push(
+        `Layer ${z} placement has low support: ${supportedStuds} of ${candidateStuds.length} studs.`
       );
-    }
-  }
-
-  for (const brick of bricks) {
-    if (brick.grid[2] <= z) {
-      continue;
-    }
-    if (overlapCount(candidateStuds, brickFootprint(brick)) > 0) {
-      errors.push(`Cannot insert below existing upper brick ${brick.id}.`);
-      break;
     }
   }
 
@@ -148,6 +137,14 @@ export function sortBuildOrder(scene: SceneState): BuildOrderResult {
         const layerDelta = byId.get(a)!.grid[2] - byId.get(b)!.grid[2];
         if (layerDelta !== 0) {
           return layerDelta;
+        }
+        const xDelta = byId.get(a)!.grid[0] - byId.get(b)!.grid[0];
+        if (xDelta !== 0) {
+          return xDelta;
+        }
+        const yDelta = byId.get(a)!.grid[1] - byId.get(b)!.grid[1];
+        if (yDelta !== 0) {
+          return yDelta;
         }
         return (
           (historyOrder.get(a) ?? Number.MAX_SAFE_INTEGER) -
